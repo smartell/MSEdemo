@@ -56,10 +56,10 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	dvector rt(m_syr,m_nyr);
 	dvector hat_ct(m_syr,m_nyr);
 	bt(m_syr) = bo;
-	rt = ro;
+	rt = ro * exp(wt);
 	for(i = m_syr; i <= m_nyr; i++)
 	{
-		cout<<i<<" "<<agek<<endl;
+
 		if(i-m_syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
