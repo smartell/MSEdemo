@@ -201,8 +201,14 @@ FINAL_SECTION
 
 FUNCTION run_mse
 	// Scenario class
-	Scenario cRun3(value(bo),value(h));
+	Scenario cScenario1(value(bo),value(h),value(s),value(sig),value(tau),value(ft) );
+	cout<<cScenario1.getBo()<<endl;
+	cout<<cScenario1.getft()<<endl;
 
 	// Operating model class
-	operatingModel cOM(Scenario(value(bo),value(h)));
-	operatingModel cOM2(cRun3);
+	operatingModel cOM(cScenario1);
+
+
+
+
+
