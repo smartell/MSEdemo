@@ -10,5 +10,5 @@ This is a small demonstration model for developing the infrastructure for conduc
 * * *
 #### Makefile targets
 
-* `make`		   : compile's code and runs operation model as estimator
-* `make condition` : runs the operating model and estimates parameters for operation model
+* `make`		   : compile's code and runs operating model as estimator
+* `make mse`       : runs the operating model and runs MSE in the FINALS_SECTION

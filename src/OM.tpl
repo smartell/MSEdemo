@@ -201,12 +201,15 @@ FINAL_SECTION
 
 FUNCTION run_mse
 	// Scenario class
-	Scenario cScenario1(value(bo),value(h),value(s),value(sig),value(tau),value(ft) );
-	cout<<cScenario1.getBo()<<endl;
-	cout<<cScenario1.getft()<<endl;
-
+	Scenario cScenario1(agek,value(bo),value(h),value(s),
+	                    value(sig),value(tau),value(ft),
+	                    value(wt));
+	// cout<<cScenario1.getBo()<<endl;
+	// cout<<cScenario1.getft()<<endl;
+	cout<<cScenario1.getagek()<<endl;
 	// Operating model class
 	operatingModel cOM(cScenario1);
+	cOM.populationModel(cScenario1);
 
 
 
