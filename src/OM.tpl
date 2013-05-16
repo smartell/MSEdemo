@@ -35,13 +35,13 @@ INITIALIZATION_SECTION
 
 PARAMETER_SECTION
 	init_number log_bo;
-	init_bounded_number h(0.2,1.0,2);
-	init_bounded_number s(0.0,1.0);
+	init_bounded_number h(0.2,1.0,1);
+	init_bounded_number s(0.0,1.0,1);
 	init_number log_sigma(3);
-	init_number log_tau(3);
+	init_number log_tau(-3);
 	// init_number mean_log_ft;
 	init_bounded_vector log_ft(syr,nyr,-30,10,1);
-	init_bounded_dev_vector wt(syr,nyr,-15,15,2);
+	init_bounded_dev_vector wt(syr,nyr,-15,15,-2);
 	// random_effects_vector wt(syr,nyr,2);
 
 	objective_function_value f;
@@ -85,16 +85,13 @@ FUNCTION initialize_model
 
 FUNCTION population_dynamics
 	int i;
-	dvariable m = -log(s);
-	dvariable z;
 	for(i=syr;i<=nyr;i++)
 	{
 		if(i-syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
 		}
-		z = ft(i) + m;
-		hat_ct(i) = bt(i) *ft(i)/z *(1.-mfexp(-z));
+		hat_ct(i) = bt(i) *(1.-mfexp(-ft(i)));
 		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
 	}
 	sd_dep = bt(nyr)/bo;
@@ -131,6 +128,9 @@ FUNCTION calc_objective_function
 	nll(8) = dgamma(itau2,1.01,1.01);
 	f = sum(nll);
 
+FUNCTION calcReferencePoints
+
+
 REPORT_SECTION
 	REPORT(bo);
 	REPORT(h);
@@ -142,6 +142,9 @@ REPORT_SECTION
 	REPORT(bt);
 	REPORT(nu);
 	REPORT(epsilon);
+
+	msy_reference_points cMSY(value(reck),value(s),value(bo));
+	cout<<cMSY.get_fmsy()<<endl;
 
 TOP_OF_MAIN_SECTION
 	time(&start);
@@ -173,6 +176,7 @@ GLOBALS_SECTION
 	#include <time.h>
 	#include <statsLib.h>
 	#include "OperatingModel.h"
+	#include "msyrefPoints.h"
 	time_t start,finish;
 	long hour,minute,second;
 	double elapsed_time;

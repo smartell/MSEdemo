@@ -40,7 +40,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 {
 	// This routine reconstructs the population dynamics based on the Scenario class
 	int i;
-	double ro, reck, a, b, z, m;
+	double ro, reck, a, b;
 	int   agek = cScenario.m_agek;
 	double bo  = cScenario.m_bo;
 	double h   = cScenario.m_h;
@@ -54,7 +54,6 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	reck = 4*h/(1.-h);
 	a    = reck*ro/bo;
 	b    = (reck-1.0)/bo;
-	m    = -log(s);
 
 	dvector bt(m_syr,m_nyr+m_pyr);
 	dvector rt(m_syr,m_nyr+m_pyr);
@@ -74,8 +73,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
 		}
-		z = ft(i) + m;
-		hat_ct(i) = bt(i) *ft(i)/z *(1.-mfexp(-z));
+		hat_ct(i) = bt(i) * (1.-mfexp(-ft(i)));
 		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
 	}
 
