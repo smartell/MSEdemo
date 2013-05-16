@@ -3,6 +3,8 @@
 
 #include <admodel.h>
 #include "scenario.h"
+#include "msyrefPoints.h"
+#include "harvestControlRule.h"
 
 class operatingModel
 {
@@ -11,25 +13,49 @@ private:
 	int m_nyr;
 	int m_pyr;
 
+	int     m_agek;
+	double  m_bo;
+	double  m_h;
+	double  m_s;
+	double  m_q;
+	double  m_sig;
+	double  m_tau;
+	dvector m_ft;
+	dvector m_wt;
+	dvector m_it;
+
 	dvector m_bt;
 
 	Scenario m_cScenario;
+	harvestControlRule m_HCR;
 
 	operatingModel();
 
 public:
-	operatingModel(const Scenario &cScenario)
-	: m_cScenario(cScenario)
+	operatingModel(const Scenario &cScenario, const harvestControlRule &cHCR)
+	: m_cScenario(cScenario), m_HCR(cHCR)
 	{
 		m_syr = cScenario.m_ft.indexmin();
 		m_nyr = cScenario.m_ft.indexmax();
 		m_pyr = cScenario.m_pyr;
+
+		m_agek = cScenario.m_agek;
+		m_bo   = cScenario.m_bo;
+		m_h    = cScenario.m_h;
+		m_s    = cScenario.m_s;
+		m_q    = cScenario.m_q;
+		m_sig  = cScenario.m_sig;
+		m_tau  = cScenario.m_tau;
+		m_ft   = cScenario.m_ft;
+		m_wt   = cScenario.m_wt;
+		m_it   = cScenario.m_it;
 	}
 
 	~operatingModel() {}
 
 	// member functions
 	void populationModel(const Scenario &cScenario);
+	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
 };
 
 #endif
@@ -41,14 +67,17 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	// This routine reconstructs the population dynamics based on the Scenario class
 	int i;
 	double ro, reck, a, b;
-	int   agek = cScenario.m_agek;
-	double bo  = cScenario.m_bo;
-	double h   = cScenario.m_h;
-	double s   = cScenario.m_s;
-	double sig = cScenario.m_sig;
-	double tau = cScenario.m_tau;
-	dvector ft = cScenario.m_ft;
-	dvector wt = cScenario.m_wt;
+	// [ ] TO DO, clean this up and declare this as private member variables.
+	int   agek = m_agek;
+	double bo  = m_bo;
+	double h   = m_h;
+	double s   = m_s;
+	double q   = m_q;
+	double sig = m_sig;
+	double tau = m_tau;
+	dvector ft = m_ft;
+	dvector wt = m_wt;
+	dvector it = m_it;
 
 	ro   = bo*(1.-s);
 	reck = 4*h/(1.-h);
@@ -58,6 +87,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	dvector bt(m_syr,m_nyr+m_pyr);
 	dvector rt(m_syr,m_nyr+m_pyr);
 	dvector hat_ct(m_syr,m_nyr+m_pyr);
+	dvector hat_it(m_syr,m_nyr+m_pyr);
 
 	// |---------------------------------------------------------------------------------|
 	// | CONDITION REFERENCE MODEL BASED ON SCENARIO INFORMATION
@@ -66,6 +96,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	bt.initialize();
 	bt(m_syr) = bo;
 	rt(m_syr,m_syr+agek) = ro * exp(wt(m_syr,m_syr+agek));
+	hat_it(m_syr,m_nyr)  = it;
 	for(i = m_syr; i <= m_nyr; i++)
 	{
 
@@ -87,7 +118,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	// | -3. Implement harvest on reference population.
 	// | -4. Update reference population.
 	// | -5. Update observation models & write data files.
-	// | -6. Conduct stock assessment.
+	// | -6. Conduct stock assessment & update Bo, reck and s parameters.
 	// | -7. Repeat steps 2-7 for pyr's 
 	// | -8. Compute performance measures.
 	// |
@@ -105,12 +136,52 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	rt_dev = rt_dev*tau - 0.5*tau*tau;
 	it_dev = it_dev*sig - 0.5*sig*sig;
 
-	for( i = pyr1; i <= pyr2; i++ )
+	double fmsy,bmsy,msy, tac, frate;
+	for( i = pyr1; i < pyr2; i++ )
 	{
 		// -2. Calculate TAC based on HCR & Biomass estimate.
+		msy_reference_points cRefPoints(reck,s,bo);
+		fmsy = cRefPoints.get_fmsy();
+		msy  = cRefPoints.get_msy();
+		bmsy = cRefPoints.get_bmsy();
+
+		tac = m_HCR.getTac(bt(i),fmsy,msy,bmsy,bo);
+
+		// -3. Implement harvest on reference population, add implentation errors
+		frate = -log((-tac+bt(i))/bt(i));
+		hat_ct(i) = bt(i) * (1.-mfexp(-frate));
+
+
+		// -4. Update reference population
+		if(i-m_syr > agek)
+		{
+			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(rt_dev(i));	
+		}
+		bt(i+1) = s*bt(i) + rt(i) - tac;
+
+		// -5. Update observation models and write data files.
+		hat_it(i) = q*bt(i)*exp(it_dev(i));
+		write_data_file(i,hat_ct(m_syr,i),hat_it(m_syr,i));
+
+		// -6. Conduct assessment and update parameters
+
 	}
-	cout<<bt<<endl;
+	cout<<fmsy<<endl;
+	cout<<hat_it<<endl;
 	cout<<bo<<endl;
 }
 
+void operatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
+{
+	ofstream ofs("MSE.dat");
+	ofs<<m_agek<<endl;
+	ofs<<m_syr<<endl;
+	ofs<<nyr<<endl;
+	ivector iyr(m_syr,nyr);
+	iyr.fill_seqadd(m_syr,1);
+	ofs<<iyr<<endl;
+	ofs<<ct<<endl;
+	ofs<<it<<endl;
+
+}
 

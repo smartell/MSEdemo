@@ -176,11 +176,12 @@ GLOBALS_SECTION
 	#include <time.h>
 	#include <statsLib.h>
 	#include "OperatingModel.h"
-	#include "msyrefPoints.h"
+	
 	time_t start,finish;
 	long hour,minute,second;
 	double elapsed_time;
 
+	
 
 	
 FINAL_SECTION
@@ -207,11 +208,16 @@ FUNCTION run_mse
 	// Scenario class
 	int pyr = 30;
 	Scenario cScenario1(agek,pyr,value(bo),value(h),value(s),
-	                    value(sig),value(tau),value(ft),
-	                    value(wt));
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it);
 	
+	// Harvest control rule
+	int e_hcr = harvestControlRule::FORTY_TEN;
+	harvestControlRule c_hcr(e_hcr);
+
+
 	// Operating model class
-	operatingModel cOM(cScenario1);
+	operatingModel cOM(cScenario1,c_hcr);
 	cOM.populationModel(cScenario1);
 
 
