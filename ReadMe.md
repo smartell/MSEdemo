@@ -1,4 +1,4 @@
-## Management Strategy Demo using ADMB
+## Management Strategy Evaluation using ADMB
 Steve Martell 
 
 International Pacific Halibut Commission

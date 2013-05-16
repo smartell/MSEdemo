@@ -5,6 +5,7 @@ class Scenario
 {
 private:
 	int     m_agek;
+	int     m_pyr;  // number of projection years
 	double  m_bo;
 	double  m_h;
 	double  m_s;
@@ -16,14 +17,16 @@ private:
 	Scenario();
 public:
 	// default constructor
-	Scenario(const int& agek, const double& bo,const double& h,const double& s,
-	         const double& sig,const double tau,const dvector& ft,const dvector &wt)
-		:m_agek(agek),m_bo(bo), m_h(h), m_s(s), m_sig(sig), m_tau(tau), m_ft(ft), m_wt(wt)
+	Scenario(const int& agek, const int& pyr, const double& bo,const double& h,
+	         const double& s, const double& sig,const double tau,const dvector& ft,
+	         const dvector &wt)
+		:m_agek(agek),m_pyr(pyr),m_bo(bo), m_h(h), m_s(s), m_sig(sig), m_tau(tau), 
+		m_ft(ft), m_wt(wt)
 	{}
 
 	~Scenario() {}
 	// getters
-	int     getagek() { return m_agek;  }
+	int     getagek() { return m_agek; }
 	double  getBo()   { return m_bo;   }
 	double  geth()    { return m_h;    }
 	double  gets()    { return m_s;    }
@@ -33,6 +36,7 @@ public:
 	dvector getwt()   { return m_wt;   }
 
 	// setters
+	void  setpyr(int v1)     { m_pyr = v1;  }
 	void  setBo(double v1)   { m_bo = v1;   }
 	void  seth(double v1)    { m_h = v1;    }
 	void  sets(double v1)    { m_s = v1;    }
