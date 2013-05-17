@@ -152,7 +152,7 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 		fmsy = cRefPoints.get_fmsy();
 		msy  = cRefPoints.get_msy();
 		bmsy = cRefPoints.get_bmsy();
-		tac = m_HCR.getTac(est_bt,fmsy,msy,bmsy,bo);
+		tac = m_HCR.getTac(est_bt,fmsy,msy,bmsy,est_bo);
 
 		// -3. Implement harvest on reference population, add implentation errors
 		//     Watch out here if tac > bt(i), then need to set frate to some arbitrary max

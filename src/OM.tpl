@@ -37,9 +37,9 @@ PARAMETER_SECTION
 	init_bounded_number log_bo(0,10,1);
 	init_bounded_number h(0.2,1.0,1);
 	init_bounded_number s(0.0,1.0,1);
-	init_number log_sigma(3);
+	init_number log_sigma(2);
 	init_number log_tau(3);
-	init_bounded_dev_vector wt(syr,nyr,-15,15,2);
+	init_bounded_dev_vector wt(syr,nyr,-15,15,3);
 	
 
 	objective_function_value f;
@@ -70,15 +70,15 @@ PROCEDURE_SECTION
 	calc_objective_function();
 
 FUNCTION initialize_model
-	bo      = mfexp(log_bo);
-	ro      = bo*(1.-s);
-	reck    = 4.*h/(1.-h);
-	a       = reck*ro/bo;
-	b       = (reck-1.0)/bo;
-	rt      = ro * exp(wt);
-	bt(syr) = bo;
-	sig     = sqrt(1.0/mfexp(log_sigma));
-	tau     = sqrt(1.0/mfexp(log_tau));
+	bo               = mfexp(log_bo);
+	ro               = bo*(1.-s);
+	reck             = 4.*h/(1.-h);
+	a                = reck*ro/bo;
+	b                = (reck-1.0)/bo;
+	rt(syr,syr+agek) = ro * exp(wt(syr,syr+agek));
+	bt(syr)          = bo;
+	sig              = sqrt(1.0/mfexp(log_sigma));
+	tau              = sqrt(1.0/mfexp(log_tau));
 	
 FUNCTION population_dynamics
 	int i;
@@ -86,7 +86,7 @@ FUNCTION population_dynamics
 	fpen.initialize();
 	for(i=syr;i<=nyr;i++)
 	{
-		ft(i) = -log((-ct(i)+bt(i))/bt(i));
+		ft(i) = -log(posfun((-ct(i)+bt(i)),0.1,fpen)/bt(i));
 		if(i-syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
@@ -127,27 +127,53 @@ FUNCTION calc_objective_function
 
 	// objective function + penalty
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
-	f = sum(nll) + 1000.*fpen;
+	f = sum(nll) + 100000.*fpen;
 
 FUNCTION calcReferencePoints
+	// Numerically checking my calculus.
+	int i,j;
+	dvector fe(1,100);
+	double be,ce;
+	for( i = 1; i <= 1000; i++ )
+	{
+		be = value(bo);
+		fe(i) = double((i-1.)/(100.-1.))*1.2;
+		for( j = 1; j <= 100; j++ )
+		{
+			ce = be * (1.-exp(-fe(i)));
+			be = value(s*be + a*be/(1.+b*be)) - ce;
+		}
+		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
+	}
 
 
 REPORT_SECTION
+	msy_reference_points cMSY(value(reck),value(s),value(bo));
+
 	REPORT(bo);
 	REPORT(h);
 	REPORT(s);
 	REPORT(sig);
 	REPORT(tau);
+	double fmsy = cMSY.get_fmsy();
+	double bmsy = cMSY.get_bmsy();
+	double msy  = cMSY.get_msy();
+	REPORT(fmsy);
+	REPORT(bmsy);
+	REPORT(msy);
 	REPORT(ft);
 	REPORT(wt);
 	REPORT(bt);
+	REPORT(ct);
 	
 	REPORT(epsilon);
 
-	msy_reference_points cMSY(value(reck),value(s),value(bo));
-	cout<<cMSY.get_fmsy()<<endl;
-	ofstream ofs("mse.par");
-	ofs<<bo<<"\n"<<reck<<"\n"<<s<<"\n"<<bt(nyr+1)<<endl;
+	// print mle estimates of key parameters for MSE
+	if(do_mse)
+	{
+		ofstream ofs("mse.par");
+		ofs<<bo<<"\n"<<reck<<"\n"<<s<<"\n"<<bt(nyr+1)<<endl;		
+	}
 
 TOP_OF_MAIN_SECTION
 	time(&start);
@@ -207,6 +233,9 @@ FINAL_SECTION
 	cout<<hour<<" hours, "<<minute<<" minutes, "<<second<<" seconds"<<endl;
 	cout<<"*******************************************"<<endl;
 
+	// Check calculus: A-O-K
+	// calcReferencePoints();
+
 FUNCTION run_mse
 	// This is the entire management strategy evaluaiton routine.  
 	// So far I use 3 class objects to this via OOP.
@@ -222,7 +251,10 @@ FUNCTION run_mse
 	                    value(wt),it,ct);
 	
 	// Harvest control rule
-	int e_hcr = harvestControlRule::FORTY_TEN;
+	// int e_hcr = harvestControlRule::FORTY_TEN;
+	int e_hcr = harvestControlRule::FIXED_ESCAPEMENT;
+	// int e_hcr = harvestControlRule::FIXED_ESCAPEMENT_CAP;
+	// int e_hcr = harvestControlRule::FIXED_HARVEST_RATE;
 	harvestControlRule c_hcr(e_hcr);
 
 
