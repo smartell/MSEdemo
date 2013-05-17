@@ -86,7 +86,7 @@ FUNCTION population_dynamics
 	fpen.initialize();
 	for(i=syr;i<=nyr;i++)
 	{
-		ft(i) = -log(posfun((-ct(i)+bt(i)),0.1,fpen)/bt(i));
+		ft(i) = -log((-ct(i)+bt(i))/bt(i));
 		if(i-syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
@@ -169,11 +169,9 @@ REPORT_SECTION
 	REPORT(epsilon);
 
 	// print mle estimates of key parameters for MSE
-	if(do_mse)
-	{
-		ofstream ofs("mse.par");
-		ofs<<bo<<"\n"<<reck<<"\n"<<s<<"\n"<<bt(nyr+1)<<endl;		
-	}
+	ofstream ofs("mse.par");
+	ofs<<bo<<"\n"<<reck<<"\n"<<s<<"\n"<<bt(nyr+1)<<endl;		
+
 
 TOP_OF_MAIN_SECTION
 	time(&start);
@@ -252,15 +250,17 @@ FUNCTION run_mse
 	
 	// Harvest control rule
 	// int e_hcr = harvestControlRule::FORTY_TEN;
-	int e_hcr = harvestControlRule::FIXED_ESCAPEMENT;
+	// int e_hcr = harvestControlRule::FIXED_ESCAPEMENT;
 	// int e_hcr = harvestControlRule::FIXED_ESCAPEMENT_CAP;
-	// int e_hcr = harvestControlRule::FIXED_HARVEST_RATE;
+	int e_hcr = harvestControlRule::FIXED_HARVEST_RATE;
 	harvestControlRule c_hcr(e_hcr);
 
 
 	// Operating model class
 	operatingModel cOM(cScenario1,c_hcr);
 	cOM.runMSEscenario(cScenario1);
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bt\n"<<cOM.get_bt()<<endl;
 
 
 

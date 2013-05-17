@@ -55,6 +55,8 @@ public:
 
 	~operatingModel() {}
 
+	// getters:
+	dvector get_bt() { return m_bt; }
 	// member functions
 	void runMSEscenario(const Scenario &cScenario);
 	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
@@ -143,7 +145,7 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 	double est_reck = reck;
 	double est_s    = s;
 	double est_bt   = bt(pyr1);
-	cout<<est_bt<<endl;
+	
 
 	for( i = pyr1; i <= pyr2; i++ )
 	{
@@ -204,7 +206,7 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 		cout<<"|---------------------------|"<<endl;
 		
 	}
-
+	m_bt = bt;
 }
 
 void operatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)

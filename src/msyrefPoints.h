@@ -45,7 +45,7 @@ void msy_reference_points::calc_rp()
 {
 	m_bmsy = (m_bo*(-1.+sqrt(m_k))/(m_k-1.)); 
 	m_msy  = (m_bmsy*(m_s-1.)*(m_k-1.)*(m_bmsy-m_bo)) / (m_bo + (m_k-1.)*m_bmsy);
-	// m_msy  = (m_bmsy*(1.-m_s) + m_k*(1.-m_s)*m_bmsy) / (1.+m_bmsy*(m_k-1.)/m_bo);
+	
 
 	if( m_msy<m_bmsy )
 	{
