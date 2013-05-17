@@ -15,15 +15,16 @@ private:
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
+	dvector m_ct;
 
 	Scenario();
 public:
 	// default constructor
 	Scenario(const int& agek, const int& pyr, const double& bo,const double& h,
 	         const double& s, const double& q, const double& sig,const double tau,
-	         const dvector& ft, const dvector &wt, const dvector &it)
+	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
 		:m_agek(agek),m_pyr(pyr),m_bo(bo), m_h(h), m_s(s), m_q(q), m_sig(sig), m_tau(tau), 
-		m_ft(ft), m_wt(wt), m_it(it)
+		m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
 	{}
 
 	~Scenario() {}
@@ -38,6 +39,7 @@ public:
 	dvector getft()   { return m_ft;   }
 	dvector getwt()   { return m_wt;   }
 	dvector getit()   { return m_it;   }
+	dvector getct()   { return m_ct;   }
 
 	// setters
 	void  setpyr(int v1)     { m_pyr = v1;  }
@@ -50,6 +52,7 @@ public:
 	void  setft(dvector v1)  { m_ft = v1;   }
 	void  setwt(dvector v1)  { m_wt = v1;   }
 	void  setit(dvector v1)  { m_it = v1;   }
+	void  setct(dvector v1)  { m_ct = v1;   }
 
 	// Make the operatingModel class a friend so it can access private members of scenario
 	friend class operatingModel;

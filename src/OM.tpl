@@ -34,15 +34,15 @@ INITIALIZATION_SECTION
 	log_ft    -2.30;
 
 PARAMETER_SECTION
-	init_number log_bo;
+	init_bounded_number log_bo(0,10,1);
 	init_bounded_number h(0.2,1.0,1);
 	init_bounded_number s(0.0,1.0,1);
 	init_number log_sigma(3);
 	init_number log_tau(-3);
-	// init_number mean_log_ft;
-	init_bounded_vector log_ft(syr,nyr,-30,10,1);
+	init_number mean_log_ft;
+	init_bounded_dev_vector log_ft(syr,nyr,-10.,10.,1);
 	init_bounded_dev_vector wt(syr,nyr,-15,15,-2);
-	// random_effects_vector wt(syr,nyr,2);
+	
 
 	objective_function_value f;
 
@@ -81,7 +81,7 @@ FUNCTION initialize_model
 	bt(syr) = bo;
 	sig     = sqrt(1.0/mfexp(log_sigma));
 	tau     = sqrt(1.0/mfexp(log_tau));
-	ft      = mfexp( log_ft );
+	ft      = mfexp( mean_log_ft + log_ft );
 
 FUNCTION population_dynamics
 	int i;
@@ -97,7 +97,7 @@ FUNCTION population_dynamics
 	sd_dep = bt(nyr)/bo;
 
 FUNCTION observation_model
-	double tiny = 1.0;
+	double tiny = 1.0e-10;
 	dvar_vector zt = log(it) - log(bt(syr,nyr));
 	q = exp(mean(zt));
 	epsilon = zt - mean(zt);
@@ -110,16 +110,18 @@ FUNCTION calc_objective_function
 	// nll(2) = dbeta(s,15,3.321);
 	// nll(3) = dbeta((h-0.2)/0.8,5.0,1.666);
 	nll(2) = dbeta(s,1.01,1.01);
+	nll(2)+= dnorm(log_bo,log(3000),1.0);
 	nll(3) = dbeta((h-0.2)/0.8,1.01,1.01);
-	nll(4) = dnorm(nu,0.01);
 	// Phased penalty on mean fishing mortality rate.
 	if(!last_phase())
 	{
-		nll(5) = dnorm(mean(log_ft),log(0.2),0.15);
+		nll(4) = dnorm(nu,0.02);
+		nll(5) = dnorm(mean(ft),0.2,0.15);
 	}
 	else if(last_phase())
 	{
-		nll(5) = dnorm(mean(log_ft),log(0.2),2.00);
+		nll(4) = dnorm(nu,0.001);
+		nll(5) = dnorm(mean(ft),0.2,2.00);
 	}
 	nll(6) = dnorm(wt,tau);
 	dvariable isig2 = mfexp(log_sigma);
@@ -145,6 +147,8 @@ REPORT_SECTION
 
 	msy_reference_points cMSY(value(reck),value(s),value(bo));
 	cout<<cMSY.get_fmsy()<<endl;
+	ofstream ofs("mse.par");
+	ofs<<bo<<"\n"<<reck<<"\n"<<s<<"\n"<<bt(nyr+1)<<endl;
 
 TOP_OF_MAIN_SECTION
 	time(&start);
@@ -206,10 +210,10 @@ FINAL_SECTION
 
 FUNCTION run_mse
 	// Scenario class
-	int pyr = 30;
+	int pyr = 13;
 	Scenario cScenario1(agek,pyr,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it);
+	                    value(wt),it,ct);
 	
 	// Harvest control rule
 	int e_hcr = harvestControlRule::FORTY_TEN;
@@ -218,7 +222,7 @@ FUNCTION run_mse
 
 	// Operating model class
 	operatingModel cOM(cScenario1,c_hcr);
-	cOM.populationModel(cScenario1);
+	cOM.runMSEscenario(cScenario1);
 
 
 

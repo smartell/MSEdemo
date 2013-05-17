@@ -23,8 +23,9 @@ private:
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
-
+	dvector m_ct;
 	dvector m_bt;
+
 
 	Scenario m_cScenario;
 	harvestControlRule m_HCR;
@@ -49,12 +50,13 @@ public:
 		m_ft   = cScenario.m_ft;
 		m_wt   = cScenario.m_wt;
 		m_it   = cScenario.m_it;
+		m_ct   = cScenario.m_ct;
 	}
 
 	~operatingModel() {}
 
 	// member functions
-	void populationModel(const Scenario &cScenario);
+	void runMSEscenario(const Scenario &cScenario);
 	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
 };
 
@@ -62,7 +64,7 @@ public:
 
 
 // Put this code in a cpp file eventually.
-void operatingModel::populationModel(const Scenario &cScenario)
+void operatingModel::runMSEscenario(const Scenario &cScenario)
 {
 	// This routine reconstructs the population dynamics based on the Scenario class
 	int i;
@@ -84,7 +86,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	a    = reck*ro/bo;
 	b    = (reck-1.0)/bo;
 
-	dvector bt(m_syr,m_nyr+m_pyr);
+	dvector bt(m_syr,m_nyr+m_pyr+1);
 	dvector rt(m_syr,m_nyr+m_pyr);
 	dvector hat_ct(m_syr,m_nyr+m_pyr);
 	dvector hat_it(m_syr,m_nyr+m_pyr);
@@ -107,7 +109,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 		hat_ct(i) = bt(i) * (1.-mfexp(-ft(i)));
 		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
 	}
-
+	hat_ct(m_syr,m_nyr) = m_ct;
 	// | END OF CONDITIONING PERIOD
 
 	// |---------------------------------------------------------------------------------|
@@ -124,7 +126,7 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	// |
 	int pyr1 = m_nyr+1;
 	int pyr2 = m_nyr+m_pyr;
-	int seed = -12345;
+	int seed = 999;
 	
 	random_number_generator rng(seed);
 	dvector rt_dev(pyr1,pyr2);
@@ -137,18 +139,33 @@ void operatingModel::populationModel(const Scenario &cScenario)
 	it_dev = it_dev*sig - 0.5*sig*sig;
 
 	double fmsy,bmsy,msy, tac, frate;
-	for( i = pyr1; i < pyr2; i++ )
+	double est_bo   = bo;
+	double est_reck = reck;
+	double est_s    = s;
+	double est_bt   = bt(pyr1);
+	cout<<est_bt<<endl;
+
+	for( i = pyr1; i <= pyr2; i++ )
 	{
+		cout<<"Year "<<i<<endl;
 		// -2. Calculate TAC based on HCR & Biomass estimate.
-		msy_reference_points cRefPoints(reck,s,bo);
+		msy_reference_points cRefPoints(est_reck,est_s,est_bo);
 		fmsy = cRefPoints.get_fmsy();
 		msy  = cRefPoints.get_msy();
 		bmsy = cRefPoints.get_bmsy();
-
-		tac = m_HCR.getTac(bt(i),fmsy,msy,bmsy,bo);
+		tac = m_HCR.getTac(est_bt,fmsy,msy,bmsy,bo);
 
 		// -3. Implement harvest on reference population, add implentation errors
-		frate = -log((-tac+bt(i))/bt(i));
+		//     Watch out here if tac > bt(i), then need to set frate to some arbitrary max
+
+		if( tac < bt(i) )
+		{
+			frate = -log((-tac+bt(i))/bt(i));
+		}
+		else
+		{
+			frate = 0.8;
+		}
 		hat_ct(i) = bt(i) * (1.-mfexp(-frate));
 
 
@@ -157,18 +174,32 @@ void operatingModel::populationModel(const Scenario &cScenario)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(rt_dev(i));	
 		}
-		bt(i+1) = s*bt(i) + rt(i) - tac;
+		bt(i+1) = s*bt(i) + rt(i) - hat_ct(i);
 
 		// -5. Update observation models and write data files.
 		hat_it(i) = q*bt(i)*exp(it_dev(i));
 		write_data_file(i,hat_ct(m_syr,i),hat_it(m_syr,i));
 
 		// -6. Conduct assessment and update parameters
-
+		system("./OM -ind MSE.dat -nox -est ");
+		ifstream ifs("mse.par");
+		
+		cout<<"est Bo "<<est_bo<<endl;
+		cout<<"fmsy "<<fmsy<<endl;
+		cout<<"msy "<<msy<<endl;
+		cout<<"bmsy "<<bmsy<<endl;
+		cout<<"est Bt "<<est_bt<<endl;
+		cout<<"bt(i) "<<bt(i)<<endl;
+		cout<<"tac "<<tac<<endl;
+		cout<<"hat_ct(i) "<<hat_ct(i)<<endl;
+		cout<<"frate "<<frate<<endl;
+		ifs>>est_bo;
+		ifs>>est_reck;
+		ifs>>est_s;
+		ifs>>est_bt;
+		
 	}
-	cout<<fmsy<<endl;
-	cout<<hat_it<<endl;
-	cout<<bo<<endl;
+
 }
 
 void operatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
