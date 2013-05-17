@@ -126,7 +126,7 @@ FUNCTION calc_objective_function
 	}
 
 	// objective function + penalty
-	if(fpen>0) cout<<"Fpen = "<<fpen<<endl;
+	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
 	f = sum(nll) + 1000.*fpen;
 
 FUNCTION calcReferencePoints
