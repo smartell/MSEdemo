@@ -208,6 +208,13 @@ FINAL_SECTION
 	cout<<"*******************************************"<<endl;
 
 FUNCTION run_mse
+	// This is the entire management strategy evaluaiton routine.  
+	// So far I use 3 class objects to this via OOP.
+	// 1) The scenario class: -parameters & data for operating model
+	// 2) The harvestControlRule class: Use FORTY_TEN, FIXED_HARVEST_RATE, FIXED_ESCAPMENT
+	// 3) The Operating model class: call .runMSEScenario to run the simulation.
+	// 4) The OPertating model calls msyrefPoints.h to calculate Fmsy etc.
+
 	// Scenario class
 	int pyr = 35;
 	Scenario cScenario1(agek,pyr,value(bo),value(h),value(s),
