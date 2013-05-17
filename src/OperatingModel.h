@@ -182,6 +182,13 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 		// -6. Conduct assessment and update parameters
 		system("./OM -ind MSE.dat -nox -est > NUL");
 		ifstream ifs("mse.par");
+		ifs>>est_bo;
+		ifs>>est_reck;
+		ifs>>est_s;
+		ifs>>est_bt;
+
+
+		// -   Screen dump so you can watch the progress.
 		cout<<"|---------------------------|"<<endl;
 		cout<<"| - Year      "<<i<<endl;
 		cout<<"|---------------------------|"<<endl;
@@ -195,10 +202,6 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 		cout<<"| - hat_ct(i) "<<hat_ct(i)<<endl;
 		cout<<"| - frate     "<<frate<<endl;
 		cout<<"|---------------------------|"<<endl;
-		ifs>>est_bo;
-		ifs>>est_reck;
-		ifs>>est_s;
-		ifs>>est_bt;
 		
 	}
 
