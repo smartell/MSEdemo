@@ -147,7 +147,6 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 
 	for( i = pyr1; i <= pyr2; i++ )
 	{
-		cout<<"Year "<<i<<endl;
 		// -2. Calculate TAC based on HCR & Biomass estimate.
 		msy_reference_points cRefPoints(est_reck,est_s,est_bo);
 		fmsy = cRefPoints.get_fmsy();
@@ -181,18 +180,21 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 		write_data_file(i,hat_ct(m_syr,i),hat_it(m_syr,i));
 
 		// -6. Conduct assessment and update parameters
-		system("./OM -ind MSE.dat -nox -est ");
+		system("./OM -ind MSE.dat -nox -est > NUL");
 		ifstream ifs("mse.par");
-		
-		cout<<"est Bo "<<est_bo<<endl;
-		cout<<"fmsy "<<fmsy<<endl;
-		cout<<"msy "<<msy<<endl;
-		cout<<"bmsy "<<bmsy<<endl;
-		cout<<"est Bt "<<est_bt<<endl;
-		cout<<"bt(i) "<<bt(i)<<endl;
-		cout<<"tac "<<tac<<endl;
-		cout<<"hat_ct(i) "<<hat_ct(i)<<endl;
-		cout<<"frate "<<frate<<endl;
+		cout<<"|---------------------------|"<<endl;
+		cout<<"| - Year      "<<i<<endl;
+		cout<<"|---------------------------|"<<endl;
+		cout<<"| - est Bo    "<<est_bo<<endl;
+		cout<<"| - fmsy      "<<fmsy<<endl;
+		cout<<"| - msy       "<<msy<<endl;
+		cout<<"| - bmsy      "<<bmsy<<endl;
+		cout<<"| - est Bt    "<<est_bt<<endl;
+		cout<<"| - bt(i)     "<<bt(i)<<endl;
+		cout<<"| - tac       "<<tac<<endl;
+		cout<<"| - hat_ct(i) "<<hat_ct(i)<<endl;
+		cout<<"| - frate     "<<frate<<endl;
+		cout<<"|---------------------------|"<<endl;
 		ifs>>est_bo;
 		ifs>>est_reck;
 		ifs>>est_s;

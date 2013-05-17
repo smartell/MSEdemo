@@ -31,17 +31,15 @@ INITIALIZATION_SECTION
 	s          0.9;
 	log_sigma  4.65;
 	log_tau    4.65;
-	log_ft    -2.30;
+	
 
 PARAMETER_SECTION
 	init_bounded_number log_bo(0,10,1);
 	init_bounded_number h(0.2,1.0,1);
 	init_bounded_number s(0.0,1.0,1);
 	init_number log_sigma(3);
-	init_number log_tau(-3);
-	init_number mean_log_ft;
-	init_bounded_dev_vector log_ft(syr,nyr,-10.,10.,1);
-	init_bounded_dev_vector wt(syr,nyr,-15,15,-2);
+	init_number log_tau(3);
+	init_bounded_dev_vector wt(syr,nyr,-15,15,2);
 	
 
 	objective_function_value f;
@@ -54,13 +52,13 @@ PARAMETER_SECTION
 	number b;	
 	number reck;
 	number q;	
+	number fpen;
 
 	vector bt(syr,nyr+1);	
 	vector rt(syr,nyr);
 	vector ft(syr,nyr);	
-	vector hat_ct(syr,nyr);	
 	vector epsilon(syr,nyr);
-	vector nu(syr,nyr);
+	
 	vector nll(1,8);		
 
 	sdreport_number sd_dep;
@@ -74,61 +72,62 @@ PROCEDURE_SECTION
 FUNCTION initialize_model
 	bo      = mfexp(log_bo);
 	ro      = bo*(1.-s);
-	reck    = 4*h/(1.-h);
+	reck    = 4.*h/(1.-h);
 	a       = reck*ro/bo;
 	b       = (reck-1.0)/bo;
 	rt      = ro * exp(wt);
 	bt(syr) = bo;
 	sig     = sqrt(1.0/mfexp(log_sigma));
 	tau     = sqrt(1.0/mfexp(log_tau));
-	ft      = mfexp( mean_log_ft + log_ft );
-
+	
 FUNCTION population_dynamics
 	int i;
+	dvariable btmp;
+	fpen.initialize();
 	for(i=syr;i<=nyr;i++)
 	{
+		ft(i) = -log((-ct(i)+bt(i))/bt(i));
 		if(i-syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
 		}
-		hat_ct(i) = bt(i) *(1.-mfexp(-ft(i)));
-		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
+		
+		btmp    = s*bt(i) + rt(i) - ct(i);
+		bt(i+1) = posfun(btmp,0.1,fpen);
 	}
 	sd_dep = bt(nyr)/bo;
 
 FUNCTION observation_model
-	double tiny = 1.0e-10;
 	dvar_vector zt = log(it) - log(bt(syr,nyr));
-	q = exp(mean(zt));
-	epsilon = zt - mean(zt);
+	q              = exp(mean(zt));
+	epsilon        = zt - mean(zt);
 
-	nu = log(ct+tiny)-log(hat_ct+tiny);
+	
 
 FUNCTION calc_objective_function
 	nll.initialize();
-	nll(1) = dnorm(epsilon,sig);
-	// nll(2) = dbeta(s,15,3.321);
-	// nll(3) = dbeta((h-0.2)/0.8,5.0,1.666);
-	nll(2) = dbeta(s,1.01,1.01);
-	nll(2)+= dnorm(log_bo,log(3000),1.0);
-	nll(3) = dbeta((h-0.2)/0.8,1.01,1.01);
-	// Phased penalty on mean fishing mortality rate.
-	if(!last_phase())
-	{
-		nll(4) = dnorm(nu,0.02);
-		nll(5) = dnorm(mean(ft),0.2,0.15);
-	}
-	else if(last_phase())
-	{
-		nll(4) = dnorm(nu,0.001);
-		nll(5) = dnorm(mean(ft),0.2,2.00);
-	}
-	nll(6) = dnorm(wt,tau);
 	dvariable isig2 = mfexp(log_sigma);
 	dvariable itau2 = mfexp(log_tau);
-	nll(7) = dgamma(isig2,1.01,1.01);
-	nll(8) = dgamma(itau2,1.01,1.01);
-	f = sum(nll);
+
+	// negative loglikelihoods and priors stored in nll vector
+	nll(1) = dnorm(epsilon,sig);
+	nll(2) = dbeta(s,1.01,1.01);
+	nll(3) = dnorm(log_bo,log(3000),1.0);
+	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
+	nll(5) = dgamma(isig2,1.01,1.01);
+	if(active(log_tau))
+	{
+		nll(6) = dgamma(itau2,1.01,1.01);
+		nll(7) = dnorm(wt,tau);
+	}
+	else
+	{
+		nll(7) = dnorm(wt,1.0);
+	}
+
+	// objective function + penalty
+	if(fpen>0) cout<<"Fpen = "<<fpen<<endl;
+	f = sum(nll) + 1000.*fpen;
 
 FUNCTION calcReferencePoints
 
@@ -142,7 +141,7 @@ REPORT_SECTION
 	REPORT(ft);
 	REPORT(wt);
 	REPORT(bt);
-	REPORT(nu);
+	
 	REPORT(epsilon);
 
 	msy_reference_points cMSY(value(reck),value(s),value(bo));
@@ -210,7 +209,7 @@ FINAL_SECTION
 
 FUNCTION run_mse
 	// Scenario class
-	int pyr = 13;
+	int pyr = 35;
 	Scenario cScenario1(agek,pyr,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
