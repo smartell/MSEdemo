@@ -16,7 +16,19 @@ DATA_SECTION
 	// |
 	int on;
 	int do_mse;
-	!! if ( (on=option_match(argc,argv,"-mse"))>-1) do_mse=1;else do_mse=0;
+	int rseed;
+	
+	LOC_CALCS
+		int opt, on;
+		do_mse = 0;
+		rseed  = 999;
+		if((on=option_match(ad_comm::argc,ad_comm::argv,"-mse",opt))>-1)
+		{
+			do_mse = 1;
+			rseed=atoi(ad_comm::argv[on+1]);
+			COUT(rseed);
+		}
+	END_CALCS
 
 	init_int agek;
 	init_int syr;
@@ -244,7 +256,7 @@ FUNCTION run_mse
 
 	// Scenario class
 	int pyr = 35;
-	Scenario cScenario1(agek,pyr,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	

@@ -6,6 +6,7 @@ class Scenario
 private:
 	int     m_agek;
 	int     m_pyr;  // number of projection years
+	int     m_rseed;// Random number seed.
 	double  m_bo;
 	double  m_h;
 	double  m_s;
@@ -17,14 +18,15 @@ private:
 	dvector m_it;
 	dvector m_ct;
 
+
 	Scenario();
 public:
 	// default constructor
-	Scenario(const int& agek, const int& pyr, const double& bo,const double& h,
+	Scenario(const int& agek, const int& pyr, const int& rseed, const double& bo,const double& h,
 	         const double& s, const double& q, const double& sig,const double tau,
 	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
-		:m_agek(agek),m_pyr(pyr),m_bo(bo), m_h(h), m_s(s), m_q(q), m_sig(sig), m_tau(tau), 
-		m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
+		:m_agek(agek),m_pyr(pyr),m_rseed(rseed),m_bo(bo), m_h(h), m_s(s), m_q(q),
+		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
 	{}
 
 	~Scenario() {}

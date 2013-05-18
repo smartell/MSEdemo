@@ -12,6 +12,7 @@ private:
 	int m_syr;
 	int m_nyr;
 	int m_pyr;
+	int m_rng;
 
 	int     m_agek;
 	double  m_bo;
@@ -39,6 +40,7 @@ public:
 		m_syr = cScenario.m_ft.indexmin();
 		m_nyr = cScenario.m_ft.indexmax();
 		m_pyr = cScenario.m_pyr;
+		m_rng = cScenario.m_rseed;
 
 		m_agek = cScenario.m_agek;
 		m_bo   = cScenario.m_bo;
@@ -128,7 +130,7 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 	// |
 	int pyr1 = m_nyr+1;
 	int pyr2 = m_nyr+m_pyr;
-	int seed = 999;
+	int seed = m_rng;
 	
 	random_number_generator rng(seed);
 	dvector rt_dev(pyr1,pyr2);
