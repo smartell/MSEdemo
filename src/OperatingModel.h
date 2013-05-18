@@ -1,12 +1,12 @@
-#ifndef OPERATINGMODEL_H
-#define OPERATINGMODEL_H
+#ifndef OPERATING_MODEL_H
+#define OPERATING_MODEL_H
 
 #include <admodel.h>
 #include "scenario.h"
 #include "msyrefPoints.h"
 #include "harvestControlRule.h"
 
-class operatingModel
+class OperatingModel
 {
 private:
 	int m_syr;
@@ -29,12 +29,12 @@ private:
 
 
 	Scenario m_cScenario;
-	harvestControlRule m_HCR;
+	HarvestControlRule m_HCR;
 
-	operatingModel();
+	OperatingModel();
 
 public:
-	operatingModel(const Scenario &cScenario, const harvestControlRule &cHCR)
+	OperatingModel(const Scenario &cScenario, const HarvestControlRule &cHCR)
 	: m_cScenario(cScenario), m_HCR(cHCR)
 	{
 		m_syr = cScenario.m_ft.indexmin();
@@ -55,7 +55,7 @@ public:
 		m_ct   = cScenario.m_ct;
 	}
 
-	~operatingModel() {}
+	~OperatingModel() {}
 
 	// getters:
 	dvector get_bt() { return m_bt; }
@@ -68,7 +68,7 @@ public:
 
 
 // Put this code in a cpp file eventually.
-void operatingModel::runMSEscenario(const Scenario &cScenario)
+void OperatingModel::runMSEscenario(const Scenario &cScenario)
 {
 	// This routine reconstructs the population dynamics based on the Scenario class
 	int i;
@@ -193,25 +193,26 @@ void operatingModel::runMSEscenario(const Scenario &cScenario)
 
 
 		// -   Screen dump so you can watch the progress.
+		cout<<setprecision(3);
 		cout<<"|---------------------------|"<<endl;
 		cout<<"| - Year      "<<i<<endl;
 		cout<<"|---------------------------|"<<endl;
 		cout<<"| - est Bo    "<<est_bo<<endl;
-		cout<<"| - fmsy      "<<fmsy<<endl;
-		cout<<"| - msy       "<<msy<<endl;
-		cout<<"| - bmsy      "<<bmsy<<endl;
 		cout<<"| - est Bt    "<<est_bt<<endl;
+		cout<<"| - bmsy      "<<bmsy<<endl;
 		cout<<"| - bt(i)     "<<bt(i)<<endl;
+		cout<<"| - fmsy      "<<fmsy<<endl;
+		cout<<"| - frate     "<<frate<<endl;
+		cout<<"| - msy       "<<msy<<endl;
 		cout<<"| - tac       "<<tac<<endl;
 		cout<<"| - hat_ct(i) "<<hat_ct(i)<<endl;
-		cout<<"| - frate     "<<frate<<endl;
 		cout<<"|---------------------------|"<<endl;
 		
 	}
 	m_bt = bt;
 }
 
-void operatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
+void OperatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
 {
 	ofstream ofs("MSE.dat");
 	ofs<<m_agek<<endl;

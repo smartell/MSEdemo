@@ -57,7 +57,7 @@ public:
 	void  setct(dvector v1)  { m_ct = v1;   }
 
 	// Make the operatingModel class a friend so it can access private members of scenario
-	friend class operatingModel;
+	friend class OperatingModel;
 };
 
 #endif

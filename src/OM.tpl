@@ -123,7 +123,7 @@ FUNCTION calc_objective_function
 
 	// negative loglikelihoods and priors stored in nll vector
 	nll(1) = dnorm(epsilon,sig);
-	nll(2) = dbeta(s,1.01,1.01);
+	nll(2) = dbeta(s,30.01,10.01);
 	nll(3) = dnorm(log_bo,log(3000),1.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
@@ -261,15 +261,15 @@ FUNCTION run_mse
 	                    value(wt),it,ct);
 	
 	// Harvest control rule
-	// int e_hcr = harvestControlRule::FORTY_TEN;
-	// int e_hcr = harvestControlRule::FIXED_ESCAPEMENT;
-	// int e_hcr = harvestControlRule::FIXED_ESCAPEMENT_CAP;
-	int e_hcr = harvestControlRule::FIXED_HARVEST_RATE;
-	harvestControlRule c_hcr(e_hcr);
+	int e_hcr = HarvestControlRule::FORTY_TEN;
+	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT;
+	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT_CAP;
+	// int e_hcr = HarvestControlRule::FIXED_HARVEST_RATE;
+	HarvestControlRule c_hcr(e_hcr);
 
 
 	// Operating model class
-	operatingModel cOM(cScenario1,c_hcr);
+	OperatingModel cOM(cScenario1,c_hcr);
 	cOM.runMSEscenario(cScenario1);
 	ofstream ofs("OM.rep",ios::app);
 	ofs<<"t_bt\n"<<cOM.get_bt()<<endl;

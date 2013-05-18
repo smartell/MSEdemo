@@ -1,8 +1,8 @@
 #include <admodel.h>
-#ifndef HARVESTCONTROLRULE_H
-#define HARVESTCONTROLRULE_H
+#ifndef HARVEST_CONTROL_RULE_H
+#define HARVEST_CONTROL_RULE_H
 
-class harvestControlRule
+class HarvestControlRule
 {
 private:
 	int m_enum;
@@ -18,8 +18,8 @@ public:
 		FAO_PA_COMPLIANT
 	};
 
-	~harvestControlRule(){}
-	harvestControlRule(int &eHCR)
+	~HarvestControlRule(){}
+	HarvestControlRule(int &eHCR)
 	:m_enum(eHCR)
 	{
 		cout<<"m_enum = "<<m_enum<<endl;	
@@ -34,13 +34,13 @@ public:
 	double FixedEscapementCap(const double &bt, const double &bmsy, const double &msy);
 
 	// Make the operatingModel class a friend so it can access private members of scenario
-	friend class operatingModel;
+	friend class OperatingModel;
 };
 
 
 #endif
 
-double harvestControlRule::getTac(const double &bt, const double &fmsy, const double &msy,
+double HarvestControlRule::getTac(const double &bt, const double &fmsy, const double &msy,
 	              				  const double &bmsy, const double &bo)
 {
 	double tac = 0;
@@ -69,7 +69,7 @@ double harvestControlRule::getTac(const double &bt, const double &fmsy, const do
 	return tac;
 }
 
-double harvestControlRule::FortyTen(const double &bt, const double &bo, const double &fmsy)
+double HarvestControlRule::FortyTen(const double &bt, const double &bo, const double &fmsy)
 {
 	double dt = bt/bo;
 	double ft = fmsy;
@@ -89,13 +89,13 @@ double harvestControlRule::FortyTen(const double &bt, const double &bo, const do
 	return bt*(1.-exp(-ft));
 }
 
-double harvestControlRule::FixedHarvestRate(const double &bt, const double &fmsy)
+double HarvestControlRule::FixedHarvestRate(const double &bt, const double &fmsy)
 {
 	double tac = bt * (1. - exp(-fmsy));
 	return tac;
 }
 
-double harvestControlRule::FixedEscapement(const double &bt, const double &bmsy)
+double HarvestControlRule::FixedEscapement(const double &bt, const double &bmsy)
 {
 	double tac;
 	if(bt > bmsy)
@@ -109,7 +109,7 @@ double harvestControlRule::FixedEscapement(const double &bt, const double &bmsy)
 	return tac;
 }
 
-double harvestControlRule::FixedEscapementCap(const double &bt, const double &bmsy, const double &msy)
+double HarvestControlRule::FixedEscapementCap(const double &bt, const double &bmsy, const double &msy)
 {
 	double tac;
 	if(bt > bmsy)

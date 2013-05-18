@@ -13,3 +13,5 @@ This is a small demonstration model for developing the infrastructure for conduc
 * `make`		   : compile's code and runs operating model as estimator
 * `make mse`       : runs the operating model and runs MSE in the FINALS_SECTION
 * `make clean`     : clean up temporary and model output files in the directory.
+* `make data`      : create simulation directories and copy files to each directory.
+* `make cleansims` : permanently remove simulation directories.
