@@ -15,4 +15,5 @@ This is a small demonstration model for developing the infrastructure for conduc
 * `make clean`     : clean up temporary and model output files in the directory.
 * `make data`      : create simulation directories and copy files to each directory.
 * `make sims`      : runs MSE simulations (tip: use -j8 to run 8 jobs in parallel).
+* `make collect`   : run R-script to produce allsims.Rdata for use in R.
 * `make cleansims` : permanently remove simulation directories.

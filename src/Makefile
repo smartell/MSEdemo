@@ -61,7 +61,33 @@ sims: data $(runsims)
 	touch simdone
 
 
-
-
 cleansims:
 	rm -r 0* *.Rdata
+
+
+# |------------------------------------------------------------------------------------|
+# | R SCRIPTS FOR READING REPORT & PARAMETER FILES AND CREATING AN .Rdata FILE.
+# |------------------------------------------------------------------------------------|
+# |
+
+COLLECTALL='dn<-dir(pattern="^[[:digit:]]");          \
+	        sims <- lapply(dn,function(d){            \
+		                       require(Riscam);       \
+		                       setwd(d);              \
+							   A<-read.admb("OM");    \
+							   setwd("..");           \
+							   return(A)     });      \
+	        save(sims,file="allSims.Rdata")'
+
+allSims.Rdata: simdone
+	@echo $(COLLECTALL) | R --vanilla --slave
+
+collect: allSims.Rdata
+
+
+
+
+
+
+
+
