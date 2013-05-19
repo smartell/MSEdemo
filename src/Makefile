@@ -4,7 +4,7 @@ TPL=$(EXEC).tpl
 DAT=$(EXEC).dat
 MCA=-mcmc 500000 -mcsave 200 -nosdmcmc -mcscale 100000
 ARG=
-NOSIM=8
+NOSIM=16
 
 all: $(EXEC) $(EXEC).rep dust
 
@@ -14,7 +14,10 @@ $(EXEC): $(TPL)
 $(EXEC).rep: $(TPL) $(DAT)
 	./$(EXEC) -ind $(DAT) $(ARG)
 
-mse: $(EXEC)
+run:
+	./$(EXEC) -ind $(DAT) $(ARG)
+
+mse: 
 	./$(EXEC) -ind $(DAT) $(ARG) -mse 12345
 
 mcmc: runmc mceval dust
@@ -42,12 +45,23 @@ clean:
 # |
 simdirs := $(shell echo 'cat(formatC(1:$(NOSIM), digits=3, flag="0"))' | R --vanilla --slave)
 datadone:= $(foreach dir,$(simdirs),$(dir)/datadone)
+runsims := $(foreach dir,$(simdirs),$(dir)/runsims)
 
 $(datadone): 
 	mkdir $(@D);
 	cp $(EXEC) $(EXEC).dat Makefile $(@D)
+	cd $(@D); touch datadone
 
 data: $(EXEC) $(datadone)
+
+$(runsims):
+	cd $(@D); make run ARG='-mse $(@D)'
+
+sims: data $(runsims)
+	touch simdone
+
+
+
 
 cleansims:
 	rm -r 0* *.Rdata

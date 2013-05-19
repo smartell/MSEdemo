@@ -5,7 +5,13 @@
 #include "scenario.h"
 #include "msyrefPoints.h"
 #include "harvestControlRule.h"
-
+/**
+ * This class represents an operating model to be used in Management Strategy Evaluation.
+ * 
+ * @file OperatingModel.h
+ * @author Steven Martell <stevem@iphc.int>
+ * 
+ */
 class OperatingModel
 {
 private:
@@ -55,10 +61,12 @@ public:
 		m_ct   = cScenario.m_ct;
 	}
 
+	// destructor:
 	~OperatingModel() {}
 
 	// getters:
 	dvector get_bt() { return m_bt; }
+
 	// member functions
 	void runMSEscenario(const Scenario &cScenario);
 	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
@@ -208,8 +216,10 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		cout<<"| - hat_ct(i) "<<hat_ct(i)<<endl;
 		cout<<"|---------------------------|"<<endl;
 		
-	}
+	} // 7. repeat steps 2-6
 	m_bt = bt;
+
+	// 8. Calculate performance measures
 }
 
 void OperatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
