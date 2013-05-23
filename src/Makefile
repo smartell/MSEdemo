@@ -37,6 +37,9 @@ help:
 	@echo
 	@echo USAGE 
 	@echo 'make        : -compiles EXEC'
+	@echo 'make run    : -compiles and executes code'
+	@echo 'make mcmc   : -compiles ane executes code in mcmc and mceval modes.'
+	@echo 'make mse    : -compiles and runs Management Strategy Evaluation.'
 	@echo 'make clean  : -remove EXEC, intermediate files, and model output.'
 	@echo
 
