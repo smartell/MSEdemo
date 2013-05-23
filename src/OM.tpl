@@ -214,7 +214,10 @@ GLOBALS_SECTION
 	#include <admodel.h>
 	#include <time.h>
 	#include <statsLib.h>
+	#include "MSYReferencePoints.h"
+	// #include "Scenario.h"
 	#include "OperatingModel.h"
+	// #include "harvestControlRule.h"
 	
 	time_t start,finish;
 	long hour,minute,second;

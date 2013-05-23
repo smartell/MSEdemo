@@ -1,3 +1,4 @@
+
 #ifndef SCENARIO_H
 #define SCENARIO_H
 
@@ -31,33 +32,35 @@ public:
 
 	~Scenario() {}
 	// getters
-	int     getagek() { return m_agek; }
-	double  getBo()   { return m_bo;   }
-	double  geth()    { return m_h;    }
-	double  gets()    { return m_s;    }
-	double  getq()    { return m_q;    }
-	double  getsig()  { return m_sig;  }
-	double  gettau()  { return m_tau;  }
-	dvector getft()   { return m_ft;   }
-	dvector getwt()   { return m_wt;   }
-	dvector getit()   { return m_it;   }
-	dvector getct()   { return m_ct;   }
+	int     get_agek() { return m_agek; }
+	int     get_pyr()  { return m_pyr;  }
+	int     get_rseed(){ return m_rseed;}
+	double  get_bo()   { return m_bo;   }
+	double  get_h()    { return m_h;    }
+	double  get_s()    { return m_s;    }
+	double  get_q()    { return m_q;    }
+	double  get_sig()  { return m_sig;  }
+	double  get_tau()  { return m_tau;  }
+	dvector get_ft()   { return m_ft;   }
+	dvector get_wt()   { return m_wt;   }
+	dvector get_it()   { return m_it;   }
+	dvector get_ct()   { return m_ct;   }
 
 	// setters
-	void  setpyr(int v1)     { m_pyr = v1;  }
-	void  setBo(double v1)   { m_bo = v1;   }
-	void  seth(double v1)    { m_h = v1;    }
-	void  sets(double v1)    { m_s = v1;    }
-	void  setq(double v1)    { m_q = v1;    }
-	void  setsig(double v1)  { m_sig = v1;  }
-	void  settau(double v1)  { m_tau = v1;  }
-	void  setft(dvector v1)  { m_ft = v1;   }
-	void  setwt(dvector v1)  { m_wt = v1;   }
-	void  setit(dvector v1)  { m_it = v1;   }
-	void  setct(dvector v1)  { m_ct = v1;   }
+	void  set_pyr(int v1)     { m_pyr = v1;  }
+	void  set_bo(double v1)   { m_bo = v1;   }
+	void  set_h(double v1)    { m_h = v1;    }
+	void  set_s(double v1)    { m_s = v1;    }
+	void  set_q(double v1)    { m_q = v1;    }
+	void  set_sig(double v1)  { m_sig = v1;  }
+	void  set_tau(double v1)  { m_tau = v1;  }
+	void  set_ft(dvector v1)  { m_ft = v1;   }
+	void  set_wt(dvector v1)  { m_wt = v1;   }
+	void  set_it(dvector v1)  { m_it = v1;   }
+	void  set_ct(dvector v1)  { m_ct = v1;   }
 
 	// Make the operatingModel class a friend so it can access private members of scenario
-	friend class OperatingModel;
+	// friend class OperatingModel;
 };
 
 #endif
