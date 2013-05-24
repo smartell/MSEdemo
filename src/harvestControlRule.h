@@ -2,16 +2,19 @@
 #ifndef HARVEST_CONTROL_RULE_H
 #define HARVEST_CONTROL_RULE_H
 
+/*! A harvest control rule class */
 class HarvestControlRule
 {
 private:
 	int m_enum;
 	// double (*m_pRuleType); // a pointer to appropriate function to get the tac.
 public:
-
+	/** A enum type to select the appropriate harvest control rule.
+	 *
+	 */
 	enum enumHCR 
 	{
-		FORTY_TEN,
+		FORTY_TEN,           /**< 40:10 harvest contrl rule */
 		FIXED_ESCAPEMENT,
 		FIXED_ESCAPEMENT_CAP,
 		FIXED_HARVEST_RATE,

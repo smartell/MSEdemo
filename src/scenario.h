@@ -30,7 +30,7 @@ public:
 		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
 	{}
 
-	~Scenario() {}
+	~Scenario();
 	// getters
 	int     get_agek() { return m_agek; }
 	int     get_pyr()  { return m_pyr;  }
