@@ -34,8 +34,6 @@ public:
 	// member functions
 	void calcReferencePoints();
 
-	// Make the operatingModel class a friend so it can access private members of scenario
-	// friend class OperatingModel;
 
 };
 
