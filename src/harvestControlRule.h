@@ -18,6 +18,7 @@ public:
 		FIXED_ESCAPEMENT,
 		FIXED_ESCAPEMENT_CAP,
 		FIXED_HARVEST_RATE,
+		CONDITIONAL_CONSTANT_CATCH,
 		FAO_PA_COMPLIANT
 	};
 
@@ -35,7 +36,7 @@ public:
 	double FixedHarvestRate(const double &bt, const double &fmsy);
 	double FixedEscapement(const double &bt, const double &bmsy);
 	double FixedEscapementCap(const double &bt, const double &bmsy, const double &msy);
-
+	double ConditionalConstantCatch(const double& bt, const double& bmsy, const double& msy, const double& fmsy);
 };
 
 

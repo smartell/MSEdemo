@@ -22,6 +22,9 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 			tac = FixedHarvestRate(bt,fmsy);
 			cout<<"Fixed harvest rate tac = "<<tac<<endl;
 			break;
+		case CONDITIONAL_CONSTANT_CATCH:
+			tac = ConditionalConstantCatch(bt,bmsy,msy,fmsy);
+			cout<<"Conditional constant catch = "<<tac<<endl;
 		case FAO_PA_COMPLIANT:
 			cout<<"FAO_PA_COMPLIANT"<<endl;
 			break;
@@ -79,6 +82,29 @@ double HarvestControlRule::FixedEscapementCap(const double &bt, const double &bm
 	else
 	{
 		tac = 0;
+	}
+	return tac;
+}
+
+double HarvestControlRule::ConditionalConstantCatch(const double& bt, const double& bmsy, const double& msy, const double& fmsy)
+{
+	/**
+	 * For this rule, fish at Fmsy if bt>0.8Bmsy
+	 */
+	double tac;
+	double f = 0;
+	if( bt >= 0.8*bmsy)
+	{
+		f = fmsy;
+	}
+	else if( bt < 0.8*bmsy && bt >= 0.4*bmsy )
+	{
+		f = (bt-0.4*bmsy)/(0.8-0.4)*fmsy;
+	}
+	tac = f * bt;
+	if(tac > msy)
+	{
+		tac = msy;
 	}
 	return tac;
 }

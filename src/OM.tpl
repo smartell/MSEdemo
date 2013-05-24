@@ -264,10 +264,11 @@ FUNCTION run_mse
 	                    value(wt),it,ct);
 	
 	// Harvest control rule
-	int e_hcr = HarvestControlRule::FORTY_TEN;
+	// int e_hcr = HarvestControlRule::FORTY_TEN;
 	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT;
 	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT_CAP;
 	// int e_hcr = HarvestControlRule::FIXED_HARVEST_RATE;
+	int e_hcr = HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
 	HarvestControlRule c_hcr(e_hcr);
 
 
