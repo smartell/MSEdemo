@@ -25,6 +25,7 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 		case CONDITIONAL_CONSTANT_CATCH:
 			tac = ConditionalConstantCatch(bt,bmsy,msy,fmsy);
 			cout<<"Conditional constant catch = "<<tac<<endl;
+			break;
 		case FAO_PA_COMPLIANT:
 			cout<<"FAO_PA_COMPLIANT"<<endl;
 			break;
@@ -90,6 +91,8 @@ double HarvestControlRule::ConditionalConstantCatch(const double& bt, const doub
 {
 	/**
 	 * For this rule, fish at Fmsy if bt>0.8Bmsy
+	 * and reduce the TAC to msy of the tac > MSY.
+	 * Ramp down fishing mortality rate if below 0.8Bmsy
 	 */
 	double tac;
 	double f = 0;

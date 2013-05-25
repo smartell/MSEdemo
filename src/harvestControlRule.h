@@ -26,7 +26,7 @@ public:
 	HarvestControlRule(int &eHCR)
 	:m_enum(eHCR)
 	{
-		cout<<"m_enum = "<<m_enum<<endl;	
+		// cout<<"m_enum = "<<m_enum<<endl;	
 	}
 
 	// Prototypes

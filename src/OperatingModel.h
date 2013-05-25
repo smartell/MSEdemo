@@ -10,7 +10,7 @@
  */
 
 #include <admodel.h>
-#include "scenario.h"
+#include "Scenario.h"
 #include "MSYReferencePoints.h"
 #include "HarvestControlRule.h"
 

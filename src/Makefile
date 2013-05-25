@@ -8,6 +8,7 @@ SRCS  = MSYReferencePoints.cpp \
 		HarvestControlRule.cpp \
 		Scenario.cpp           
 OBJS  = ${SRCS:.cpp=.o}
+HDRS  = ${SRCS:.cpp=.h}
 MCA   = -mcmc 500000 -mcsave 200 -nosdmcmc -mcscale 100000
 CC    = g++
 LL    = $(CC)
@@ -17,7 +18,7 @@ NOSIM = 8
 all: $(EXEC)
 
 
-$(EXEC): $(TPL) $(SRCS)
+$(EXEC): $(TPL) $(SRCS) $(HDRS)
 	admb $(EXEC) $(SRCS)
 
 run: $(EXEC)
