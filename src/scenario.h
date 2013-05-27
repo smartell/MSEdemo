@@ -6,12 +6,11 @@
 #define POPULATION_H
 class Population
 {
-protected:      // use protected so derived classes can access these variables.
+public:
 	double m_bo;
 	double m_h;
 	double m_s;
 
-public:
 	Population(const double bo=1.0, const double h=0.75, const double s=0.85)
 	: m_bo(bo),m_h(h),m_s(s)
 	{}
