@@ -26,6 +26,15 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 	a    = reck*ro/bo;
 	b    = (reck-1.0)/bo;
 
+	// |---------------------------------------------------------------------------------|
+	// | TRUE REFERENCE POINTS
+	// |---------------------------------------------------------------------------------|
+	// |
+	msy_reference_points cRefPoints(reck,s,bo);
+	m_fmsy = cRefPoints.get_fmsy();
+	m_bmsy = cRefPoints.get_bmsy();
+	m_msy  = cRefPoints.get_msy();
+
 	dvector bt(m_syr,m_nyr+m_pyr+1);
 	dvector rt(m_syr,m_nyr+m_pyr);
 	dvector hat_ct(m_syr,m_nyr+m_pyr);
@@ -92,7 +101,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		fmsy = cRefPoints.get_fmsy();
 		msy  = cRefPoints.get_msy();
 		bmsy = cRefPoints.get_bmsy();
-		tac = m_HCR.getTac(est_bt,fmsy,msy,bmsy,est_bo);
+		tac  = m_cHCR.getTac(est_bt,fmsy,msy,bmsy,est_bo);
 
 		// -3. Implement harvest on reference population, add implentation errors
 		//     Watch out here if tac > bt(i), then need to set frate to some arbitrary max

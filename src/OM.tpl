@@ -281,7 +281,11 @@ FUNCTION run_mse
 	OperatingModel cOM(cScenario1,c_hcr);
 	cOM.runMSEscenario(cScenario1);
 	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bt\n"<<cOM.get_bt()<<endl;
+	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
+	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
+	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
+	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
+	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
 
 
 

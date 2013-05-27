@@ -29,6 +29,9 @@ private:
 	double  m_q;
 	double  m_sig;
 	double  m_tau;
+	double  m_fmsy;
+	double  m_bmsy;
+	double  m_msy;
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
@@ -37,13 +40,13 @@ private:
 
 
 	Scenario m_cScenario;
-	HarvestControlRule m_HCR;
+	HarvestControlRule m_cHCR;
 
 	OperatingModel();
 
 public:
 	OperatingModel(Scenario &cScenario, const HarvestControlRule &cHCR)
-	: m_cScenario(cScenario), m_HCR(cHCR)
+	: m_cScenario(cScenario), m_cHCR(cHCR)
 	{
 		dvector ft = cScenario.get_ft();
 		m_syr = ft.indexmin();
@@ -67,8 +70,15 @@ public:
 	// destructor:
 	~OperatingModel() {}
 
+	
 	// getters:
-	dvector get_bt() { return m_bt; }
+	double  get_bmsy() { return m_bmsy; }
+	double  get_fmsy() { return m_fmsy; }
+	double  get_msy()  { return m_msy;  }
+	double  get_bo()   { return m_bo;   }
+	dvector get_bt()   { return m_bt;   }
+
+
 
 	// member functions
 	void runMSEscenario(const Scenario &cScenario);

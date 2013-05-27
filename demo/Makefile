@@ -19,7 +19,8 @@ runmse:
 	./$(EXEC) -ind $(DAT) $(ARG)
 
 clean:
-	rm -f $(EXEC) $(DATA) $(EXEC).rep *.[bcdelprs]* *.hes variance
+	rm -f $(EXEC) $(EXEC).rep *.[bcelprs]* *.hes variance admodel.*
+	rm -f simdone
 
 
 # |------------------------------------------------------------------------------------|
@@ -55,14 +56,15 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='dn<-dir(pattern="^[[:digit:]]");          \
-	        sims <- lapply(dn,function(d){            \
-		                       require(Riscam);       \
-		                       setwd(d);              \
-							   A<-read.admb("OM");    \
-							   setwd("..");           \
-							   return(A)     });      \
-	        save(sims,file="allSims.Rdata")'
+COLLECTALL='dn<-dir(pattern="^[[:digit:]]");                    \
+			nf   <- paste(basename(getwd()),".Rdata",sep="");   \
+	        sims <- lapply(dn,function(d){                      \
+		                       require(Riscam);                 \
+		                       setwd(d);                        \
+							   A<-read.admb("OM");              \
+							   setwd("..");                     \
+							   return(A)     });                \
+	        save(sims,file=nf)'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave
