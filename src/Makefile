@@ -40,7 +40,7 @@ mceval: $(EXEC).psv
 
 clean:
 	rm -f $(EXEC) *.eva *.log *.rpt *.htp *.cor *.par *.std *.r* *.p0* *.b* *.o
-	rm -f *.rep *.bar *.psv *.std $(EXEC).cpp admodel.* variance *.hst *.ecm *.mc2
+	rm -f *.rep *.bar *.psv *.std $(EXEC).cpp admodel.* variance *.hst *.ecm *.mc2 *.mcm
 	rm -f hybrid_seed sims NUL simdone
 
 .PHONY: help

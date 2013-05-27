@@ -1,16 +1,39 @@
+// This header file uses an example of inheritance.
+// The Scenario class is derived from the population class and inherits its member
+// variables (bo,h,s).
+
+#ifndef POPULATION_H
+#define POPULATION_H
+class Population
+{
+protected:      // use protected so derived classes can access these variables.
+	double m_bo;
+	double m_h;
+	double m_s;
+
+public:
+	Population(const double bo=1.0, const double h=0.75, const double s=0.85)
+	: m_bo(bo),m_h(h),m_s(s)
+	{}
+
+	~Population(){}
+};
+
+#endif
+
 
 #ifndef SCENARIO_H
 #define SCENARIO_H
 
-class Scenario 
+class Scenario: public Population 
 {
 private:
 	int     m_agek;
 	int     m_pyr;  // number of projection years
 	int     m_rseed;// Random number seed.
-	double  m_bo;
-	double  m_h;
-	double  m_s;
+	// double  m_bo;
+	// double  m_h;
+	// double  m_s;
 	double  m_q;
 	double  m_sig;
 	double  m_tau;
@@ -23,10 +46,10 @@ private:
 	Scenario();
 public:
 	// default constructor
-	Scenario(const int& agek, const int& pyr, const int& rseed, const double& bo,const double& h,
+	Scenario(const int& agek, const int& pyr, const int& rseed, double& bo,const double& h,
 	         const double& s, const double& q, const double& sig,const double tau,
 	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
-		:m_agek(agek),m_pyr(pyr),m_rseed(rseed),m_bo(bo), m_h(h), m_s(s), m_q(q),
+		:m_agek(agek),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
 		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
 	{}
 

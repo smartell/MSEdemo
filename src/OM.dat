@@ -27,4 +27,7 @@
 # |  -                2 : HarvestControlRule::FIXED_ESCAPEMENT_CAP;
 # |  -                3 : HarvestControlRule::FIXED_HARVEST_RATE;
 # |  -                4 : HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
-3
+4
+# |  SCENARIO CLASS:
+# |  -  pyr             : number of projection years
+35

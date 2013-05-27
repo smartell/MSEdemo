@@ -39,6 +39,7 @@ DATA_SECTION
 
 	// Harvest control rule
 	init_int n_hcr;
+	init_int n_pyr;
 	
 
 INITIALIZATION_SECTION
@@ -262,8 +263,7 @@ FUNCTION run_mse
 	// 4) The OPertating model calls msyrefPoints.h to calculate Fmsy etc.
 
 	// Scenario class
-	int pyr = 35;
-	Scenario cScenario1(agek,pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	
