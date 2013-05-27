@@ -2,7 +2,7 @@
 #ifndef SCENARIO_H
 #define SCENARIO_H
 
-class Scenario
+class Scenario 
 {
 private:
 	int     m_agek;

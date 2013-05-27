@@ -14,7 +14,7 @@
 #include "MSYReferencePoints.h"
 #include "HarvestControlRule.h"
 
-class OperatingModel
+class OperatingModel 
 {
 private:
 	int m_syr;

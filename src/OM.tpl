@@ -37,6 +37,10 @@ DATA_SECTION
 	init_vector ct(syr,nyr);
 	init_vector it(syr,nyr);
 
+	// Harvest control rule
+	init_int n_hcr;
+	
+
 INITIALIZATION_SECTION
 	log_bo     8.0;
 	h          0.9;
@@ -264,11 +268,12 @@ FUNCTION run_mse
 	                    value(wt),it,ct);
 	
 	// Harvest control rule
-	int e_hcr = HarvestControlRule::FORTY_TEN;
+	// int e_hcr = HarvestControlRule::FORTY_TEN;
 	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT;
 	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT_CAP;
 	// int e_hcr = HarvestControlRule::FIXED_HARVEST_RATE;
 	// int e_hcr = HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
+	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 
 
