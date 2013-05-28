@@ -89,8 +89,8 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>HarvestControlRule</b> (int &amp;eHCR)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9cbfcdef56b1b2e76e170ccc0062c836"></a><!-- doxytag: member="HarvestControlRule::getTac" ref="a9cbfcdef56b1b2e76e170ccc0062c836" args="(const double &amp;bt, const double &amp;fmsy, const double &amp;msy, const double &amp;bmsy, const double &amp;bo)" -->
 double&#160;</td><td class="memItemRight" valign="bottom"><b>getTac</b> (const double &amp;bt, const double &amp;fmsy, const double &amp;msy, const double &amp;bmsy, const double &amp;bo)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adfc9fbf35bb1256fdd23f17041b8eb8d"></a><!-- doxytag: member="HarvestControlRule::FortyTen" ref="adfc9fbf35bb1256fdd23f17041b8eb8d" args="(const double &amp;bt, const double &amp;bo, const double &amp;fmsy)" -->
-double&#160;</td><td class="memItemRight" valign="bottom"><b>FortyTen</b> (const double &amp;bt, const double &amp;bo, const double &amp;fmsy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d">FortyTen</a> (const double &amp;bt, const double &amp;bo, const double &amp;fmsy)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement the 40:10 harvest control rule.  <a href="#adfc9fbf35bb1256fdd23f17041b8eb8d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a123e4f8fd6fd150b87f594b429481e96"></a><!-- doxytag: member="HarvestControlRule::FixedHarvestRate" ref="a123e4f8fd6fd150b87f594b429481e96" args="(const double &amp;bt, const double &amp;fmsy)" -->
 double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedHarvestRate</b> (const double &amp;bt, const double &amp;fmsy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4155b96e86db1581eaabb5a7ca074a4e"></a><!-- doxytag: member="HarvestControlRule::FixedEscapement" ref="a4155b96e86db1581eaabb5a7ca074a4e" args="(const double &amp;bt, const double &amp;bmsy)" -->
@@ -173,10 +173,12 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
 </div>
 <div class="memdoc">
 
-<p><p>For this rule, fish at Fmsy if bt&gt;0.8Bmsy and reduce the TAC to msy of the tac &gt; MSY. Ramp down fishing mortality rate if below 0.8Bmsy</p>
+<p><p>For this rule, fish at Fmsy if bt&gt;0.8Bmsy and reduce the TAC to msy of the tac &gt; MSY.</p>
+<p>If the biomass is less than 0.8Bmsy and greater then 0.4Bmsy, then set fishing mortality rate as a liner function of depletion.</p>
+<p>If the biomass is less than 0.4Bmsy, the set the tac=0</p>
 </p>
 
-<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00090">90</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00100">100</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">{
         <span class="keywordtype">double</span> tac;
         <span class="keywordtype">double</span> f = 0;
@@ -194,6 +196,71 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
                 tac = msy;
         }
         <span class="keywordflow">return</span> tac;
+}
+</pre></div>
+</div>
+</div>
+<a class="anchor" id="adfc9fbf35bb1256fdd23f17041b8eb8d"></a><!-- doxytag: member="HarvestControlRule::FortyTen" ref="adfc9fbf35bb1256fdd23f17041b8eb8d" args="(const double &amp;bt, const double &amp;bo, const double &amp;fmsy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double HarvestControlRule::FortyTen </td>
+          <td>(</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>bt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>bo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>fmsy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implement the 40:10 harvest control rule. </p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Steve Martell </dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">&lt;bt&gt;</td><td>biomass available at time t </td></tr>
+    <tr><td class="paramname">&lt;bo&gt;</td><td>theoretical unfished biomass </td></tr>
+    <tr><td class="paramname">&lt;fmsy&gt;</td><td>Fishing mortality rate that generates Maximum Sustainable Yield.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function implements the 40:10 harvest control rule that is commonly used by the Pacific Fisheries Management Council. </p>
+
+<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00046">46</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+        <span class="keywordtype">double</span> dt = bt/bo;
+        <span class="keywordtype">double</span> ft = fmsy;
+        <span class="keywordflow">if</span>( dt &lt;= 0.1 )
+        {
+                ft = 0; 
+        } 
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.1 &amp;&amp; dt &lt;= 0.4 )
+        {
+                ft = fmsy * (dt-0.1)/(0.4-0.3);
+        }
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.4 )
+        {
+                ft = fmsy;
+        }
+
+        <span class="keywordflow">return</span> bt*(1.-exp(-ft));
 }
 </pre></div>
 </div>
@@ -217,7 +284,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue May 28 2013 09:00:19 for MSEDemo by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue May 28 2013 09:13:02 for MSEDemo by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4-20110606 </small></address>
 </body>
