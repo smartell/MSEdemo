@@ -6,6 +6,15 @@
 #define MSY_REFERENCE_POINTS_H
 
 
+/**
+ * This class calculates the MSY-based reference points for the
+ * Lagged Recruit Growth Survival Model from the Ecological detective.
+ * 
+ * @file MSYReferencePoints.h
+ * @author Steven Martell <stevem@iphc.int>
+ * @class msy_reference_points
+ * 
+ */
 class msy_reference_points
 {
 private:
