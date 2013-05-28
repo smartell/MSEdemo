@@ -23,7 +23,7 @@ EstimatorClass::EstimatorClass(adstring model)
 void EstimatorClass::runEstimator()
 {
 	adstring arg;
-	arg = m_model+" -ind MSE.dat";
+	arg = m_model+" -ind MSE.dat -nox -est > NUL";
 	system(arg);
 	// cout<<"Finished running the estimator"<<endl;
 }

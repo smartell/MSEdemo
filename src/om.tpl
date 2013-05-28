@@ -286,10 +286,9 @@ FUNCTION run_mse
 	// Estimator class (allow user defined estimator)
 	EstimatorClass cEstimator(sEstimator);
 	// cEstimator.runEstimator();
-	// exit(1);
 
 	// Operating model class
-	OperatingModel cOM(cScenario1,c_hcr);
+	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
 	cOM.runMSEscenario(cScenario1);
 	ofstream ofs("OM.rep",ios::app);
 	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;

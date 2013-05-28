@@ -42,12 +42,13 @@ private:
 
 	Scenario m_cScenario;
 	HarvestControlRule m_cHCR;
+	EstimatorClass	m_cEstimator;
 
 	OperatingModel();
 
 public:
-	OperatingModel(Scenario &cScenario, const HarvestControlRule &cHCR)
-	: m_cScenario(cScenario), m_cHCR(cHCR)
+	OperatingModel(Scenario &cScenario, EstimatorClass &cEstimator, const HarvestControlRule &cHCR)
+	: m_cScenario(cScenario),m_cEstimator(cEstimator),m_cHCR(cHCR)
 	{
 		dvector ft = cScenario.get_ft();
 		m_syr = ft.indexmin();
