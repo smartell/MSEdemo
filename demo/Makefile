@@ -15,6 +15,9 @@ $(EXEC): $(DIST)
 $(EXEC).rep:
 	./$(EXEC)
 
+mse:
+	./$(EXEC) -ind $(DAT) -mse 12345
+
 runmse: 
 	./$(EXEC) -ind $(DAT) $(ARG)
 
@@ -48,7 +51,7 @@ sims: data $(runsims)
 
 
 cleansims:
-	rm -r 0* *.Rdata
+	rm -r 0* *.Rdata NUL MSE.dat
 
 
 # |------------------------------------------------------------------------------------|
