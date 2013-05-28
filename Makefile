@@ -7,7 +7,7 @@ endif
 all: 
 	mkdir -p $(DISK)
 	make --directory=./src/
-	cp -r ./src/OM ./src/OM.dat ./src/Makefile $(DISK)
+	cp -r ./src/om ./src/om.dat ./src/Makefile $(DISK)
 
 .PHONY: runcmp $(SUBDIR)
 
@@ -16,11 +16,11 @@ $(SUBDIR):
 	cd $@ && $(MAKE) $(TARGET) -j8
 	cd $@ && $(MAKE) collect
 
-.PHONY: clean
+.PHONY: clean	
 clean_files := $(foreach dir,$(SUBDIR),$(dir)/clean)
 
 clean: $(clean_files)
-	rm -rf $(DISK)
+	rm -rvf $(DISK)
 
 $(clean_files):
 	cd $(@D) && $(MAKE) clean	
