@@ -4,9 +4,9 @@
 EXEC  = om
 TPL   = $(EXEC).tpl
 SRCS  = MSYReferencePoints.cpp \
-		OperatingModel.cpp     \
-		HarvestControlRule.cpp \
-		Scenario.cpp           
+				OperatingModel.cpp     \
+				HarvestControlRule.cpp \
+				Scenario.cpp
 OBJS  = ${SRCS:.cpp=.o}
 HDRS  = ${SRCS:.cpp=.h}
 MCA   = -mcmc 500000 -mcsave 200 -nosdmcmc -mcscale 100000
@@ -14,9 +14,7 @@ CC    = g++
 LL    = $(CC)
 NOSIM = 8
 
-
 all: $(EXEC)
-
 
 $(EXEC): $(TPL) $(SRCS) $(HDRS)
 	admb $(EXEC) $(SRCS)
@@ -87,14 +85,14 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='dn<-dir(pattern="^[[:digit:]]");          \
-	        sims <- lapply(dn,function(d){            \
-		                       require(Riscam);       \
-		                       setwd(d);              \
-							   A<-read.admb("OM");    \
-							   setwd("..");           \
-							   return(A)     });      \
-	        save(sims,file="allSims.Rdata")'
+COLLECTALL='dn   <- dir(pattern="^[[:digit:]]");           \
+	          sims <- lapply(dn,function(d){                 \
+		          source(file.path("..","src","read.admb.R")); \
+		          setwd(d);                                    \
+							A <- read.admb("om");                        \
+							setwd("..");                                 \
+							return(A)});                                 \
+	          save(sims,file="allSims.Rdata")'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave

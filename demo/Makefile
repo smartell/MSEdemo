@@ -1,6 +1,7 @@
-EXEC  = OM
-DATA  = OM.dat
+EXEC  = om
+DATA  = om.dat
 DIST  = ../dist/
+OBJ   = ../dist/objects/
 NOSIM = 8
 
 
@@ -14,9 +15,6 @@ $(EXEC): $(DIST)
 
 $(EXEC).rep:
 	./$(EXEC)
-
-mse:
-	./$(EXEC) -ind $(DAT) -mse 12345
 
 runmse: 
 	./$(EXEC) -ind $(DAT) $(ARG)
@@ -51,7 +49,7 @@ sims: data $(runsims)
 
 
 cleansims:
-	rm -r 0* *.Rdata NUL MSE.dat
+	rm -r 0* *.Rdata
 
 
 # |------------------------------------------------------------------------------------|
@@ -59,15 +57,15 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='dn<-dir(pattern="^[[:digit:]]");                    \
-			nf   <- paste(basename(getwd()),".Rdata",sep="");   \
-	        sims <- lapply(dn,function(d){                      \
-		                       require(Riscam);                 \
-		                       setwd(d);                        \
-							   A<-read.admb("OM");              \
-							   setwd("..");                     \
-							   return(A)     });                \
-	        save(sims,file=nf)'
+COLLECTALL='dn <- dir(pattern="^[[:digit:]]");               \
+			      nf <- paste(basename(getwd()),".Rdata",sep="");  \
+	          sims <- lapply(dn,function(d){                   \
+		          source(file.path("..","src","read.admb.R"));   \
+		          setwd(d);                                      \
+						  A <- read.admb("om");                          \
+					    setwd("..");                                   \
+						  return(A)});                                   \
+	          save(sims,file=nf)'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave
