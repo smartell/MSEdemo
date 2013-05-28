@@ -23,6 +23,19 @@ public:
 
 #ifndef SCENARIO_H
 #define SCENARIO_H
+/** \brief  Scenario class
+	
+	class object for a cadidate management procedure
+	
+&copy; Copyright 2013 UBC Fisheries Centre - . All Rights Reserved.
+
+	\author  Steven Martell
+	\author $LastChangedBy$
+	\date 2013-05-27
+	\date $LastChangedDate$
+	\version $Rev$
+	\sa
+**/
 
 class Scenario: public Population 
 {
