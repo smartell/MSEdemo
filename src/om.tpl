@@ -45,8 +45,8 @@ DATA_SECTION
 	init_int n_hcr;
 	init_int n_pyr;
 	init_adstring sEstimator;
-	!! COUT(sEstimator);
-	!! exit(1);
+	// !! COUT(sEstimator);
+	// !! exit(1);
 	
 
 INITIALIZATION_SECTION

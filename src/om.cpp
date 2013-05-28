@@ -50,8 +50,6 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
   sEstimator.allocate("sEstimator");
- COUT(sEstimator);
- exit(1);
 }
 
 void model_parameters::initializationfunction(void)

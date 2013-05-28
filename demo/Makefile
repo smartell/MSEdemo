@@ -16,6 +16,9 @@ $(EXEC): $(DIST)
 $(EXEC).rep:
 	./$(EXEC)
 
+mse:
+	./$(EXEC) -ind $(DAT) -mse 12345
+
 runmse: 
 	./$(EXEC) -ind $(DAT) $(ARG)
 
