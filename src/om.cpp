@@ -298,6 +298,9 @@ void model_parameters::run_mse(void)
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 	// Estimator class (allow user defined estimator)
+	EstimatorClass cEstimator(sEstimator);
+	cEstimator.runEstimator();
+	exit(1);
 	// Operating model class
 	OperatingModel cOM(cScenario1,c_hcr);
 	cOM.runMSEscenario(cScenario1);

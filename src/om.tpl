@@ -284,6 +284,9 @@ FUNCTION run_mse
 	HarvestControlRule c_hcr(e_hcr);
 
 	// Estimator class (allow user defined estimator)
+	EstimatorClass cEstimator(sEstimator);
+	// cEstimator.runEstimator();
+	// exit(1);
 
 	// Operating model class
 	OperatingModel cOM(cScenario1,c_hcr);
