@@ -49,6 +49,9 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   it.allocate(syr,nyr,"it");
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
+  sEstimator.allocate("sEstimator");
+ COUT(sEstimator);
+ exit(1);
 }
 
 void model_parameters::initializationfunction(void)
@@ -296,6 +299,7 @@ void model_parameters::run_mse(void)
 	// int e_hcr = HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
+	// Estimator class (allow user defined estimator)
 	// Operating model class
 	OperatingModel cOM(cScenario1,c_hcr);
 	cOM.runMSEscenario(cScenario1);

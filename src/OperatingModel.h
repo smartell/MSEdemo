@@ -13,6 +13,7 @@
 #include "Scenario.h"
 #include "MSYReferencePoints.h"
 #include "HarvestControlRule.h"
+#include "EstimatorClass.h"
 
 class OperatingModel 
 {

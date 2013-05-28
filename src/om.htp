@@ -13,6 +13,7 @@ class model_data : public ad_comm{
   data_vector it;
   data_int n_hcr;
   data_int n_pyr;
+  init_adstring sEstimator;
   ~model_data();
   model_data(int argc,char * argv[]);
   friend class model_parameters;

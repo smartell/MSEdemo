@@ -37,9 +37,16 @@ DATA_SECTION
 	init_vector ct(syr,nyr);
 	init_vector it(syr,nyr);
 
+	// |---------------------------------------------------------------------------------|
+	// | MANAGEMENT STRATEGY EVALUATION COMMANDS
+	// |---------------------------------------------------------------------------------|
+	// |
 	// Harvest control rule
 	init_int n_hcr;
 	init_int n_pyr;
+	init_adstring sEstimator;
+	!! COUT(sEstimator);
+	!! exit(1);
 	
 
 INITIALIZATION_SECTION
@@ -276,6 +283,7 @@ FUNCTION run_mse
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 
+	// Estimator class (allow user defined estimator)
 
 	// Operating model class
 	OperatingModel cOM(cScenario1,c_hcr);
