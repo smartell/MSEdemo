@@ -14,12 +14,12 @@ public:
 	 */
 	enum enumHCR 
 	{
-		FORTY_TEN,           			/**< 40:10 harvest contrl rule */
-		FIXED_ESCAPEMENT,				/**< Fixed escapement policy based on Bmsy */
-		FIXED_ESCAPEMENT_CAP,			/**< Fixed escapement with MSY cap */
-		FIXED_HARVEST_RATE,				/**< Fixed harvest rate at Fmsy */
-		CONDITIONAL_CONSTANT_CATCH,		/**< Conditional constant catch (IPHC) */
-		FAO_PA_COMPLIANT				/**< Not implemented yet */
+		FORTY_TEN,           /**< 40:10 harvest contrl rule */
+		FIXED_ESCAPEMENT,
+		FIXED_ESCAPEMENT_CAP,
+		FIXED_HARVEST_RATE,
+		CONDITIONAL_CONSTANT_CATCH,
+		FAO_PA_COMPLIANT
 	};
 
 	~HarvestControlRule(){}
