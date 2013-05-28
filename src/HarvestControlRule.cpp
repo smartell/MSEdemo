@@ -33,6 +33,16 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 	return tac;
 }
 
+/**
+	\brief Implement the 40:10 harvest control rule.
+	\author Steve Martell
+	\param <bt> biomass available at time t
+	\param <bo> theoretical unfished biomass
+	\param <fmsy> Fishing mortality rate that generates Maximum Sustainable Yield.
+
+	This function implements the 40:10 harvest control rule that is commonly used by the
+	Pacific Fisheries Management Council.
+*/
 double HarvestControlRule::FortyTen(const double &bt, const double &bo, const double &fmsy)
 {
 	double dt = bt/bo;
@@ -87,13 +97,25 @@ double HarvestControlRule::FixedEscapementCap(const double &bt, const double &bm
 	return tac;
 }
 
+/**
+	\brief Implement the Conditional Constant Catch harvest control rule proposed by the IPHC.
+	\author Steve Martell
+	\param <bt> available biomass
+	\param <bmsy> Biomass at MSY
+	\param <msy>  Maximum sustainable yield
+	\param <fmsy> Fishing mortality rate that achieves MSY.
+	
+ * For this rule, fish at Fmsy if bt>0.8Bmsy
+ * and reduce the TAC to msy of the tac > MSY.
+ * 
+ If the biomass is less than 0.8Bmsy and greater
+ then 0.4Bmsy, then set fishing mortality rate as
+ a liner function of depletion. 
+
+ If the biomass is less than 0.4Bmsy, the  set the tac=0
+ */
 double HarvestControlRule::ConditionalConstantCatch(const double& bt, const double& bmsy, const double& msy, const double& fmsy)
 {
-	/**
-	 * For this rule, fish at Fmsy if bt>0.8Bmsy
-	 * and reduce the TAC to msy of the tac > MSY.
-	 * Ramp down fishing mortality rate if below 0.8Bmsy
-	 */
 	double tac;
 	double f = 0;
 	if( bt >= 0.8*bmsy)
