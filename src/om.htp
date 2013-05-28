@@ -1,0 +1,95 @@
+#if !defined(_om_)
+#  define _om_
+
+class model_data : public ad_comm{
+  int on;
+  int do_mse;
+  int rseed;
+  data_int agek;
+  data_int syr;
+  data_int nyr;
+  data_ivector iyr;
+  data_vector ct;
+  data_vector it;
+  data_int n_hcr;
+  data_int n_pyr;
+  ~model_data();
+  model_data(int argc,char * argv[]);
+  friend class model_parameters;
+};
+
+class model_parameters : public model_data ,
+  public function_minimizer
+{
+public:
+  ~model_parameters();
+  void preliminary_calculations(void);
+  void set_runtime(void);
+  virtual void * mycast(void) {return (void*)this;}
+  static int mc_phase(void)
+  {
+    return initial_params::mc_phase;
+  }
+  static int mceval_phase(void)
+  {
+    return initial_params::mceval_phase;
+  }
+  static int sd_phase(void)
+  {
+    return initial_params::sd_phase;
+  }
+  static int current_phase(void)
+  {
+    return initial_params::current_phase;
+  }
+  static int last_phase(void)
+  {
+    return (initial_params::current_phase
+      >=initial_params::max_number_phases);
+  }
+  static prevariable current_feval(void)
+  {
+    return *objective_function_value::pobjfun;
+  }
+private:
+  ivector integer_control_flags;
+  dvector double_control_flags;
+  param_init_bounded_number log_bo;
+  param_init_bounded_number h;
+  param_init_bounded_number s;
+  param_init_number log_sigma;
+  param_init_number log_tau;
+  param_init_bounded_dev_vector wt;
+  param_number prior_function_value;
+  param_number likelihood_function_value;
+  objective_function_value f;
+  param_number bo;
+  param_number ro;
+  param_number sig;
+  param_number tau;
+  param_number a;
+  param_number b;
+  param_number reck;
+  param_number q;
+  param_number fpen;
+  param_vector bt;
+  param_vector rt;
+  param_vector ft;
+  param_vector epsilon;
+  param_vector nll;
+  param_stddev_number sd_dep;
+public:
+  virtual void userfunction(void);
+  virtual void report(void);
+  virtual void final_calcs(void);
+  model_parameters(int sz,int argc, char * argv[]);
+  virtual void initializationfunction(void);
+  void initialize_model(void);
+  void population_dynamics(void);
+  void observation_model(void);
+  void calc_objective_function(void);
+  void calcReferencePoints(void);
+  void run_mse(void);
+
+};
+#endif
