@@ -33,6 +33,7 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 	return tac;
 }
 
+
 /**
 	\brief Implement the 40:10 harvest control rule.
 	\author Steve Martell
@@ -104,7 +105,7 @@ double HarvestControlRule::FixedEscapementCap(const double &bt, const double &bm
 	\param <bmsy> Biomass at MSY
 	\param <msy>  Maximum sustainable yield
 	\param <fmsy> Fishing mortality rate that achieves MSY.
-	
+
  * For this rule, fish at Fmsy if bt>0.8Bmsy
  * and reduce the TAC to msy of the tac > MSY.
  * 

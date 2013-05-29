@@ -3,7 +3,17 @@
 // #include "MSYReferencePoints.h"
 // #include "Scenario.h"
 
-// Put this code in a cpp file eventually.
+/** \brief Run the Operating model scenario
+ *	
+ *		This function runs the operating model conditional on the scenario class that is 
+ *		passed as an arguement.
+ *	
+ *	\author  Steve Martell
+ *	\date May 29, 2013
+ *	\param  a Scenario class object.
+ *	\return void
+ *	\sa
+**/
 void OperatingModel::runMSEscenario(const Scenario &cScenario)
 {
 	// This routine reconstructs the population dynamics based on the Scenario class

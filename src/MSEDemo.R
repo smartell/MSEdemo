@@ -1,10 +1,11 @@
 # MSEDemo.R
 require(reshape2)
 require(ggplot2)
-setwd('/Users/stevenmartell1/Documents/MSEdemo/demo/')
+# setwd('/Users/stevenmartell1/Documents/MSEdemo/demo/')
+# load('demo.Rdata')
 
-load('demo.Rdata')
-
+setwd('~/Documents/IPHC/MSEdemo/fortyten/')
+load('fortyten.Rdata')
 
 .plotTrueBiomass <- function( S )
 {
