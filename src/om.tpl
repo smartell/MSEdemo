@@ -262,7 +262,7 @@ FINAL_SECTION
 	// calcReferencePoints();
 
 FUNCTION run_mse
-	// This is the entire management strategy evaluaiton routine.  
+	// This is the entire management strategy evaluation routine.  
 	// So far I use 3 class objects to this via OOP.
 	// 1) The scenario class: -parameters & data for operating model
 	// 2) The harvestControlRule class: Use FORTY_TEN, FIXED_HARVEST_RATE, FIXED_ESCAPMENT

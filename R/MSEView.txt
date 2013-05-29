@@ -1,0 +1,6 @@
+#MSEView.txt
+"Select",  "Label"  ,    "File Path"
+TRUE,FortyTen,../fortyten/fortyten.Rdata
+TRUE,FixedEsc,../fixedEsc/fixedEsc.Rdata
+TRUE,FixedHrt,../fixedHarvestRate/fixedHarvestRate.Rdata
+TRUE,FixedCCC,../fixedCCC/fixedCCC.Rdata
