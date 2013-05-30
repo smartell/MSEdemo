@@ -87,86 +87,111 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00026"></a>00026                         tac = <a class="code" href="class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90" title="Implement the Conditional Constant Catch harvest control rule proposed by the IPHC.">ConditionalConstantCatch</a>(bt,bmsy,msy,fmsy);
 <a name="l00027"></a>00027                         cout&lt;&lt;<span class="stringliteral">&quot;Conditional constant catch = &quot;</span>&lt;&lt;tac&lt;&lt;endl;
 <a name="l00028"></a>00028                         <span class="keywordflow">break</span>;
-<a name="l00029"></a>00029                 <span class="keywordflow">case</span> FAO_PA_COMPLIANT:
-<a name="l00030"></a>00030                         cout&lt;&lt;<span class="stringliteral">&quot;FAO_PA_COMPLIANT&quot;</span>&lt;&lt;endl;
-<a name="l00031"></a>00031                         <span class="keywordflow">break</span>;
-<a name="l00032"></a>00032         }
-<a name="l00033"></a>00033         <span class="keywordflow">return</span> tac;
-<a name="l00034"></a>00034 }
-<a name="l00035"></a>00035 
-<a name="l00046"></a><a class="code" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d">00046</a> <span class="keywordtype">double</span> <a class="code" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d" title="Implement the 40:10 harvest control rule.">HarvestControlRule::FortyTen</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bo, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;fmsy)
-<a name="l00047"></a>00047 {
-<a name="l00048"></a>00048         <span class="keywordtype">double</span> dt = bt/bo;
-<a name="l00049"></a>00049         <span class="keywordtype">double</span> ft = fmsy;
-<a name="l00050"></a>00050         <span class="keywordflow">if</span>( dt &lt;= 0.1 )
-<a name="l00051"></a>00051         {
-<a name="l00052"></a>00052                 ft = 0; 
-<a name="l00053"></a>00053         } 
-<a name="l00054"></a>00054         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.1 &amp;&amp; dt &lt;= 0.4 )
-<a name="l00055"></a>00055         {
-<a name="l00056"></a>00056                 ft = fmsy * (dt-0.1)/(0.4-0.3);
-<a name="l00057"></a>00057         }
-<a name="l00058"></a>00058         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.4 )
-<a name="l00059"></a>00059         {
-<a name="l00060"></a>00060                 ft = fmsy;
-<a name="l00061"></a>00061         }
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063         <span class="keywordflow">return</span> bt*(1.-exp(-ft));
-<a name="l00064"></a>00064 }
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066 <span class="keywordtype">double</span> HarvestControlRule::FixedHarvestRate(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;fmsy)
-<a name="l00067"></a>00067 {
-<a name="l00068"></a>00068         <span class="keywordtype">double</span> tac = bt * (1. - exp(-fmsy));
-<a name="l00069"></a>00069         <span class="keywordflow">return</span> tac;
-<a name="l00070"></a>00070 }
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072 <span class="keywordtype">double</span> HarvestControlRule::FixedEscapement(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bmsy)
-<a name="l00073"></a>00073 {
-<a name="l00074"></a>00074         <span class="keywordtype">double</span> tac;
-<a name="l00075"></a>00075         <span class="keywordflow">if</span>(bt &gt; bmsy)
+<a name="l00029"></a>00029                 <span class="keywordflow">case</span> THIRTY_TWENTY:
+<a name="l00030"></a>00030                         tac = ThirtyTwenty(bt,bo,fmsy);
+<a name="l00031"></a>00031                         cout&lt;&lt;<span class="stringliteral">&quot;Thirty Twenty tac = &quot;</span>&lt;&lt;tac&lt;&lt;endl;
+<a name="l00032"></a>00032                         <span class="keywordflow">break</span>;
+<a name="l00033"></a>00033                 <span class="keywordflow">case</span> FAO_PA_COMPLIANT:
+<a name="l00034"></a>00034                         cout&lt;&lt;<span class="stringliteral">&quot;FAO_PA_COMPLIANT&quot;</span>&lt;&lt;endl;
+<a name="l00035"></a>00035                         <span class="keywordflow">break</span>;
+<a name="l00036"></a>00036         }
+<a name="l00037"></a>00037         <span class="keywordflow">return</span> tac;
+<a name="l00038"></a>00038 }
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 
+<a name="l00051"></a><a class="code" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d">00051</a> <span class="keywordtype">double</span> <a class="code" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d" title="Implement the 40:10 harvest control rule.">HarvestControlRule::FortyTen</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bo, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;fmsy)
+<a name="l00052"></a>00052 {
+<a name="l00053"></a>00053         <span class="keywordtype">double</span> dt = bt/bo;
+<a name="l00054"></a>00054         <span class="keywordtype">double</span> ft = fmsy;
+<a name="l00055"></a>00055         <span class="keywordflow">if</span>( dt &lt;= 0.1 )
+<a name="l00056"></a>00056         {
+<a name="l00057"></a>00057                 ft = 0; 
+<a name="l00058"></a>00058         } 
+<a name="l00059"></a>00059         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.1 &amp;&amp; dt &lt;= 0.4 )
+<a name="l00060"></a>00060         {
+<a name="l00061"></a>00061                 ft = fmsy * (dt-0.1)/(0.4-0.1);
+<a name="l00062"></a>00062         }
+<a name="l00063"></a>00063         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.4 )
+<a name="l00064"></a>00064         {
+<a name="l00065"></a>00065                 ft = fmsy;
+<a name="l00066"></a>00066         }
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         <span class="keywordflow">return</span> bt*(1.-exp(-ft));
+<a name="l00069"></a>00069 }
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 <span class="keywordtype">double</span> HarvestControlRule::ThirtyTwenty(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bo, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;fmsy)
+<a name="l00072"></a>00072 {
+<a name="l00073"></a>00073         <span class="keywordtype">double</span> dt = bt/bo;
+<a name="l00074"></a>00074         <span class="keywordtype">double</span> ft = fmsy;
+<a name="l00075"></a>00075         <span class="keywordflow">if</span>( dt &lt;= 0.2 )
 <a name="l00076"></a>00076         {
-<a name="l00077"></a>00077                 tac = (-bmsy + bt);
-<a name="l00078"></a>00078         }
-<a name="l00079"></a>00079         <span class="keywordflow">else</span>
+<a name="l00077"></a>00077                 ft = 0; 
+<a name="l00078"></a>00078         } 
+<a name="l00079"></a>00079         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.2 &amp;&amp; dt &lt;= 0.3 )
 <a name="l00080"></a>00080         {
-<a name="l00081"></a>00081                 tac = 0;
+<a name="l00081"></a>00081                 ft = fmsy * (dt-0.2)/(0.3-0.2);
 <a name="l00082"></a>00082         }
-<a name="l00083"></a>00083         <span class="keywordflow">return</span> tac;
-<a name="l00084"></a>00084 }
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 <span class="keywordtype">double</span> HarvestControlRule::FixedEscapementCap(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bmsy, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;msy)
-<a name="l00087"></a>00087 {
-<a name="l00088"></a>00088         <span class="keywordtype">double</span> tac;
-<a name="l00089"></a>00089         <span class="keywordflow">if</span>(bt &gt; bmsy)
-<a name="l00090"></a>00090         {
-<a name="l00091"></a>00091                 tac = min((-bmsy + bt),msy);
-<a name="l00092"></a>00092         }
-<a name="l00093"></a>00093         <span class="keywordflow">else</span>
-<a name="l00094"></a>00094         {
-<a name="l00095"></a>00095                 tac = 0;
-<a name="l00096"></a>00096         }
-<a name="l00097"></a>00097         <span class="keywordflow">return</span> tac;
-<a name="l00098"></a>00098 }
-<a name="l00099"></a>00099 
-<a name="l00117"></a><a class="code" href="class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90">00117</a> <span class="keywordtype">double</span> <a class="code" href="class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90" title="Implement the Conditional Constant Catch harvest control rule proposed by the IPHC.">HarvestControlRule::ConditionalConstantCatch</a>(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; bt, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; bmsy, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; msy, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; fmsy)
-<a name="l00118"></a>00118 {
-<a name="l00119"></a>00119         <span class="keywordtype">double</span> tac;
-<a name="l00120"></a>00120         <span class="keywordtype">double</span> f = 0;
-<a name="l00121"></a>00121         <span class="keywordflow">if</span>( bt &gt;= 0.8*bmsy)
-<a name="l00122"></a>00122         {
-<a name="l00123"></a>00123                 f = fmsy;
-<a name="l00124"></a>00124         }
-<a name="l00125"></a>00125         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( bt &lt; 0.8*bmsy &amp;&amp; bt &gt;= 0.4*bmsy )
-<a name="l00126"></a>00126         {
-<a name="l00127"></a>00127                 f = (bt-0.4*bmsy)/(0.8-0.4)*fmsy;
-<a name="l00128"></a>00128         }
-<a name="l00129"></a>00129         tac = f * bt;
-<a name="l00130"></a>00130         <span class="keywordflow">if</span>(tac &gt; msy)
-<a name="l00131"></a>00131         {
-<a name="l00132"></a>00132                 tac = msy;
-<a name="l00133"></a>00133         }
-<a name="l00134"></a>00134         <span class="keywordflow">return</span> tac;
-<a name="l00135"></a>00135 }
+<a name="l00083"></a>00083         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.3 )
+<a name="l00084"></a>00084         {
+<a name="l00085"></a>00085                 ft = fmsy;
+<a name="l00086"></a>00086         }
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         <span class="keywordflow">return</span> bt*(1.-exp(-ft));
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <span class="keywordtype">double</span> HarvestControlRule::FixedHarvestRate(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;fmsy)
+<a name="l00092"></a>00092 {
+<a name="l00093"></a>00093         <span class="keywordtype">double</span> tac = bt * (1. - exp(-fmsy));
+<a name="l00094"></a>00094         <span class="keywordflow">return</span> tac;
+<a name="l00095"></a>00095 }
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="keywordtype">double</span> HarvestControlRule::FixedEscapement(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bmsy)
+<a name="l00098"></a>00098 {
+<a name="l00099"></a>00099         <span class="keywordtype">double</span> tac;
+<a name="l00100"></a>00100         <span class="keywordflow">if</span>(bt &gt; bmsy)
+<a name="l00101"></a>00101         {
+<a name="l00102"></a>00102                 tac = (-bmsy + bt);
+<a name="l00103"></a>00103         }
+<a name="l00104"></a>00104         <span class="keywordflow">else</span>
+<a name="l00105"></a>00105         {
+<a name="l00106"></a>00106                 tac = 0;
+<a name="l00107"></a>00107         }
+<a name="l00108"></a>00108         <span class="keywordflow">return</span> tac;
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="keywordtype">double</span> HarvestControlRule::FixedEscapementCap(<span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bt, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;bmsy, <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;msy)
+<a name="l00112"></a>00112 {
+<a name="l00113"></a>00113         <span class="keywordtype">double</span> tac;
+<a name="l00114"></a>00114         <span class="keywordflow">if</span>(bt &gt; bmsy)
+<a name="l00115"></a>00115         {
+<a name="l00116"></a>00116                 tac = min((-bmsy + bt),msy);
+<a name="l00117"></a>00117         }
+<a name="l00118"></a>00118         <span class="keywordflow">else</span>
+<a name="l00119"></a>00119         {
+<a name="l00120"></a>00120                 tac = 0;
+<a name="l00121"></a>00121         }
+<a name="l00122"></a>00122         <span class="keywordflow">return</span> tac;
+<a name="l00123"></a>00123 }
+<a name="l00124"></a>00124 
+<a name="l00142"></a><a class="code" href="class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90">00142</a> <span class="keywordtype">double</span> <a class="code" href="class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90" title="Implement the Conditional Constant Catch harvest control rule proposed by the IPHC.">HarvestControlRule::ConditionalConstantCatch</a>(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; bt, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; bmsy, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; msy, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; fmsy)
+<a name="l00143"></a>00143 {
+<a name="l00144"></a>00144         <span class="keywordtype">double</span> tac;
+<a name="l00145"></a>00145         <span class="keywordtype">double</span> f = 0;
+<a name="l00146"></a>00146         <span class="keywordflow">if</span>( bt &gt;= 0.8*bmsy)
+<a name="l00147"></a>00147         {
+<a name="l00148"></a>00148                 f = fmsy;
+<a name="l00149"></a>00149         }
+<a name="l00150"></a>00150         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( bt &lt; 0.8*bmsy &amp;&amp; bt &gt;= 0.4*bmsy )
+<a name="l00151"></a>00151         {
+<a name="l00152"></a>00152                 f = (bt-0.4*bmsy)/(0.8-0.4)*fmsy;
+<a name="l00153"></a>00153         }
+<a name="l00154"></a>00154         tac = f * bt;
+<a name="l00155"></a>00155         <span class="keywordflow">if</span>(tac &gt; msy)
+<a name="l00156"></a>00156         {
+<a name="l00157"></a>00157                 tac = msy;
+<a name="l00158"></a>00158         }
+<a name="l00159"></a>00159         <span class="keywordflow">return</span> tac;
+<a name="l00160"></a>00160 }
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -183,7 +208,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue May 28 2013 13:58:42 for MSEDemo by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 08:06:08 for MSEDemo by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4-20110606 </small></address>
 </body>

@@ -80,6 +80,7 @@ Public Types</h2></td></tr>
 <b>FIXED_HARVEST_RATE</b>, 
 <br/>
 &#160;&#160;<b>CONDITIONAL_CONSTANT_CATCH</b>, 
+<b>THIRTY_TWENTY</b>, 
 <b>FAO_PA_COMPLIANT</b>
 <br/>
  }</td></tr>
@@ -91,6 +92,8 @@ Public Member Functions</h2></td></tr>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>getTac</b> (const double &amp;bt, const double &amp;fmsy, const double &amp;msy, const double &amp;bmsy, const double &amp;bo)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d">FortyTen</a> (const double &amp;bt, const double &amp;bo, const double &amp;fmsy)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement the 40:10 harvest control rule.  <a href="#adfc9fbf35bb1256fdd23f17041b8eb8d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98e1281c2cb93669fa79657236035ef7"></a><!-- doxytag: member="HarvestControlRule::ThirtyTwenty" ref="a98e1281c2cb93669fa79657236035ef7" args="(const double &amp;bt, const double &amp;bo, const double &amp;fmsy)" -->
+double&#160;</td><td class="memItemRight" valign="bottom"><b>ThirtyTwenty</b> (const double &amp;bt, const double &amp;bo, const double &amp;fmsy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a123e4f8fd6fd150b87f594b429481e96"></a><!-- doxytag: member="HarvestControlRule::FixedHarvestRate" ref="a123e4f8fd6fd150b87f594b429481e96" args="(const double &amp;bt, const double &amp;fmsy)" -->
 double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedHarvestRate</b> (const double &amp;bt, const double &amp;fmsy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4155b96e86db1581eaabb5a7ca074a4e"></a><!-- doxytag: member="HarvestControlRule::FixedEscapement" ref="a4155b96e86db1581eaabb5a7ca074a4e" args="(const double &amp;bt, const double &amp;bmsy)" -->
@@ -131,6 +134,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
                 FIXED_ESCAPEMENT_CAP,
                 FIXED_HARVEST_RATE,
                 CONDITIONAL_CONSTANT_CATCH,
+                THIRTY_TWENTY,
                 FAO_PA_COMPLIANT
         };
 </pre></div>
@@ -189,7 +193,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
 <p>If the biomass is less than 0.8Bmsy and greater then 0.4Bmsy, then set fishing mortality rate as a liner function of depletion.</p>
 <p>If the biomass is less than 0.4Bmsy, the set the tac=0 </p>
 
-<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00117">117</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00142">142</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">{
         <span class="keywordtype">double</span> tac;
         <span class="keywordtype">double</span> f = 0;
@@ -254,7 +258,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
 </dl>
 <p>This function implements the 40:10 harvest control rule that is commonly used by the Pacific Fisheries Management Council. </p>
 
-<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00046">46</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_harvest_control_rule_8cpp_source.html#l00051">51</a> of file <a class="el" href="_harvest_control_rule_8cpp_source.html">HarvestControlRule.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">{
         <span class="keywordtype">double</span> dt = bt/bo;
         <span class="keywordtype">double</span> ft = fmsy;
@@ -264,7 +268,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
         } 
         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.1 &amp;&amp; dt &lt;= 0.4 )
         {
-                ft = fmsy * (dt-0.1)/(0.4-0.3);
+                ft = fmsy * (dt-0.1)/(0.4-0.1);
         }
         <span class="keywordflow">else</span> <span class="keywordflow">if</span>( dt &gt; 0.4 )
         {
@@ -295,7 +299,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>FixedEscapementCap<
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue May 28 2013 13:58:42 for MSEDemo by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 08:06:08 for MSEDemo by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4-20110606 </small></address>
 </body>
