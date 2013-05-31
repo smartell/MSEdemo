@@ -26,6 +26,10 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 			tac = ConditionalConstantCatch(bt,bmsy,msy,fmsy);
 			cout<<"Conditional constant catch = "<<tac<<endl;
 			break;
+		case THIRTY_TWENTY:
+			tac = ThirtyTwenty(bt,bo,fmsy);
+			cout<<"Thirty Twenty tac = "<<tac<<endl;
+			break;
 		case FAO_PA_COMPLIANT:
 			cout<<"FAO_PA_COMPLIANT"<<endl;
 			break;
@@ -54,9 +58,29 @@ double HarvestControlRule::FortyTen(const double &bt, const double &bo, const do
 	} 
 	else if( dt > 0.1 && dt <= 0.4 )
 	{
-		ft = fmsy * (dt-0.1)/(0.4-0.3);
+		ft = fmsy * (dt-0.1)/(0.4-0.1);
 	}
 	else if( dt > 0.4 )
+	{
+		ft = fmsy;
+	}
+
+	return bt*(1.-exp(-ft));
+}
+
+double HarvestControlRule::ThirtyTwenty(const double &bt, const double &bo, const double &fmsy)
+{
+	double dt = bt/bo;
+	double ft = fmsy;
+	if( dt <= 0.2 )
+	{
+		ft = 0;	
+	} 
+	else if( dt > 0.2 && dt <= 0.3 )
+	{
+		ft = fmsy * (dt-0.2)/(0.3-0.2);
+	}
+	else if( dt > 0.3 )
 	{
 		ft = fmsy;
 	}

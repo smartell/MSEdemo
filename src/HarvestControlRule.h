@@ -19,6 +19,7 @@ public:
 		FIXED_ESCAPEMENT_CAP,
 		FIXED_HARVEST_RATE,
 		CONDITIONAL_CONSTANT_CATCH,
+		THIRTY_TWENTY,
 		FAO_PA_COMPLIANT
 	};
 
@@ -33,6 +34,7 @@ public:
 	double getTac(const double &bt, const double &fmsy, const double &msy,
 	              const double &bmsy, const double &bo);
 	double FortyTen(const double &bt, const double &bo, const double &fmsy);
+	double ThirtyTwenty(const double &bt, const double &bo, const double &fmsy);
 	double FixedHarvestRate(const double &bt, const double &fmsy);
 	double FixedEscapement(const double &bt, const double &bmsy);
 	double FixedEscapementCap(const double &bt, const double &bmsy, const double &msy);

@@ -7,7 +7,7 @@ grid 1 1 relief="sunken" padx=5 pady=5
 	
 	#-- widget 1a
 	object name=ifiles padx=2 pady=2 sticky=W font="Times 10" width="5 10 20" \
-	rowlabels=FALSE sticky=W
+	rowlabels=FALSE sticky=W 
 
 grid 1 2 relief="solid" toptitle="Select item to plot" topfont="Times" padx=2 pady=2
 

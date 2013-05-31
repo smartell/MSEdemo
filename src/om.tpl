@@ -1,3 +1,16 @@
+/// @file OM.tpl
+/// @author Steve Martell 
+
+///
+/// \def REPORT(object)
+/// \brief Prints name and value of \a object on ADMB report %ofstream file.
+///
+
+///
+/// \def COUT(object)
+/// \brief Screen dump using cout<<"object\n"<<object<<endl;
+///
+
 //  ******************************************************************
 //  | OM, short for Operating model.
 //  |
@@ -7,14 +20,13 @@
 //  |           based on chapter 10 in the Ecological Detective.
 //  ******************************************************************
 
-
 DATA_SECTION
 	
 	// |---------------------------------------------------------------------------------|
 	// | COMMAND LINE OPTIONS
 	// |---------------------------------------------------------------------------------|
 	// |
-	int on;
+	int on;   		/// flag for mse */
 	int do_mse;
 	int rseed;
 	
@@ -92,8 +104,40 @@ PROCEDURE_SECTION
 	population_dynamics();
 	observation_model();
 	calc_objective_function();
+	
 
-FUNCTION initialize_model
+
+///
+/// @brief Reference points check
+/// @author Steve Martell
+/// @fn FUNCTION calc_Reference_Points
+/// @remarks Checking my calculus.
+///
+FUNCTION void calc_Reference_Points()
+	int i;
+	int j;
+	dvector fe(1,100);
+	double be,ce;
+	for( i = 1; i <= 100; i++ )
+	{
+		be = value(bo);
+		fe(i) = double((i-1.)/(100.-1.))*1.2;
+		for( j = 1; j <= 100; j++ )
+		{
+			ce = be * (1.-exp(-fe(i)));
+			be = value(s*be + a*be/(1.+b*be)) - ce;
+		}
+		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
+	}
+
+///
+/// @brief A simple function
+/// @author Steve Martell
+/// @remarks Yet to be documented.
+///
+FUNCTION void initialize_model()
+	rt.initialize();
+	bt.initialize();
 	bo               = mfexp(log_bo);
 	ro               = bo*(1.-s);
 	reck             = 4.*h/(1.-h);
@@ -103,8 +147,19 @@ FUNCTION initialize_model
 	bt(syr)          = bo;
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
-	
-FUNCTION population_dynamics
+
+
+
+
+
+///
+/// @brief Population dynamics for lagged recruit growth survival model
+/// @author Steve Martell
+/// @remarks
+/// \f$ b_{t+1} = s*b_{t}+r_{t} - c_{t} \f$	
+/// Taken from the Ecological Detective
+///
+FUNCTION void population_dynamics()
 	int i;
 	dvariable btmp;
 	fpen.initialize();
@@ -121,19 +176,60 @@ FUNCTION population_dynamics
 	}
 	sd_dep = bt(nyr)/bo;
 
-FUNCTION observation_model
+///
+/// @brief Observation model
+/// @author Steve Martell
+/// @remarks
+/// Assumes observation errors are log-normal and based on the 
+/// conditional maximum likelihood estimate of q.
+///
+FUNCTION void observation_model()
+	int i;
 	dvar_vector zt = log(it) - log(bt(syr,nyr));
 	q              = exp(mean(zt));
 	epsilon        = zt - mean(zt);
 
-	
+///
+/// @brief WTF
+/// @author Steve Martell
+/// @remarks Runs Management Strategy Evaluation based on class OperatingModel
+///
+FUNCTION void run_mse()
+	int j;
+	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it,ct);
 
-FUNCTION calc_objective_function
+	int e_hcr = n_hcr;
+	HarvestControlRule c_hcr(e_hcr);
+	EstimatorClass cEstimator(sEstimator);
+
+
+	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
+	cOM.runMSEscenario(cScenario1);
+
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
+	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
+	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
+	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
+	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
+
+	ofs.close();
+
+
+
+///
+/// @brief Objective Function	
+/// @author Steve Martell
+/// @remarks Based on the negative log likelihood
+///
+FUNCTION void calc_objective_function()
 	nll.initialize();
 	dvariable isig2 = mfexp(log_sigma);
 	dvariable itau2 = mfexp(log_tau);
 
-	// negative loglikelihoods and priors stored in nll vector
+	
 	nll(1) = dnorm(epsilon,sig);
 	nll(2) = dbeta(s,30.01,10.01);
 	nll(3) = dnorm(log_bo,log(3000),1.0);
@@ -149,26 +245,46 @@ FUNCTION calc_objective_function
 		nll(7) = dnorm(wt,1.0);
 	}
 
-	// objective function + penalty
+	
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
 	f = sum(nll) + 100000.*fpen;
 
-FUNCTION calcReferencePoints
-	// Numerically checking my calculus.
-	int i,j;
-	dvector fe(1,100);
-	double be,ce;
-	for( i = 1; i <= 1000; i++ )
-	{
-		be = value(bo);
-		fe(i) = double((i-1.)/(100.-1.))*1.2;
-		for( j = 1; j <= 100; j++ )
-		{
-			ce = be * (1.-exp(-fe(i)));
-			be = value(s*be + a*be/(1.+b*be)) - ce;
-		}
-		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
-	}
+
+
+
+
+
+
+///
+/// @brief Management Strategy Evaluation
+/// @author Steve Martell
+/// @remarks Based on OperatingModel class
+///
+FUNCTION void wtf()
+	int i;
+	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it,ct);
+	
+	int e_hcr = n_hcr;
+	HarvestControlRule c_hcr(e_hcr);
+
+	EstimatorClass cEstimator(sEstimator);
+
+
+	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
+	cOM.runMSEscenario(cScenario1);
+
+
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
+	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
+	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
+	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
+	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
+
+	ofs.close();
+
 
 
 REPORT_SECTION
@@ -207,10 +323,6 @@ TOP_OF_MAIN_SECTION
  
 
 GLOBALS_SECTION
-	/**
-	\def REPORT(object)
-	Prints name and value of \a object on ADMB report %ofstream file.
-	*/
 	#undef REPORT
 	#define REPORT(object) report << #object "\n" << object << endl;
 
@@ -260,43 +372,6 @@ FINAL_SECTION
 
 	// Check calculus: A-O-K
 	// calcReferencePoints();
-
-FUNCTION run_mse
-	// This is the entire management strategy evaluation routine.  
-	// So far I use 3 class objects to this via OOP.
-	// 1) The scenario class: -parameters & data for operating model
-	// 2) The harvestControlRule class: Use FORTY_TEN, FIXED_HARVEST_RATE, FIXED_ESCAPMENT
-	// 3) The Operating model class: call .runMSEScenario to run the simulation.
-	// 4) The OPertating model calls msyrefPoints.h to calculate Fmsy etc.
-
-	// Scenario class
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
-	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
-	
-	// Harvest control rule
-	// int e_hcr = HarvestControlRule::FORTY_TEN;
-	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT;
-	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT_CAP;
-	// int e_hcr = HarvestControlRule::FIXED_HARVEST_RATE;
-	// int e_hcr = HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
-	int e_hcr = n_hcr;
-	HarvestControlRule c_hcr(e_hcr);
-
-	// Estimator class (allow user defined estimator)
-	EstimatorClass cEstimator(sEstimator);
-	// cEstimator.runEstimator();
-
-	// Operating model class
-	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
-	cOM.runMSEscenario(cScenario1);
-	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
-	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
-	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
-	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
-	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
-
 
 
 

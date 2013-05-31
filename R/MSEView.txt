@@ -1,6 +1,8 @@
 #MSEView.txt
 "Select",  "Label"  ,    "File Path"
 TRUE,FortyTen,../fortyten/fortyten.Rdata
+TRUE,ThirtyTwenty,../thirtytwenty/thirtytwenty.Rdata
 TRUE,FixedEsc,../fixedEsc/fixedEsc.Rdata
+TRUE,FixedEscCap,../fixedEscCap/fixedEscCap.Rdata
 TRUE,FixedHrt,../fixedHarvestRate/fixedHarvestRate.Rdata
 TRUE,FixedCCC,../fixedCCC/fixedCCC.Rdata

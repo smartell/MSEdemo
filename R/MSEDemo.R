@@ -21,7 +21,8 @@ IDX       <- sample(1:length(M[[1]]),3)
 .viewPlot <- function()
 {
 	guiInfo <- getWinVal(scope="L")
-
+	mdlname <- guiInfo$ifiles$Label[guiInfo$ifiles$Select]
+	names(M) <- mdlname
 	if( plotType=="biomass" )
 	{
 		.plotTrueBiomass( M )
