@@ -6,6 +6,12 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="http://www.mathjax.org/mathjax/MathJax.js">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -64,10 +70,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="class_population.html">Population</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>m_bo</b> (defined in <a class="el" href="class_population.html">Population</a>)</td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>m_h</b> (defined in <a class="el" href="class_population.html">Population</a>)</td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>m_s</b> (defined in <a class="el" href="class_population.html">Population</a>)</td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>Population</b>(const double bo=1.0, const double h=0.75, const double s=0.85) (defined in <a class="el" href="class_population.html">Population</a>)</td><td><a class="el" href="class_population.html">Population</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_population.html#adada72895dbb4b497cf1c13f6d863603">m_bo</a></td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27">m_h</a></td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_population.html#a2a4822df469e715e20b3801929a63d2e">m_s</a></td><td><a class="el" href="class_population.html">Population</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(const double bo=1.0, const double h=0.75, const double s=0.85)</td><td><a class="el" href="class_population.html">Population</a></td><td><code> [inline]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~Population</b>() (defined in <a class="el" href="class_population.html">Population</a>)</td><td><a class="el" href="class_population.html">Population</a></td><td><code> [inline]</code></td></tr>
 </table></div>
 <!-- window showing the filter options -->
@@ -75,7 +81,7 @@ This is the complete list of members for <a class="el" href="class_population.ht
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,7 +90,7 @@ This is the complete list of members for <a class="el" href="class_population.ht
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 08:06:08 for MSEDemo by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 21:08:48 for MSEDemo by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4-20110606 </small></address>
 </body>

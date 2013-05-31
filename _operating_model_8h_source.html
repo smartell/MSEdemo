@@ -6,6 +6,12 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
+<script src="http://www.mathjax.org/mathjax/MathJax.js">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -52,6 +58,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -104,23 +111,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00050"></a>00050         <a class="code" href="class_operating_model.html">OperatingModel</a>(<a class="code" href="class_scenario.html" title="Scenario class.">Scenario</a> &amp;cScenario, <a class="code" href="class_estimator_class.html" title="Calls the user defined stock assessment model.">EstimatorClass</a> &amp;cEstimator, <span class="keyword">const</span> <a class="code" href="class_harvest_control_rule.html">HarvestControlRule</a> &amp;cHCR)
 <a name="l00051"></a>00051         : m_cScenario(cScenario),m_cEstimator(cEstimator),m_cHCR(cHCR)
 <a name="l00052"></a>00052         {
-<a name="l00053"></a>00053                 dvector ft = cScenario.get_ft();
+<a name="l00053"></a>00053                 dvector ft = cScenario.<a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9" title="get">get_ft</a>();
 <a name="l00054"></a>00054                 m_syr = ft.indexmin();
 <a name="l00055"></a>00055                 m_nyr = ft.indexmax();
-<a name="l00056"></a>00056                 m_pyr = cScenario.get_pyr();
-<a name="l00057"></a>00057                 m_rng = cScenario.get_rseed();
+<a name="l00056"></a>00056                 m_pyr = cScenario.<a class="code" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b" title="get">get_pyr</a>();
+<a name="l00057"></a>00057                 m_rng = cScenario.<a class="code" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d" title="get">get_rseed</a>();
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059                 m_agek = cScenario.get_agek();
-<a name="l00060"></a>00060                 m_bo   = cScenario.get_bo();
-<a name="l00061"></a>00061                 m_h    = cScenario.get_h();
-<a name="l00062"></a>00062                 m_s    = cScenario.get_s();
-<a name="l00063"></a>00063                 m_q    = cScenario.get_q();
-<a name="l00064"></a>00064                 m_sig  = cScenario.get_sig();
-<a name="l00065"></a>00065                 m_tau  = cScenario.get_tau();
-<a name="l00066"></a>00066                 m_ft   = cScenario.get_ft();
-<a name="l00067"></a>00067                 m_wt   = cScenario.get_wt();
-<a name="l00068"></a>00068                 m_it   = cScenario.get_it();
-<a name="l00069"></a>00069                 m_ct   = cScenario.get_ct();
+<a name="l00059"></a>00059                 m_agek = cScenario.<a class="code" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e" title="get">get_agek</a>();
+<a name="l00060"></a>00060                 m_bo   = cScenario.<a class="code" href="class_scenario.html#a0027e654098c9bca1bd1d7cd8836c605" title="get">get_bo</a>();
+<a name="l00061"></a>00061                 m_h    = cScenario.<a class="code" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a" title="get">get_h</a>();
+<a name="l00062"></a>00062                 m_s    = cScenario.<a class="code" href="class_scenario.html#a4f3638e23684f1947accc4c0a9edde25" title="get">get_s</a>();
+<a name="l00063"></a>00063                 m_q    = cScenario.<a class="code" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3" title="get">get_q</a>();
+<a name="l00064"></a>00064                 m_sig  = cScenario.<a class="code" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5" title="get">get_sig</a>();
+<a name="l00065"></a>00065                 m_tau  = cScenario.<a class="code" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0" title="get">get_tau</a>();
+<a name="l00066"></a>00066                 m_ft   = cScenario.<a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9" title="get">get_ft</a>();
+<a name="l00067"></a>00067                 m_wt   = cScenario.<a class="code" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f" title="get">get_wt</a>();
+<a name="l00068"></a>00068                 m_it   = cScenario.<a class="code" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98" title="get">get_it</a>();
+<a name="l00069"></a>00069                 m_ct   = cScenario.<a class="code" href="class_scenario.html#a7450454458ec46ea7ba7e90926157cb6" title="get">get_ct</a>();
 <a name="l00070"></a>00070         }
 <a name="l00071"></a>00071 
 <a name="l00072"></a>00072         <span class="comment">// destructor:</span>
@@ -151,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -160,7 +167,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 08:06:08 for MSEDemo by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu May 30 2013 21:08:48 for MSEDemo by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4-20110606 </small></address>
 </body>
