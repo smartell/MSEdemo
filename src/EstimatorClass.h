@@ -1,5 +1,6 @@
 #include <admodel.h>
 /**
+ * \brief Header file for estimator class
  * \file EstimatorClass.h
  * \author Steve Martell
 **/
