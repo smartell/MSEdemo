@@ -1,0 +1,5 @@
+<map id="HarvestControlRule::getTac" name="HarvestControlRule::getTac">
+<area shape="rect" id="node2" href="$class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d" title="Implement the 40:10 harvest control rule. " alt="" coords="215,5,353,46"/>
+<area shape="rect" id="node3" href="$class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90" title="Implement the Conditional Constant Catch harvest control rule proposed by the IPHC. " alt="" coords="192,70,376,111"/>
+<area shape="rect" id="node4" href="$class_harvest_control_rule.html#a98e1281c2cb93669fa79657236035ef7" title="30:20 harvest control rule " alt="" coords="215,135,353,177"/>
+</map>

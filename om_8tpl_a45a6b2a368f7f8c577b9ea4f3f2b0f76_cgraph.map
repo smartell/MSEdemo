@@ -1,4 +1,8 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$class_operating_model.html#a1a9d8b617ff794520403404b421c3e3a" title="Run the Operating model scenario." alt="" coords="129,5,351,32"/>
-<area shape="rect" id="node3" href="$class_estimator_class.html#a1cc9f04a3ffff76b492b517a9d47d873" title="Function that runs the user defined estimator." alt="" coords="400,5,595,32"/>
+<map id="run_mse" name="run_mse">
+<area shape="rect" id="node2" href="$class_operating_model.html#a1a9d8b617ff794520403404b421c3e3a" title="Run the Operating model scenario. " alt="" coords="129,107,351,133"/>
+<area shape="rect" id="node3" href="$class_harvest_control_rule.html#a9cbfcdef56b1b2e76e170ccc0062c836" title="Return the TAC given estimates of current biomass and reference points. " alt="" coords="428,70,567,111"/>
+<area shape="rect" id="node7" href="$class_estimator_class.html#a1cc9f04a3ffff76b492b517a9d47d873" title="Function that runs the user defined estimator. " alt="" coords="400,136,595,163"/>
+<area shape="rect" id="node4" href="$class_harvest_control_rule.html#adfc9fbf35bb1256fdd23f17041b8eb8d" title="Implement the 40:10 harvest control rule. " alt="" coords="665,5,804,46"/>
+<area shape="rect" id="node5" href="$class_harvest_control_rule.html#a47b5433b31431104bd25d6a3c4b91e90" title="Implement the Conditional Constant Catch harvest control rule proposed by the IPHC. " alt="" coords="643,70,827,111"/>
+<area shape="rect" id="node6" href="$class_harvest_control_rule.html#a98e1281c2cb93669fa79657236035ef7" title="30:20 harvest control rule " alt="" coords="665,135,804,177"/>
 </map>

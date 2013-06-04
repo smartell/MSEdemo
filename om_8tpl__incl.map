@@ -1,7 +1,7 @@
-<map id="G" name="G">
-<area shape="rect" id="node7" href="$_m_s_y_reference_points_8h.html" title="MSYReferencePoints.h" alt="" coords="271,155,431,181"/>
-<area shape="rect" id="node8" href="$_operating_model_8h.html" title="OperatingModel.h" alt="" coords="484,80,612,107"/>
-<area shape="rect" id="node9" href="$_scenario_8h_source.html" title="Scenario.h" alt="" coords="505,155,591,181"/>
-<area shape="rect" id="node10" href="$_harvest_control_rule_8h_source.html" title="HarvestControlRule.h" alt="" coords="615,155,764,181"/>
-<area shape="rect" id="node11" href="$_estimator_class_8h_source.html" title="EstimatorClass.h" alt="" coords="788,155,911,181"/>
+<map id="/Users/stevenmartell1/Documents/IPHC/MSEdemo/src/om.tpl" name="/Users/stevenmartell1/Documents/IPHC/MSEdemo/src/om.tpl">
+<area shape="rect" id="node7" href="$_m_s_y_reference_points_8h.html" title="MSYReferencePoints.h" alt="" coords="271,184,431,211"/>
+<area shape="rect" id="node8" href="$_operating_model_8h.html" title="OperatingModel.h" alt="" coords="484,109,612,136"/>
+<area shape="rect" id="node9" href="$_scenario_8h_source.html" title="Scenario.h" alt="" coords="505,184,591,211"/>
+<area shape="rect" id="node10" href="$_harvest_control_rule_8h_source.html" title="HarvestControlRule.h" alt="" coords="615,184,764,211"/>
+<area shape="rect" id="node11" href="$_estimator_class_8h_source.html" title="EstimatorClass.h" alt="" coords="788,184,911,211"/>
 </map>
