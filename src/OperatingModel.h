@@ -1,3 +1,7 @@
+/**
+ * \file OperatingModel.h
+ * \author Steve Martell
+**/
 
 #ifndef OPERATING_MODEL_H
 #define OPERATING_MODEL_H

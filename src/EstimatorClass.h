@@ -1,4 +1,8 @@
 #include <admodel.h>
+/**
+ * \file EstimatorClass.h
+ * \author Steve Martell
+**/
 
 #ifndef ESTIMATOR_H
 #define ESTIMATOR_H

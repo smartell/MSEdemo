@@ -1,6 +1,11 @@
 #include <admodel.h>
 #include "EstimatorClass.h"
 
+/**
+ * \file EstimatorClass.cpp
+ * \author Steve Martell
+**/
+
 /// Destructor
 EstimatorClass::~EstimatorClass()
 {}

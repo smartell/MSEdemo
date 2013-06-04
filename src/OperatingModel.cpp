@@ -1,5 +1,13 @@
+/**
+ * \file OperatingModel.cpp
+ * \author Steve Martell
+**/
+
+
 #include <admodel.h>
 #include "OperatingModel.h"
+
+
 // #include "MSYReferencePoints.h"
 // #include "Scenario.h"
 

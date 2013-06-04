@@ -1,6 +1,7 @@
-// This header file uses an example of inheritance.
-// The Scenario class is derived from the population class and inherits its member
-// variables (bo,h,s).
+/**
+ * \file Scenario.h
+ * \author Steve Martell
+**/
 
 #ifndef POPULATION_H
 #define POPULATION_H

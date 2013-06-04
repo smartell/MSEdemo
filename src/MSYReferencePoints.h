@@ -12,9 +12,14 @@
  * 
  * @file MSYReferencePoints.h
  * @author Steven Martell <stevem@iphc.int>
- * @class msy_reference_points
+ * 
  * 
  */
+
+ /**
+  * \brief Calculate MSY-based reference points
+  * \author Steve Martell
+ **/
 class msy_reference_points
 {
 private:

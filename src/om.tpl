@@ -12,15 +12,15 @@
 ///
 
 
-
-//  ******************************************************************
-//  | OM, short for Operating model.
-//  |
-//  | Created by Martell on 2013-05-14.
-//  | Copyright (c) 2013. All rights reserved.
-//  | Comments: This operation model is conditioned on the LRGS model
-//  |           based on chapter 10 in the Ecological Detective.
-//  ******************************************************************
+/// \remarks
+///  ******************************************************************
+///  | OM, short for Operating model.
+///  |
+///  | Created by Martell on 2013-05-14.
+///  | Copyright (c) 2013. All rights reserved.
+///  | Comments: This operation model is conditioned on the LRGS model
+///  |           based on chapter 10 in the Ecological Detective.
+///  ******************************************************************
 
 DATA_SECTION
 	
@@ -150,7 +150,7 @@ FUNCTION void initialize_model()
 	tau              = sqrt(1.0/mfexp(log_tau));
 
 
-	
+
 
 
 ///
