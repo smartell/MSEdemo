@@ -111,7 +111,7 @@ Include dependency graph for om.tpl:</div>
 <div class="dyncontent">
 <div class="center"><img src="om_8tpl__incl.png" border="0" usemap="#_2_users_2stevenmartell1_2_documents_2_i_p_h_c_2_m_s_edemo_2src_2om_8tpl" alt=""/></div>
 <map name="_2_users_2stevenmartell1_2_documents_2_i_p_h_c_2_m_s_edemo_2src_2om_8tpl" id="_2_users_2stevenmartell1_2_documents_2_i_p_h_c_2_m_s_edemo_2src_2om_8tpl">
-<area shape="rect" id="node7" href="_m_s_y_reference_points_8h.html" title="MSYReferencePoints.h" alt="" coords="271,184,431,211"/><area shape="rect" id="node8" href="_operating_model_8h.html" title="OperatingModel.h" alt="" coords="484,109,612,136"/><area shape="rect" id="node9" href="_scenario_8h_source.html" title="Scenario.h" alt="" coords="505,184,591,211"/><area shape="rect" id="node10" href="_harvest_control_rule_8h_source.html" title="HarvestControlRule.h" alt="" coords="615,184,764,211"/><area shape="rect" id="node11" href="_estimator_class_8h_source.html" title="EstimatorClass.h" alt="" coords="788,184,911,211"/></map>
+<area shape="rect" id="node7" href="_m_s_y_reference_points_8h.html" title="MSYReferencePoints.h" alt="" coords="271,184,431,211"/><area shape="rect" id="node8" href="_operating_model_8h.html" title="OperatingModel.h" alt="" coords="484,109,612,136"/><area shape="rect" id="node9" href="_scenario_8h.html" title="Scenario.h" alt="" coords="505,184,591,211"/><area shape="rect" id="node10" href="_harvest_control_rule_8h_source.html" title="HarvestControlRule.h" alt="" coords="615,184,764,211"/><area shape="rect" id="node11" href="_estimator_class_8h.html" title="EstimatorClass.h" alt="" coords="788,184,911,211"/></map>
 </div>
 </div>
 <p><a href="om_8tpl_source.html">Go to the source code of this file.</a></p>
@@ -130,7 +130,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af66e1af2f3e9c28a29a94845e34808d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af66e1af2f3e9c28a29a94845e34808d3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>if</b> ((on=option_match(ad_comm::argc, ad_comm::argv,&quot;-mse&quot;, opt)) &gt;-1)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>if</b> ((<a class="el" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a>=option_match(ad_comm::argc, ad_comm::argv,&quot;-mse&quot;, opt)) &gt;-1)</td></tr>
 <tr class="separator:af66e1af2f3e9c28a29a94845e34808d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25a8cbac7915e88dee0f70133fb4da6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25a8cbac7915e88dee0f70133fb4da6b"></a>
 init_ivector&#160;</td><td class="memItemRight" valign="bottom"><b>iyr</b> (syr, nyr)</td></tr>
@@ -216,8 +216,7 @@ ofstream&#160;</td><td class="memItemRight" valign="bottom"><b>ofs</b> (&quot;OM
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa4486b2880f9edebf2e8c3275a1eb1dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4486b2880f9edebf2e8c3275a1eb1dd"></a>
-DATA_SECTION int&#160;</td><td class="memItemRight" valign="bottom"><b>on</b></td></tr>
+<tr class="memitem:aa4486b2880f9edebf2e8c3275a1eb1dd"><td class="memItemLeft" align="right" valign="top">DATA_SECTION int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a></td></tr>
 <tr class="separator:aa4486b2880f9edebf2e8c3275a1eb1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22feb6ce8e33bc6cfe9b027a3d18cf8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22feb6ce8e33bc6cfe9b027a3d18cf8c"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c">do_mse</a> = 0</td></tr>
@@ -538,10 +537,28 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="aa4486b2880f9edebf2e8c3275a1eb1dd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LOC_CALCS int on</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section remark"><dt>Remarks</dt><dd><hr/>
+ | OM, short for Operating model. | | Created by Martell on 2013-05-14. | Copyright (c) 2013. All rights reserved. | Comments: This operation model is conditioned on the LRGS model | based on chapter 10 in the Ecological Detective. <hr/>
+ </dd></dl>
+
+<p>Definition at line <a class="el" href="om_8tpl_source.html#l00031">31</a> of file <a class="el" href="om_8tpl_source.html">om.tpl</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:09:48 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 09:19:09 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

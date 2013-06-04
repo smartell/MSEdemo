@@ -99,15 +99,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  ******************************************************************</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//  | OM, short for Operating model.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  |</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  | Created by Martell on 2013-05-14.</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  | Copyright (c) 2013. All rights reserved.</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//  | Comments: This operation model is conditioned on the LRGS model</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//  |           based on chapter 10 in the Ecological Detective.</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//  ******************************************************************</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;DATA_SECTION</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        </div>
@@ -115,18 +106,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="comment">// | COMMAND LINE OPTIONS</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="comment">// |---------------------------------------------------------------------------------|</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="comment">// |</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">int</span> on;                 </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="code" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">   31</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a>;                 </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="code" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c">   32</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c" title="flag for mse */ ">do_mse</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">int</span> rseed;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        LOC_CALCS</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordtype">int</span> opt, on;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordtype">int</span> opt, <a class="code" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <a class="code" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c" title="flag for mse */ ">do_mse</a> = 0;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                rseed  = 999;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">if</span>( ( on=option_match(ad_comm::argc,ad_comm::argv,<span class="stringliteral">&quot;-mse&quot;</span>,opt) ) &gt;-1 )</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">if</span>( ( <a class="code" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a>=option_match(ad_comm::argc,ad_comm::argv,<span class="stringliteral">&quot;-mse&quot;</span>,opt) ) &gt;-1 )</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                        <a class="code" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c" title="flag for mse */ ">do_mse</a> = 1;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                        rseed=atoi(ad_comm::argv[on+1]);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                        rseed=atoi(ad_comm::argv[<a class="code" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">on</a>+1]);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        <a class="code" href="om_8tpl.html#a63517c11ad73b1912e42c60169661159" title="Screen dump using cout&lt;&lt;&quot;object\n&quot;&lt;&lt;object&lt;&lt;endl;. ">COUT</a>(rseed);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                }</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        END_CALCS</div>
@@ -227,7 +218,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        tau              = sqrt(1.0/mfexp(log_tau));</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;FUNCTION <span class="keywordtype">void</span> population_dynamics()</div>
@@ -337,7 +328,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;REPORT_SECTION</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <a class="code" href="classmsy__reference__points.html">msy_reference_points</a> cMSY(value(reck),value(s),value(bo));</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <a class="code" href="classmsy__reference__points.html" title="Calculate MSY-based reference points. ">msy_reference_points</a> cMSY(value(reck),value(s),value(bo));</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <a class="code" href="om_8tpl.html#a9860e50511fed23878b05c5889d96758" title="Prints name and value of object on ADMB report ofstream file. ">REPORT</a>(bo);</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <a class="code" href="om_8tpl.html#a9860e50511fed23878b05c5889d96758" title="Prints name and value of object on ADMB report ofstream file. ">REPORT</a>(h);</div>
@@ -428,7 +419,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:09:48 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 09:19:09 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

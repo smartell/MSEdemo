@@ -96,6 +96,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">msy_reference_points Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Calculate MSY-based reference points.  
+ <a href="classmsy__reference__points.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_m_s_y_reference_points_8h_source.html">MSYReferencePoints.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -111,21 +116,63 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>get_bmsy</b> ()</td
 <tr class="memitem:ad3f0118cfefad148705ba688f17eb02d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3f0118cfefad148705ba688f17eb02d"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>get_msy</b> ()</td></tr>
 <tr class="separator:ad3f0118cfefad148705ba688f17eb02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94fd14687b5fa74efa093598aed2d09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad94fd14687b5fa74efa093598aed2d09"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calcReferencePoints</b> ()</td></tr>
+<tr class="memitem:ad94fd14687b5fa74efa093598aed2d09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmsy__reference__points.html#ad94fd14687b5fa74efa093598aed2d09">calcReferencePoints</a> ()</td></tr>
+<tr class="memdesc:ad94fd14687b5fa74efa093598aed2d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate MSY-based reference points for LRGS model.  <a href="#ad94fd14687b5fa74efa093598aed2d09">More...</a><br/></td></tr>
 <tr class="separator:ad94fd14687b5fa74efa093598aed2d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_m_s_y_reference_points_8h_source.html#l00018">18</a> of file <a class="el" href="_m_s_y_reference_points_8h_source.html">MSYReferencePoints.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>Calculate MSY-based reference points. </p>
+<dl class="section author"><dt>Author</dt><dd>Steve Martell </dd></dl>
+
+<p>Definition at line <a class="el" href="_m_s_y_reference_points_8h_source.html#l00023">23</a> of file <a class="el" href="_m_s_y_reference_points_8h_source.html">MSYReferencePoints.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ad94fd14687b5fa74efa093598aed2d09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void msy_reference_points::calcReferencePoints </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate MSY-based reference points for LRGS model. </p>
+<dl class="section author"><dt>Author</dt><dd>Steve Martell </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd></dd></dl>
+
+<p>Definition at line <a class="el" href="_m_s_y_reference_points_8cpp_source.html#l00017">17</a> of file <a class="el" href="_m_s_y_reference_points_8cpp_source.html">MSYReferencePoints.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        m_bmsy = (m_bo*(-1.+sqrt(m_k))/(m_k-1.)); </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        m_msy  = (m_bmsy*(m_s-1.)*(m_k-1.)*(m_bmsy-m_bo)) / (m_bo + (m_k-1.)*m_bmsy);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">if</span>( m_msy&lt;m_bmsy )</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                m_fmsy = -log((-m_msy+m_bmsy)/m_bmsy);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                m_fmsy = m_msy/m_bmsy;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="comment">// cout&lt;&lt;&quot;Bmsy = &quot;&lt;&lt;m_bmsy&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="comment">// cout&lt;&lt;&quot;Bmsy/Bo = &quot;&lt;&lt;m_bmsy/m_bo&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">// cout&lt;&lt;m_msy&lt;&lt;endl;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="comment">// cout&lt;&lt;m_fmsy&lt;&lt;endl;  </span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div><!-- fragment -->
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/stevenmartell1/Documents/IPHC/MSEdemo/src/<a class="el" href="_m_s_y_reference_points_8h_source.html">MSYReferencePoints.h</a></li>
 <li>/Users/stevenmartell1/Documents/IPHC/MSEdemo/src/<a class="el" href="_m_s_y_reference_points_8cpp_source.html">MSYReferencePoints.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:09:48 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 09:19:09 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
