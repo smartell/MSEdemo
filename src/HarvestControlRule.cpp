@@ -1,8 +1,20 @@
 #include <admodel.h>
 #include "HarvestControlRule.h"
+
+/**
+ * \brief Return the TAC given estimates of current biomass and reference points.
+ * \author Steve Martell
+ * \remarks Uses a swithc statement based on the type of harvest control rule to call the
+ *          appropriate function to calculate the TAC.
+**/
 double HarvestControlRule::getTac(const double &bt, const double &fmsy, const double &msy,
 	              				  const double &bmsy, const double &bo)
 {
+	/** \param bt preseason biomass forecast                    */
+	/** \param fmsy estimate of Fmsy                            */
+	/** \param msy  estimate of MSY                             */
+	/** \param bmsy estimate of Bmsy                            */
+	/** \param bo estimate of unfished spawning biomass         */
 	double tac = 0;
 	switch (m_enum)
 	{
@@ -68,6 +80,12 @@ double HarvestControlRule::FortyTen(const double &bt, const double &bo, const do
 	return bt*(1.-exp(-ft));
 }
 
+/**
+ * \brief 30:20 harvest control rule
+ * \author Steve Martell
+ * \remarks 
+ * \param bt preseson available biomass forecast.
+ */
 double HarvestControlRule::ThirtyTwenty(const double &bt, const double &bo, const double &fmsy)
 {
 	double dt = bt/bo;
@@ -125,10 +143,10 @@ double HarvestControlRule::FixedEscapementCap(const double &bt, const double &bm
 /**
 	\brief Implement the Conditional Constant Catch harvest control rule proposed by the IPHC.
 	\author Steve Martell
-	\param <bt> available biomass
-	\param <bmsy> Biomass at MSY
-	\param <msy>  Maximum sustainable yield
-	\param <fmsy> Fishing mortality rate that achieves MSY.
+	\param bt available biomass
+	\param bmsy Biomass at MSY
+	\param msy  Maximum sustainable yield
+	\param fmsy Fishing mortality rate that achieves MSY.
 
  * For this rule, fish at Fmsy if bt>0.8Bmsy
  * and reduce the TAC to msy of the tac > MSY.

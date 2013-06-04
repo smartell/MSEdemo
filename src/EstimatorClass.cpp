@@ -18,7 +18,6 @@ EstimatorClass::EstimatorClass(adstring model)
 /**
 \brief Function that runs the user defined estimator.
 \author Steve Martell
-
 */
 void EstimatorClass::runEstimator()
 {

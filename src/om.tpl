@@ -11,6 +11,8 @@
 /// \brief Screen dump using cout<<"object\n"<<object<<endl;
 ///
 
+
+
 //  ******************************************************************
 //  | OM, short for Operating model.
 //  |
@@ -34,7 +36,7 @@ DATA_SECTION
 		int opt, on;
 		do_mse = 0;
 		rseed  = 999;
-		if((on=option_match(ad_comm::argc,ad_comm::argv,"-mse",opt))>-1)
+		if( ( on=option_match(ad_comm::argc,ad_comm::argv,"-mse",opt) ) >-1 )
 		{
 			do_mse = 1;
 			rseed=atoi(ad_comm::argv[on+1]);
@@ -110,7 +112,6 @@ PROCEDURE_SECTION
 ///
 /// @brief Reference points check
 /// @author Steve Martell
-/// @fn FUNCTION calc_Reference_Points
 /// @remarks Checking my calculus.
 ///
 FUNCTION void calc_Reference_Points()
@@ -149,7 +150,7 @@ FUNCTION void initialize_model()
 	tau              = sqrt(1.0/mfexp(log_tau));
 
 
-
+	
 
 
 ///
@@ -229,7 +230,7 @@ FUNCTION void calc_objective_function()
 	dvariable isig2 = mfexp(log_sigma);
 	dvariable itau2 = mfexp(log_tau);
 
-	
+	// No comments
 	nll(1) = dnorm(epsilon,sig);
 	nll(2) = dbeta(s,30.01,10.01);
 	nll(3) = dnorm(log_bo,log(3000),1.0);

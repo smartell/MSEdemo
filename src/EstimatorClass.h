@@ -5,6 +5,7 @@
 /**
 \brief Calls the user defined stock assessment model.
 \author Steve Martell
+\remarks  User specifies the name of the estimation model in the input data file.
 */
 class EstimatorClass
 {
