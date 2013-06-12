@@ -1,6 +1,5 @@
 # | Makefile for building ADMB models including additional objects.
 
-
 EXEC  = om
 TPL   = $(EXEC).tpl
 SRCS  = MSYReferencePoints.cpp \
@@ -86,14 +85,7 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='dn   <- dir(pattern="^[[:digit:]]");           \
-	          sims <- lapply(dn,function(d){                 \
-		          source(file.path("..","src","read.admb.R")); \
-		          setwd(d);                                    \
-							A <- read.admb("om");                        \
-							setwd("..");                                 \
-							return(A)});                                 \
-	          save(sims,file="allSims.Rdata")'
+COLLECTALL='source(file.path("r","collectAll.r"))'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave

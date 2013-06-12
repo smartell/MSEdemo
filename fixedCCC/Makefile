@@ -1,5 +1,5 @@
-EXEC  = OM
-DATA  = OM.dat
+EXEC  = om
+DATA  = om.dat
 DIST  = ../dist/
 NOSIM = 8
 
@@ -8,18 +8,18 @@ NOSIM = 8
 all:  $(EXEC) $(EXEC).rep
 
 
-$(EXEC): $(DIST) 
+$(EXEC): $(DIST)
 	cp $(DIST)$(EXEC) $@
 	# cp $(DIST)$(DATA) $(DATA)
 
 $(EXEC).rep:
 	./$(EXEC)
 
-runmse: 
+runmse:
 	./$(EXEC) -ind $(DAT) $(ARG)
 
 clean:
-	rm -f $(EXEC) $(EXEC).rep *.[bcelprs]* *.hes variance admodel.* 
+	rm -f $(EXEC) $(EXEC).rep *.[bcelprs]* *.hes variance admodel.*
 	rm -f simdone
 
 
@@ -31,21 +31,18 @@ simdirs := $(shell echo 'cat(formatC(1:$(NOSIM), digits=3, flag="0"))' | R --van
 datadone:= $(foreach dir,$(simdirs),$(dir)/datadone)
 runsims := $(foreach dir,$(simdirs),$(dir)/runsims)
 
-$(datadone): 
+$(datadone):
 	mkdir $(@D);
 	cp $(EXEC) $(EXEC).dat Makefile $(@D)
 	cd $(@D); touch datadone
 
 data: $(EXEC) $(datadone)
 
-$(runsims): 
+$(runsims):
 	cd $(@D); make runmse ARG='-mse $(@D)'
-	
 
 sims: data $(runsims)
 	touch simdone
-	
-
 
 cleansims:
 	rm -r 0* *.Rdata NUL simdone
@@ -56,15 +53,7 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='dn<-dir(pattern="^[[:digit:]]");                    \
-			nf   <- paste(basename(getwd()),".Rdata",sep="");   \
-	        sims <- lapply(dn,function(d){                      \
-		                       require(Riscam);                 \
-		                       setwd(d);                        \
-							   A<-read.admb("OM");              \
-							   setwd("..");                     \
-							   return(A)     });                \
-	        save(sims,file=nf)'
+COLLECTALL='source(file.path("..","R","collectAll.r"))'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave
