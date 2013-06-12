@@ -106,6 +106,9 @@ PROCEDURE_SECTION
 	bo = mfexp(log_bo);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
+
+	// Testing out a new class called LRGS for doing all of the 
+	// model calculations.
 	LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
 
 	cLRGSmodel.initialize_model();
