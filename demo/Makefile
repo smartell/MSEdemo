@@ -8,25 +8,19 @@ all:  $(EXEC) $(EXEC).rep
 
 $(EXEC): $(DIST)
 	cp $(DIST)$(EXEC) $@
-	# cp $(DIST)$(DATA) $(DATA)
 
 $(EXEC).rep:
 	./$(EXEC)
 
-<<<<<<< HEAD
-runmse:
-=======
 mse: $(EXEC)
 	./$(EXEC) -ind $(DAT) -mse 12345
 
-runmse: 
->>>>>>> 38392d7268fe339bae0e3e020bb49e7ed3718fc8
+runmse:
 	./$(EXEC) -ind $(DAT) $(ARG)
 
 clean:
 	rm -f $(EXEC) $(EXEC).rep *.[bcelprs]* *.hes variance admodel.*
 	rm -f simdone
-
 
 # |------------------------------------------------------------------------------------|
 # | BUILD DIRECTORIES AND COPY FILES INTO EACH DIRECTORY (target = data)
@@ -43,7 +37,7 @@ $(datadone):
 
 data: $(EXEC) $(datadone)
 
-$(runsims): 
+$(runsims):
 	cd $(@D); make runmse ARG='-mse $(@D)'
 
 sims: data $(runsims)
@@ -58,12 +52,9 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='source(file.path("..","src","r","collectAll.r"))'
+COLLECTALL='source(file.path("..","R","collectAll.r"))'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave
 
 collect: allSims.Rdata
-
-
-

@@ -52,7 +52,7 @@ cleansims:
 # |------------------------------------------------------------------------------------|
 # |
 
-COLLECTALL='source(file.path("..","src","r","collectAll.r"))'
+COLLECTALL='source(file.path("..","R","collectAll.r"))'
 
 allSims.Rdata: simdone
 	@echo $(COLLECTALL) | R --vanilla --slave
