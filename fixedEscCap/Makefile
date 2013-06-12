@@ -10,7 +10,7 @@ all:  $(EXEC) $(EXEC).rep
 
 $(EXEC): $(DIST)
 	cp $(DIST)$(EXEC) $@
-	cp $(DIST)$(DATA) $(DATA)
+	# cp $(DIST)$(DATA) $(DATA)
 
 $(EXEC).rep:
 	./$(EXEC)

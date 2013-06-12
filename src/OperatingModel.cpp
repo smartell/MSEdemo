@@ -1,9 +1,27 @@
+/**
+ * \file OperatingModel.cpp
+ * \author Steve Martell
+**/
+
+
 #include <admodel.h>
 #include "OperatingModel.h"
+
+
 // #include "MSYReferencePoints.h"
 // #include "Scenario.h"
 
-// Put this code in a cpp file eventually.
+/** \brief Run the Operating model scenario
+ *	
+ *		This function runs the operating model conditional on the scenario class that is 
+ *		passed as an arguement.
+ *	
+ *	\author  Steve Martell
+ *	\date May 29, 2013
+ *	\param  a Scenario class object.
+ *	\return void
+ *	\sa
+**/
 void OperatingModel::runMSEscenario(const Scenario &cScenario)
 {
 	// This routine reconstructs the population dynamics based on the Scenario class
@@ -129,7 +147,9 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		write_data_file(i,hat_ct(m_syr,i),hat_it(m_syr,i));
 
 		// -6. Conduct assessment and update parameters
-		system("./OM -ind MSE.dat -nox -est > NUL");
+		// system("./OM -ind MSE.dat -nox -est > NUL");
+		m_cEstimator.runEstimator();
+
 		ifstream ifs("mse.par");
 		ifs>>est_bo;
 		ifs>>est_reck;

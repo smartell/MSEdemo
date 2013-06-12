@@ -8,12 +8,19 @@ all:  $(EXEC) $(EXEC).rep
 
 $(EXEC): $(DIST)
 	cp $(DIST)$(EXEC) $@
-	cp $(DIST)$(DATA) $(DATA)
+	# cp $(DIST)$(DATA) $(DATA)
 
 $(EXEC).rep:
 	./$(EXEC)
 
+<<<<<<< HEAD
 runmse:
+=======
+mse: $(EXEC)
+	./$(EXEC) -ind $(DAT) -mse 12345
+
+runmse: 
+>>>>>>> 38392d7268fe339bae0e3e020bb49e7ed3718fc8
 	./$(EXEC) -ind $(DAT) $(ARG)
 
 clean:
