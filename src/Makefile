@@ -7,7 +7,8 @@ SRCS  = MSYReferencePoints.cpp \
 				OperatingModel.cpp     \
 				HarvestControlRule.cpp \
 				Scenario.cpp\
-				EstimatorClass.cpp
+				EstimatorClass.cpp\
+				LRGS.cpp
 OBJS  = ${SRCS:.cpp=.o}
 HDRS  = ${SRCS:.cpp=.h}
 MCA   = -mcmc 500000 -mcsave 200 -nosdmcmc -mcscale 100000

@@ -102,9 +102,22 @@ PARAMETER_SECTION
 	sdreport_number sd_dep;
 
 PROCEDURE_SECTION
-	initialize_model();
-	population_dynamics();
-	observation_model();
+	
+	bo = mfexp(log_bo);
+	sig              = sqrt(1.0/mfexp(log_sigma));
+	tau              = sqrt(1.0/mfexp(log_tau));
+	LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+
+	cLRGSmodel.initialize_model();
+	cLRGSmodel.population_dynamics();
+	cLRGSmodel.observation_model();
+	epsilon = cLRGSmodel.get_epsilon();
+	sd_dep  = cLRGSmodel.get_depletion();
+	
+
+	// initialize_model();
+	// population_dynamics();
+	// observation_model();
 	calc_objective_function();
 	
 
@@ -339,6 +352,7 @@ GLOBALS_SECTION
 	#include <admodel.h>
 	#include <time.h>
 	#include <statsLib.h>
+	#include "LRGS.h"
 	#include "MSYReferencePoints.h"
 	// #include "Scenario.h"
 	#include "OperatingModel.h"

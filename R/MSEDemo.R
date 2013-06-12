@@ -22,7 +22,8 @@ IDX       <- sample(1:length(M[[1]]),3)
 {
 	guiInfo <- getWinVal(scope="L")
 	mdlname <- guiInfo$ifiles$Label[guiInfo$ifiles$Select]
-	names(M) <- mdlname
+	ii      <- names(M) %in% mdlname
+	M       <- M[ii]
 	if( plotType=="biomass" )
 	{
 		.plotTrueBiomass( M )
@@ -61,7 +62,8 @@ IDX       <- sample(1:length(M[[1]]),3)
 	ggp <- ggp + geom_line(size=2,alpha=0.5) 
 	ggp <- ggp + labs(x="Year",y="Biomass (t)")
 	ggp <- ggp + theme_bw(.FONTSIZE) + theme(legend.position="none")
-	print(ggp + facet_wrap(~Model) )
+	cat(n)
+	if(n > 1) print(ggp + facet_wrap(~Model) ) else print(ggp)
 }
 
 .plotCatch <- function( S )

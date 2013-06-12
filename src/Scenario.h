@@ -44,7 +44,7 @@ public:
 	\sa
 **/
 
-class Scenario: public Population 
+class Scenario: public Population//, public StockRecruitmentModel
 {
 private:
 	int     m_agek;

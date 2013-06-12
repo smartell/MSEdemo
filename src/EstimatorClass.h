@@ -14,6 +14,9 @@
 */
 class EstimatorClass
 {
+private:
+	char* m_arg;
+
 public:
 	EstimatorClass(adstring model);
 	~EstimatorClass();
