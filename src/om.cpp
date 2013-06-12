@@ -308,7 +308,11 @@ void model_parameters::run_mse(void)
 }
 
 void model_parameters::preliminary_calculations(void){
+#if defined(USE_ADPVM)
+
   admaster_slave_variable_interface(*this);
+
+#endif
 }
 
 model_data::~model_data()
