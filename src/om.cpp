@@ -1,7 +1,3 @@
-	/**
-	\def REPORT(object)
-	Prints name and value of \a object on ADMB report %ofstream file.
-	*/
 	#undef REPORT
 	#define REPORT(object) report << #object "\n" << object << endl;
 	#undef COUT
@@ -12,6 +8,7 @@
 	#include <admodel.h>
 	#include <time.h>
 	#include <statsLib.h>
+	#include "LRGS.h"
 	#include "MSYReferencePoints.h"
 	// #include "Scenario.h"
 	#include "OperatingModel.h"
@@ -20,7 +17,8 @@
 	time_t start,finish;
 	long hour,minute,second;
 	double elapsed_time;
-	
+	// sLRGSparameters sPars;
+	sLRGSdata data;
 	
 #include <admodel.h>
 #include <contrib.h>
@@ -35,7 +33,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
 		int opt, on;
 		do_mse = 0;
 		rseed  = 999;
-		if((on=option_match(ad_comm::argc,ad_comm::argv,"-mse",opt))>-1)
+		if( ( on=option_match(ad_comm::argc,ad_comm::argv,"-mse",opt) ) >-1 )
 		{
 			do_mse = 1;
 			rseed=atoi(ad_comm::argv[on+1]);
@@ -49,6 +47,13 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   it.allocate(syr,nyr,"it");
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
+  sEstimator.allocate("sEstimator");
+ data.syr  = syr;
+ data.nyr  = nyr;
+ data.agek = agek;
+ data.ct   = ct;
+ data.it   = it;
+ cout<<data.it<<endl;
 }
 
 void model_parameters::initializationfunction(void)
@@ -135,14 +140,54 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
 void model_parameters::userfunction(void)
 {
   f =0.0;
-	initialize_model();
-	population_dynamics();
-	observation_model();
+	sLRGSparameters sPars;
+	sPars.log_bo = log_bo;
+	sPars.h  = h;
+	sPars.s = s;
+	sPars.log_sigma = log_sigma;
+	sPars.log_tau  = log_tau;
+	sPars.wt = wt;
+	bo = mfexp(log_bo);
+	sig              = sqrt(1.0/mfexp(log_sigma));
+	tau              = sqrt(1.0/mfexp(log_tau));
+	// Testing out a new class called LRGS for doing all of the 
+	// model calculations.
+	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+	LRGS cLRGSmodel(data,sPars);
+	cLRGSmodel.initialize_model();
+	cLRGSmodel.population_dynamics();
+	cLRGSmodel.observation_model();
+	epsilon = cLRGSmodel.get_epsilon();
+	sd_dep  = cLRGSmodel.get_depletion();
+	// initialize_model();
+	// population_dynamics();
+	// observation_model();
 	calc_objective_function();
 }
 
-void model_parameters::initialize_model(void)
+void model_parameters::calc_Reference_Points()
 {
+	int i;
+	int j;
+	dvector fe(1,100);
+	double be,ce;
+	for( i = 1; i <= 100; i++ )
+	{
+		be = value(bo);
+		fe(i) = double((i-1.)/(100.-1.))*1.2;
+		for( j = 1; j <= 100; j++ )
+		{
+			ce = be * (1.-exp(-fe(i)));
+			be = value(s*be + a*be/(1.+b*be)) - ce;
+		}
+		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
+	}
+}
+
+void model_parameters::initialize_model()
+{
+	rt.initialize();
+	bt.initialize();
 	bo               = mfexp(log_bo);
 	ro               = bo*(1.-s);
 	reck             = 4.*h/(1.-h);
@@ -154,7 +199,7 @@ void model_parameters::initialize_model(void)
 	tau              = sqrt(1.0/mfexp(log_tau));
 }
 
-void model_parameters::population_dynamics(void)
+void model_parameters::population_dynamics()
 {
 	int i;
 	dvariable btmp;
@@ -172,19 +217,40 @@ void model_parameters::population_dynamics(void)
 	sd_dep = bt(nyr)/bo;
 }
 
-void model_parameters::observation_model(void)
+void model_parameters::observation_model()
 {
+	int i;
 	dvar_vector zt = log(it) - log(bt(syr,nyr));
 	q              = exp(mean(zt));
 	epsilon        = zt - mean(zt);
 }
 
-void model_parameters::calc_objective_function(void)
+void model_parameters::run_mse()
+{
+	int j;
+	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it,ct);
+	int e_hcr = n_hcr;
+	HarvestControlRule c_hcr(e_hcr);
+	EstimatorClass cEstimator(sEstimator);
+	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
+	cOM.runMSEscenario(cScenario1);
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
+	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
+	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
+	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
+	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
+	ofs.close();
+}
+
+void model_parameters::calc_objective_function()
 {
 	nll.initialize();
 	dvariable isig2 = mfexp(log_sigma);
 	dvariable itau2 = mfexp(log_tau);
-	// negative loglikelihoods and priors stored in nll vector
+	// No comments
 	nll(1) = dnorm(epsilon,sig);
 	nll(2) = dbeta(s,30.01,10.01);
 	nll(3) = dnorm(log_bo,log(3000),1.0);
@@ -199,28 +265,28 @@ void model_parameters::calc_objective_function(void)
 	{
 		nll(7) = dnorm(wt,1.0);
 	}
-	// objective function + penalty
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
 	f = sum(nll) + 100000.*fpen;
 }
 
-void model_parameters::calcReferencePoints(void)
+void model_parameters::wtf()
 {
-	// Numerically checking my calculus.
-	int i,j;
-	dvector fe(1,100);
-	double be,ce;
-	for( i = 1; i <= 1000; i++ )
-	{
-		be = value(bo);
-		fe(i) = double((i-1.)/(100.-1.))*1.2;
-		for( j = 1; j <= 100; j++ )
-		{
-			ce = be * (1.-exp(-fe(i)));
-			be = value(s*be + a*be/(1.+b*be)) - ce;
-		}
-		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
-	}
+	int i;
+	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it,ct);
+	int e_hcr = n_hcr;
+	HarvestControlRule c_hcr(e_hcr);
+	EstimatorClass cEstimator(sEstimator);
+	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
+	cOM.runMSEscenario(cScenario1);
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
+	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
+	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
+	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
+	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
+	ofs.close();
 }
 
 void model_parameters::report()
@@ -276,43 +342,8 @@ void model_parameters::final_calcs()
 	// calcReferencePoints();
 }
 
-void model_parameters::run_mse(void)
-{
-	// This is the entire management strategy evaluaiton routine.  
-	// So far I use 3 class objects to this via OOP.
-	// 1) The scenario class: -parameters & data for operating model
-	// 2) The harvestControlRule class: Use FORTY_TEN, FIXED_HARVEST_RATE, FIXED_ESCAPMENT
-	// 3) The Operating model class: call .runMSEScenario to run the simulation.
-	// 4) The OPertating model calls msyrefPoints.h to calculate Fmsy etc.
-	// Scenario class
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
-	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
-	// Harvest control rule
-	// int e_hcr = HarvestControlRule::FORTY_TEN;
-	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT;
-	// int e_hcr = HarvestControlRule::FIXED_ESCAPEMENT_CAP;
-	// int e_hcr = HarvestControlRule::FIXED_HARVEST_RATE;
-	// int e_hcr = HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
-	int e_hcr = n_hcr;
-	HarvestControlRule c_hcr(e_hcr);
-	// Operating model class
-	OperatingModel cOM(cScenario1,c_hcr);
-	cOM.runMSEscenario(cScenario1);
-	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
-	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
-	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
-	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
-	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
-}
-
 void model_parameters::preliminary_calculations(void){
-#if defined(USE_ADPVM)
-
   admaster_slave_variable_interface(*this);
-
-#endif
 }
 
 model_data::~model_data()

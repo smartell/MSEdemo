@@ -1,6 +1,7 @@
 # | Makefile for building ADMB models including additional objects.
 
 EXEC  = om
+DAT   = $(EXEC).dat
 TPL   = $(EXEC).tpl
 SRCS  = MSYReferencePoints.cpp \
 				OperatingModel.cpp     \

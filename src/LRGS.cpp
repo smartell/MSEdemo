@@ -26,8 +26,26 @@ LRGS::LRGS(const int& syr,
 	m_it(it),
 	m_wt(wt)
 {
-	// cout<<"IN CONSTRUCTOR"<<endl;
+	cout<<"IN CONSTRUCTOR"<<endl;
 }
+
+LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
+{
+	cout<<"The other constructor"<<endl;
+	m_syr  = data.syr;
+	m_nyr  = data.nyr;
+	m_agek = data.agek;
+	m_ct   = data.ct;
+	m_it   = data.it;
+
+	m_bo   = mfexp(pars.log_bo);
+	m_h    = pars.h;
+	m_s    = pars.s;
+	m_sig  = sqrt(1.0/mfexp(pars.log_sigma));
+	m_tau  = sqrt(1.0/mfexp(pars.log_tau));
+	m_wt   = pars.wt;
+}
+
 
 void LRGS::initialize_model()
 {
@@ -47,7 +65,8 @@ void LRGS::initialize_model()
 	// m_sig              = sqrt(1.0/mfexp(log_sigma));
 	// m_tau              = sqrt(1.0/mfexp(log_tau));
 
-	// cout<<"OK to HERE"<<endl;
+	 // cout<<"OK to HERE"<<endl;
+
 
 }
 

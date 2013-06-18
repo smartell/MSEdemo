@@ -61,8 +61,14 @@ DATA_SECTION
 	init_adstring sEstimator;
 	// !! COUT(sEstimator);
 	// !! exit(1);
+	// !! sLRGSdata data;
+	!! data.syr  = syr;
+	!! data.nyr  = nyr;
+	!! data.agek = agek;
+	!! data.ct   = ct;
+	!! data.it   = it;
+	!! cout<<data.it<<endl;
 	
-
 INITIALIZATION_SECTION
 	log_bo     8.0;
 	h          0.9;
@@ -100,8 +106,16 @@ PARAMETER_SECTION
 	vector nll(1,8);		
 
 	sdreport_number sd_dep;
-
 PROCEDURE_SECTION
+
+	sLRGSparameters sPars;
+	sPars.log_bo = log_bo;
+	sPars.h  = h;
+	sPars.s = s;
+	sPars.log_sigma = log_sigma;
+	sPars.log_tau  = log_tau;
+	sPars.wt = wt;
+
 	
 	bo = mfexp(log_bo);
 	sig              = sqrt(1.0/mfexp(log_sigma));
@@ -109,7 +123,8 @@ PROCEDURE_SECTION
 
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
-	LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+	LRGS cLRGSmodel(data,sPars);
 
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
@@ -365,7 +380,8 @@ GLOBALS_SECTION
 	long hour,minute,second;
 	double elapsed_time;
 
-	
+	// sLRGSparameters sPars;
+	sLRGSdata data;
 
 	
 FINAL_SECTION

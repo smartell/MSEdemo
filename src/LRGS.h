@@ -1,5 +1,5 @@
 #include <admodel.h>
-
+#include "om.htp"
 #ifndef _LRGS_H
 #define _LRGS_H
 /**
@@ -7,7 +7,27 @@
  * \author Steve Martell
 **/
 
-class LRGS
+struct sLRGSdata
+{
+	int syr;
+	int nyr;
+	int agek;
+	dvector ct;
+	dvector it;
+	// friend class LRGS;
+};
+
+struct sLRGSparameters
+{
+	dvariable log_bo;
+	dvariable h;
+	dvariable s;
+	dvariable log_sigma;
+	dvariable log_tau;
+	dvar_vector wt;
+};
+
+class LRGS 
 {
 private:
 	int m_syr;
@@ -32,8 +52,12 @@ private:
 	dvar_vector m_ft;
 	dvar_vector m_epsilon;
 	
-
+	// sLRGSdata       m_data;
+	// sLRGSparameters m_pars;
 public:
+	// friend class model_parameters;
+	// friend class model_data;
+	~LRGS(){};
 	LRGS(const int& syr,
 	     const int& nyr,
 	     const int& agek,
@@ -45,8 +69,8 @@ public:
 	     dvector& ct,
 	     dvector& it,
 	     dvar_vector& wt);
-	~LRGS(){};
 
+	LRGS(sLRGSdata& data,sLRGSparameters& pars);
 
 	void initialize_model();
 	void population_dynamics();
