@@ -153,6 +153,7 @@ void model_parameters::userfunction(void)
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+	// Test cTest;
 	LRGS cLRGSmodel(data,sPars);
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();

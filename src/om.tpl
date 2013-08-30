@@ -1,6 +1,9 @@
 /// @file OM.tpl
 /// @author Steve Martell 
 
+
+
+
 ///
 /// \def REPORT(object)
 /// \brief Prints name and value of \a object on ADMB report %ofstream file.
@@ -117,6 +120,7 @@ PROCEDURE_SECTION
 	sPars.wt = wt;
 
 	
+
 	bo = mfexp(log_bo);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
@@ -124,6 +128,7 @@ PROCEDURE_SECTION
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
+	// Test cTest;
 	LRGS cLRGSmodel(data,sPars);
 
 	cLRGSmodel.initialize_model();
@@ -406,7 +411,4 @@ FINAL_SECTION
 
 	// Check calculus: A-O-K
 	// calcReferencePoints();
-
-
-
 

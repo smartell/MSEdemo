@@ -30,6 +30,6 @@
 3
 # |  SCENARIO CLASS:
 # |  -  pyr             : number of projection years
-35
+350
 # | ESTIMATOR SYSTEM COMMAND
 ./OM

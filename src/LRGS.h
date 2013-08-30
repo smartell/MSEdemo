@@ -82,3 +82,16 @@ public:
 };
 
 #endif
+
+// class Test: private model_parameters
+// {
+
+// 	~Test(){};
+// 	Test()
+// 	{
+// 		cout<<"IN the test class"<<endl;
+// 		cout<<syr<<endl;
+// 	}
+
+
+// };
