@@ -76,7 +76,7 @@ IDX       <- sample(1:length(M[[1]]),3)
 		fn <- function(S){return(as.vector(S$ct))}
 		df <- sapply(S[[i]],fn)
 		qr <- t(apply(df,1,quantile,probs=c(0.00,1.0)))
-		qf <- t(apply(df,1,quantile,probs=c(0.05,0.5,0.9)))
+		qf <- t(apply(df,1,quantile,probs=c(0.05,0.5,0.95)))
 		# if(i==1)
 		# IDX  <- sample(1:dim(df)[2],5)
 		df  <- data.frame(Model=names(S)[i],Year=(1964+1:dim(qf)[1]),df[,IDX])
