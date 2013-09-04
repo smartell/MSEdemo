@@ -96,6 +96,7 @@ IDX       <- sample(1:length(M[[1]]),3)
 	ggp <- ggp + labs(x="Year",y="Catch (t)") 
 	ggp <- ggp + theme_bw(.FONTSIZE) + theme(legend.position="none")
 	print(ggp+facet_wrap(~Model))
+	
 }
 
 # .plotTrueBiomass(sims)

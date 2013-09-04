@@ -1,9 +1,34 @@
+
 /**
-@brief Documenation file for MSE Demo
-@author Steven Martell at IPHC
-@file
-*/
-/**
-@mainpage MSE-DEMO - Management Strategy Evaluation Demonstration
+\mainpage MSE DEMO
+\author Steve Martell
+
 Why am I doing this, again ...
 */
+
+
+/*! \page A simple manual
+
+Some general info.
+
+\f$ \sqrt{x} \f$
+
+This manual is divided in the following sections:
+- \subpage intro
+- \subpage advanced "Advanced usage"
+*/
+
+//-----------------------------------------------------------
+
+/*! \page intro Introduction
+This page introduces the user to the topic.
+Now you can proceed to the \ref advanced "advanced section".
+*/
+
+//-----------------------------------------------------------
+
+/*! \page advanced Advanced Usage
+This page is for advanced users.
+Make sure you have first read \ref intro "the introduction".
+*/
+
