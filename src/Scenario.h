@@ -12,17 +12,18 @@
 */
 class Population
 {
-public:
+private:
 	double m_bo; //!< Unfished biomass
 	double m_h;  //!< Steepness of Beverton Holt Model
 	double m_s;  //!< Survival growth coefficient
-
+public:
 	/** Constructor for population class */
 	Population(const double bo=1.0, const double h=0.75, const double s=0.85)
 	: m_bo(bo),m_h(h),m_s(s)
 	{}
 
 	~Population(){}
+	friend class Scenario;
 };
 
 #endif
