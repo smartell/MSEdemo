@@ -1,10 +1,10 @@
 EXEC = om
-OBJS = $(EXEC).o \
+OBJS = $(EXEC).o         \
 	MSYReferencePoints.o \
 	OperatingModel.o     \
 	HarvestControlRule.o \
-	Scenario.o\
-	EstimatorClass.o\
+	Scenario.o           \
+	EstimatorClass.o     \
 	LRGS.o
 SRCS = $(OBJS:.o=.cpp)  #!!!
 TPLS = $(EXEC).tpl
@@ -16,7 +16,7 @@ TPLS = $(EXEC).tpl
 .PRECIOUS: %.cpp %.o %.obj
 
 # make some special targets
-.PHONY: help rules clean depend
+.PHONY: help info clean depend dust
 
 # does this if no target is specified on command line
 
@@ -28,16 +28,21 @@ CC=g++
 LL=$(CC)
 
 ifeq ($(OPT),TRUE)
+  CC_OPT = -O3 -DOPT_LIB
   LFLAGS = $(ADMB_HOME)/lib/libadmbo.a $(ADMB_HOME)/contrib/lib/libcontribo.a
 else
+  CC_OPT = -Wall -ggdb -DSAFE_ALL
   LFLAGS = $(ADMB_HOME)/lib/libadmb.a $(ADMB_HOME)/contrib/lib/libcontrib.a
 endif
 
-CFLAGS = -c -O3 -D__GNUDOS__ -Dlinux -DSAFE_ALL -DUSE_LAPLACE -I. -I$(ADMB_HOME)/include -I$(ADMB_HOME)/contrib/include
+# CFLAGS = -c -O3 -D__GNUDOS__ -Dlinux -DSAFE_ALL -DUSE_LAPLACE -I. -I$(ADMB_HOME)/include -I$(ADMB_HOME)/contrib/include
+CFLAGS = -c $(CC_OPT) -D__GNUDOS__ -Dlinux -DUSE_LAPLACE -I. -I$(ADMB_HOME)/include -I$(ADMB_HOME)/contrib/include
 
 
 all: $(EXEC)
 
+run: $(EXEC)
+	./$(EXEC)
 
 $(EXEC): $(EXEC).cpp .depend $(OBJS)
 	$(LL) $(LFLAGS) -o $@ $(OBJS)
@@ -63,44 +68,6 @@ $(EXEC).cpp: $(TPLS)
 	@echo ------ Making tpl2cpp: $(TPLS)    ------
 	$(ADMB_HOME)/bin/tpl2cpp $(TPLS:.tpl=)
 
-# $(EXEC): $(OBJS);
-# 	$(LL) $(LFLAGS) -o $@ $^ 
-
-# $(OBJS): $(SRCS);
-# 	@echo 
-# 	@echo ------ Compiling: $@      ------
-# 	@echo
-# 	$(CC) $(CFLAGS) -o $@ $<
-# 	# $(CC) $(CFLAGS) -o $(SRCS) $(OBJS)
-
-# $(SRCS): $(TPLS);
-# 	@echo 
-# 	@echo ------ Making tpl2cpp: $(TPLS)    ------
-# 	@echo
-# 	$(ADMB_HOME)/bin/tpl2cpp $(TPLS:.tpl=)
-
-# *** adcomp -s hello.cpp
-# c++ -c -O3 -D__GNUDOS__ -Dlinux -DSAFE_ALL -DUSE_LAPLACE -I. -I"/Users/stevenmartell1/admb-trunk/build/dist"/include -I"/Users/stevenmartell1/admb-trunk/build/dist"/contrib/include hello.cpp
-
-# *** adlink -s hello
-# c++ -o hello hello.o "/Users/stevenmartell1/admb-trunk/build/dist"/contrib/lib/libcontrib.a "/Users/stevenmartell1/admb-trunk/build/dist"/lib/libadmb.a
-
-# link the object file into the executable 
-# %:%.o;
-# 	$(LL) -o $@ $^ $(LFLAGS)
-
-# # compile the C++ into an object file
-# %.o:%.cpp;
-# 	$(CC) $(CFLAGS)  -o $@ $<
-
-# # translate the ADMB template into C++ code
-# %.cpp:%.tpl;
-# 	@echo 
-# 	@echo ------ Making tpl2cpp: $(TPLS)    ------
-# 	@echo
-# 	$(ADMB_HOME)/bin/tpl2cpp $*
-
-
 
 help:
 	@echo No target specified.
@@ -108,7 +75,7 @@ help:
 	@echo        specify OPT=TRUE to build optimized version
 
 # generate some information about what your are doing
-rules:
+info:
 	@echo EXEC = $(EXEC)
 	@echo OBJS = $(OBJS)
 	@echo SRCS = $(SRCS)
@@ -126,4 +93,7 @@ rules:
 	@echo LFLAGS = $(LFLAGS)
 
 clean:
-	rm -f $(EXEC).[bcehlps]* $(EXEC) $(OBJS) 
+	rm -f $(EXEC).[bcehlps]* $(EXEC) $(OBJS)
+
+dust: 
+	rm -f *.r* *.p0* *.b* *.cor *.b0* *.eva *.std *.par *.log
