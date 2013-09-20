@@ -143,6 +143,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		bt(i+1) = s*bt(i) + rt(i) - hat_ct(i);
 
 		// -5. Update observation models and write data files.
+		// cout<<"Q = "<<q<<" "<<m_q<<endl;
 		hat_it(i) = q*bt(i)*exp(it_dev(i));
 		write_data_file(i,hat_ct(m_syr,i),hat_it(m_syr,i));
 

@@ -121,9 +121,10 @@ PROCEDURE_SECTION
 
 	
 
-	bo = mfexp(log_bo);
+	bo               = mfexp(log_bo);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
+	reck             = 4.*h/(1.-h);
 
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
@@ -136,6 +137,10 @@ PROCEDURE_SECTION
 	cLRGSmodel.observation_model();
 	epsilon = cLRGSmodel.get_epsilon();
 	sd_dep  = cLRGSmodel.get_depletion();
+	bt      = cLRGSmodel.get_bt();	
+	ft      = cLRGSmodel.get_ft();
+	q       = cLRGSmodel.get_q();
+	cout<<q<<endl;
 	
 
 	// initialize_model();
@@ -233,6 +238,7 @@ FUNCTION void observation_model()
 ///
 FUNCTION void run_mse()
 	int j;
+	
 	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
@@ -330,6 +336,7 @@ REPORT_SECTION
 	REPORT(bo);
 	REPORT(h);
 	REPORT(s);
+	REPORT(q);
 	REPORT(sig);
 	REPORT(tau);
 	double fmsy = cMSY.get_fmsy();

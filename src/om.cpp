@@ -147,9 +147,10 @@ void model_parameters::userfunction(void)
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau  = log_tau;
 	sPars.wt = wt;
-	bo = mfexp(log_bo);
+	bo               = mfexp(log_bo);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
+	reck             = 4.*h/(1.-h);
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
@@ -160,6 +161,10 @@ void model_parameters::userfunction(void)
 	cLRGSmodel.observation_model();
 	epsilon = cLRGSmodel.get_epsilon();
 	sd_dep  = cLRGSmodel.get_depletion();
+	bt      = cLRGSmodel.get_bt();	
+	ft      = cLRGSmodel.get_ft();
+	q       = cLRGSmodel.get_q();
+	cout<<q<<endl;
 	// initialize_model();
 	// population_dynamics();
 	// observation_model();
@@ -303,6 +308,7 @@ void model_parameters::report()
 	REPORT(bo);
 	REPORT(h);
 	REPORT(s);
+	REPORT(q);
 	REPORT(sig);
 	REPORT(tau);
 	double fmsy = cMSY.get_fmsy();

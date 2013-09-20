@@ -1,4 +1,4 @@
-SUBDIR = HCR/fortyten HCR/fixedEsc HCR/fixedEscCap HCR/fixedHarvestRate HCR/fixedCCC
+SUBDIR = HCR/fortyten HCR/fixedEsc HCR/fixedEscCap HCR/fixedHarvestRate HCR/fixedCCC HCR/thirtytwenty
 TARGET = sims 
 ifndef DISK
   DISK = dist
@@ -21,9 +21,10 @@ clean_files := $(foreach dir,$(SUBDIR),$(dir)/clean)
 
 clean: $(clean_files)
 	rm -rvf $(DISK)
+	cd src && $(MAKE) clean
 
 $(clean_files):
-	cd $(@D) && $(MAKE) clean	
-	cd $(@D) && $(MAKE) cleansims
+	-cd $(@D) && $(MAKE) clean	
+	-cd $(@D) && $(MAKE) cleansims
 
 

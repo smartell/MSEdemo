@@ -3,6 +3,7 @@
 # | 
 # |----------------------------------------------------------------------------------|
 # |
+window title="MSE Demo"
 grid 1 1 relief="sunken" padx=5 pady=5
 	
 	#-- widget 1a
@@ -14,3 +15,5 @@ grid 1 2 relief="solid" toptitle="Select item to plot" topfont="Times" padx=2 pa
 	#-- widget 2a
 	radio name=plotType value=biomass text="Biomass" function=.viewPlot mode=character sticky=W edit=TRUE
 	radio name=plotType value=catch   text="Catch"   function=.viewPlot mode=character sticky=W edit=TRUE
+
+check name=junk mode="logical" checked=FALSE text="Communications Coordinator"

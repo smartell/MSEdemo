@@ -74,10 +74,13 @@ public:
 
 	void initialize_model();
 	void population_dynamics();
-	void observation_model();
+	void observation_model();  
 
-	dvar_vector get_epsilon() {return m_epsilon;}
+	dvar_vector get_epsilon()   {return m_epsilon;       }
+	dvar_vector get_bt()        {return m_bt;            }
+	dvar_vector get_ft()        {return m_ft;            }
 	dvariable   get_depletion() {return m_bt(m_nyr)/m_bo;}
+	dvariable   get_q()         {return m_q;             }
 	/* data */
 };
 
