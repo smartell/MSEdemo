@@ -1,4 +1,4 @@
-SUBDIR = fortyten fixedEsc fixedEscCap fixedHarvestRate fixedCCC
+SUBDIR = HCR/fortyten HCR/fixedEsc HCR/fixedEscCap HCR/fixedHarvestRate HCR/fixedCCC
 TARGET = sims 
 ifndef DISK
   DISK = dist

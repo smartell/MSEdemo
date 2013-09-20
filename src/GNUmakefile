@@ -18,8 +18,7 @@ TPLS = $(EXEC).tpl
 # make some special targets
 .PHONY: help info clean depend dust
 
-# does this if no target is specified on command line
-
+# Export the path to your ADMB dist directory
 export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
 
 # establish the C++ compiler
