@@ -17,17 +17,19 @@
 void msy_reference_points::calcReferencePoints()
 {
 	m_bmsy = (m_bo*(-1.+sqrt(m_k))/(m_k-1.)); 
-	m_msy  = (m_bmsy*(m_s-1.)*(m_k-1.)*(m_bmsy-m_bo)) / (m_bo + (m_k-1.)*m_bmsy);
+	m_msy  = (m_bmsy * (-1. + m_s) * (-1. + m_k)*(-m_bo + m_bmsy)) 
+			 / (m_bo + (-1. + m_k)*m_bmsy);
 	
+	m_fmsy = m_msy / m_bmsy;	
 
-	if( m_msy<m_bmsy )
-	{
-		m_fmsy = -log((-m_msy+m_bmsy)/m_bmsy);
-	}
-	else
-	{
-		m_fmsy = m_msy/m_bmsy;
-	}
+	// if( m_msy<m_bmsy )
+	// {
+	// 	m_fmsy = -log((-m_msy+m_bmsy)/m_bmsy);
+	// }
+	// else
+	// {
+	// 	m_fmsy = m_msy/m_bmsy;
+	// }
 
 	// cout<<"Bmsy = "<<m_bmsy<<endl;
 	// cout<<"Bmsy/Bo = "<<m_bmsy/m_bo<<endl;

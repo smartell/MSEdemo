@@ -79,7 +79,8 @@ void LRGS::population_dynamics()
 	m_fpen.initialize();
 	for(i=m_syr;i<=m_nyr;i++)
 	{
-		m_ft(i) = -log((-m_ct(i)+m_bt(i))/m_bt(i));
+		// m_ft(i) = -log((-m_ct(i)+m_bt(i))/m_bt(i));
+		m_ft(i) = m_ct(i) / m_bt(i);
 		if(i-m_syr > m_agek)
 		{
 			m_rt(i) = m_a*m_bt(i-m_agek)/(1.+m_b*m_bt(i-m_agek)) * exp(m_wt(i));	
@@ -87,6 +88,7 @@ void LRGS::population_dynamics()
 		
 		btmp    = m_s*m_bt(i) + m_rt(i) - m_ct(i);
 		m_bt(i+1) = posfun(btmp,0.1,m_fpen);
+		// m_ft(i) = -log( (m_bt(i)*(1.-m_s) + m_bt(i+1) - m_rt(i))/m_bt(i) );
 	}
 	// sd_dep = m_bt(nyr)/m_bo;
 }

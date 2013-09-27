@@ -58,6 +58,9 @@ DATA_SECTION
 	// | MANAGEMENT STRATEGY EVALUATION COMMANDS
 	// |---------------------------------------------------------------------------------|
 	// |
+	// Scenario 1 = stationarity
+	// Scenario 2 = pdo
+	init_int nScenario;
 	// Harvest control rule
 	init_int n_hcr;
 	init_int n_pyr;
@@ -239,7 +242,7 @@ FUNCTION void observation_model()
 FUNCTION void run_mse()
 	int j;
 	
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 
@@ -305,10 +308,10 @@ FUNCTION void calc_objective_function()
 ///
 FUNCTION void wtf()
 	int i;
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
-	
+	exit(1);
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 

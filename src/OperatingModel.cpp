@@ -73,7 +73,8 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
 		}
-		hat_ct(i) = bt(i) * (1.-mfexp(-ft(i)));
+		// hat_ct(i) = bt(i) * (1.-mfexp(-ft(i)));
+		hat_ct(i) = bt(i) * ft(i);
 		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
 	}
 	hat_ct(m_syr,m_nyr) = m_ct;
@@ -90,14 +91,30 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 	// | -6. Conduct stock assessment & update Bo, reck and s parameters.
 	// | -7. Repeat steps 2-7 for pyr's 
 	// | -8. Compute performance measures.
+	// | -9. Added sin curve to mimic non-stationarity
 	// |
 	int pyr1 = m_nyr+1;
 	int pyr2 = m_nyr+m_pyr;
+	dvector pyr(pyr1,pyr2);
+	pyr.fill_seqadd(pyr1,1);
 	int seed = m_rng;
 	
 	random_number_generator rng(seed);
 	dvector rt_dev(pyr1,pyr2);
 	dvector it_dev(pyr1,pyr2);
+	dvector pdo_dev(pyr1,pyr2);
+
+	double lambda;
+	if( m_nScenario==1 )
+	{
+		lambda = 0;
+	}
+	else if( m_nScenario==2 )
+	{
+		lambda = 0.4;
+	}
+	pdo_dev = sin((pyr-double(pyr1))/double(pyr2-pyr1)*4.0*PI);
+
 
 	rt_dev.fill_randn(rng);
 	it_dev.fill_randn(rng);
@@ -138,7 +155,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		// -4. Update reference population
 		if(i-m_syr > agek)
 		{
-			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(rt_dev(i));	
+			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(rt_dev(i) + lambda*pdo_dev(i));	
 		}
 		bt(i+1) = s*bt(i) + rt(i) - hat_ct(i);
 
@@ -175,7 +192,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		cout<<"|---------------------------|"<<endl;
 		
 	} // 7. repeat steps 2-6
-	m_bt = bt;
+	m_bt = bt(m_syr,m_nyr+m_pyr);
 
 	// 8. Calculate performance measures
 }

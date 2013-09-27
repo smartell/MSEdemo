@@ -14,9 +14,35 @@ fn       <- as.character(hdr$File.Path)
 getObj   <- function(fn){load(fn);return(sims)}
 M        <- lapply(fn,getObj)
 names(M) <- hdr$Label
-IDX       <- sample(1:length(M[[1]]),3)
-.FONTSIZE <- 18
+.NSAMP    <- 1
+IDX       <- sample(1:length(M[[1]]),.NSAMP)
+.FONTSIZE <- 12
 #load('fixedCCC.Rdata')
+
+.saveDataFrame <- function(M)
+{
+	n <- length(M)
+	S_HCR <- strsplit(names(M),"_")
+	year  <- 1964:(1964+length(M[[1]][[1]]$t_bt)-1)
+	mdf   <- qdf  <- NULL
+	for (i in 1:n)
+	{
+		cat("Scenario ",S_HCR[[i]][1],"\t")
+		cat("HCR ",S_HCR[[i]][2],"\n")
+		fn  <- function(X){return(X$t_bt)}
+		df  <- sapply(M[[i]],fn)
+		qf  <- t(apply(df,1,quantile,probs=c(0.05,0.5,0.95)))
+
+		fnc <- function(X){return(X$ct)}
+		cdf <- sapply(M[[i]],fnc)
+		cqf <- t(apply(cdf,1,quantile,probs=c(0.05,0.5,0.95)))
+
+		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],Year=year,qf,cqf)
+		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci","Ct.lci","Landings","Ct.uci")	
+		qdf <- rbind(qdf,qf)
+	}
+	save(qdf,file="QDF.Rdata")
+}
 
 .viewPlot <- function()
 {

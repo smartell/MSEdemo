@@ -8,6 +8,7 @@ OBJS = $(EXEC).o         \
 	LRGS.o
 SRCS = $(OBJS:.o=.cpp)  #!!!
 TPLS = $(EXEC).tpl
+ARG  = 
 
 # identify some extra file name suffixes
 .SUFFIXES: .tpl .cpp .o .obj
@@ -41,7 +42,7 @@ CFLAGS = -c $(CC_OPT) -D__GNUDOS__ -Dlinux -DUSE_LAPLACE -I. -I$(ADMB_HOME)/incl
 all: $(EXEC)
 
 run: $(EXEC)
-	./$(EXEC)
+	./$(EXEC) $(ARG)
 
 $(EXEC): $(EXEC).cpp .depend $(OBJS)
 	$(LL) $(LFLAGS) -o $@ $(OBJS)

@@ -45,6 +45,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   iyr.allocate(syr,nyr,"iyr");
   ct.allocate(syr,nyr,"ct");
   it.allocate(syr,nyr,"it");
+  nScenario.allocate("nScenario");
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
   sEstimator.allocate("sEstimator");
@@ -234,7 +235,7 @@ void model_parameters::observation_model()
 void model_parameters::run_mse()
 {
 	int j;
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	int e_hcr = n_hcr;
@@ -278,9 +279,10 @@ void model_parameters::calc_objective_function()
 void model_parameters::wtf()
 {
 	int i;
-	Scenario cScenario1(agek,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
+	exit(1);
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 	EstimatorClass cEstimator(sEstimator);

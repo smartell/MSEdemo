@@ -16,6 +16,7 @@ private:
 	double m_bo; //!< Unfished biomass
 	double m_h;  //!< Steepness of Beverton Holt Model
 	double m_s;  //!< Survival growth coefficient
+
 public:
 	/** Constructor for population class */
 	Population(const double bo=1.0, const double h=0.75, const double s=0.85)
@@ -49,6 +50,7 @@ class Scenario: public Population
 {
 private:
 	int     m_agek;
+	int     m_nScenario;  // Stationary or non-stationary stock-recruitment relationship
 	int     m_pyr;  // number of projection years
 	int     m_rseed;// Random number seed.
 	// double  m_bo;
@@ -68,16 +70,17 @@ public:
 	/**
 	Constructor for the scenario class.
 	*/
-	Scenario(const int& agek, const int& pyr, const int& rseed, double& bo,const double& h,
+	Scenario(const int& agek, const int& _nScenario, const int& pyr, const int& rseed, double& bo,const double& h,
 	         const double& s, const double& q, const double& sig,const double tau,
 	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
-		:m_agek(agek),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
+		:m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
 		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
 	{}
 
 	~Scenario();
 	// getters
 	int     get_agek() { return m_agek; } //!< get
+	int     get_nScenario(){ return m_nScenario; }
 	int     get_pyr()  { return m_pyr;  } //!< get
 	int     get_rseed(){ return m_rseed;} //!< get
 	double  get_bo()   { return m_bo;   } //!< get

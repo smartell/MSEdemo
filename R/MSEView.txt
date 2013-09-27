@@ -1,8 +1,14 @@
 #MSEView.txt
 "Select",  "Label"  ,    "File Path"
-TRUE,FortyTen,../HCR/fortyten/fortyten.Rdata
-TRUE,ThirtyTwenty,../HCR/thirtytwenty/thirtytwenty.Rdata
-TRUE,FixedEsc,../HCR/fixedEsc/fixedEsc.Rdata
-TRUE,FixedEscCap,../HCR/fixedEscCap/fixedEscCap.Rdata
-TRUE,FixedHrt,../HCR/fixedHarvestRate/fixedHarvestRate.Rdata
-TRUE,FixedCCC,../HCR/fixedCCC/fixedCCC.Rdata
+TRUE,S1_FortyTen,../HCR/fortyten/fortyten.Rdata
+TRUE,S1_ThirtyTwenty,../HCR/thirtytwenty/thirtytwenty.Rdata
+TRUE,S1_FixedEsc,../HCR/fixedEsc/fixedEsc.Rdata
+TRUE,S1_FixedEscCap,../HCR/fixedEscCap/fixedEscCap.Rdata
+TRUE,S1_FixedHrt,../HCR/fixedHarvestRate/fixedHarvestRate.Rdata
+TRUE,S1_FixedCCC,../HCR/fixedCCC/fixedCCC.Rdata
+TRUE,S2_FortyTen,../PDO/fortyten/fortyten.Rdata
+TRUE,S2_ThirtyTwenty,../PDO/thirtytwenty/thirtytwenty.Rdata
+TRUE,S2_FixedEsc,../PDO/fixedEsc/fixedEsc.Rdata
+TRUE,S2_FixedEscCap,../PDO/fixedEscCap/fixedEscCap.Rdata
+TRUE,S2_FixedHrt,../PDO/fixedHarvestRate/fixedHarvestRate.Rdata
+TRUE,S2_FixedCCC,../PDO/fixedCCC/fixedCCC.Rdata

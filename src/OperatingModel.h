@@ -26,6 +26,7 @@ private:
 	int m_nyr;
 	int m_pyr;
 	int m_rng;
+	int m_nScenario;
 
 	int     m_agek;
 	double  m_bo;
@@ -60,17 +61,18 @@ public:
 		m_pyr = cScenario.get_pyr();
 		m_rng = cScenario.get_rseed();
 
-		m_agek = cScenario.get_agek();
-		m_bo   = cScenario.get_bo();
-		m_h    = cScenario.get_h();
-		m_s    = cScenario.get_s();
-		m_q    = cScenario.get_q();
-		m_sig  = cScenario.get_sig();
-		m_tau  = cScenario.get_tau();
-		m_ft   = cScenario.get_ft();
-		m_wt   = cScenario.get_wt();
-		m_it   = cScenario.get_it();
-		m_ct   = cScenario.get_ct();
+		m_agek      = cScenario.get_agek();
+		m_nScenario = cScenario.get_nScenario();
+		m_bo        = cScenario.get_bo();
+		m_h         = cScenario.get_h();
+		m_s         = cScenario.get_s();
+		m_q         = cScenario.get_q();
+		m_sig       = cScenario.get_sig();
+		m_tau       = cScenario.get_tau();
+		m_ft        = cScenario.get_ft();
+		m_wt        = cScenario.get_wt();
+		m_it        = cScenario.get_it();
+		m_ct        = cScenario.get_ct();
 	}
 
 	// destructor:

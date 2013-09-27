@@ -21,13 +21,17 @@
 # |----------------------------------------------------------------------------------|
 # | MANAGEMENT STRATEGY EVALUATION CONTROLS
 # |----------------------------------------------------------------------------------|
+# | SCENARIO:
+# |  -                1 : Stationary stock-recruitment relationship
+# |  -                2 : Non-stationary stock-recruitment relationship
+1
 # | HARVEST_CONTROL_RULE:
 # |  -                0 : HarvestControlRule::FORTY_TEN
 # |  -                1 : HarvestControlRule::FIXED_ESCAPEMENT;
 # |  -                2 : HarvestControlRule::FIXED_ESCAPEMENT_CAP;
 # |  -                3 : HarvestControlRule::FIXED_HARVEST_RATE;
 # |  -                4 : HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
-3
+4
 # |  SCENARIO CLASS:
 # |  -  pyr             : number of projection years
 35
