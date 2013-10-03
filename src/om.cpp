@@ -48,6 +48,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   nScenario.allocate("nScenario");
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
+  n_flg_perfect_information.allocate("n_flg_perfect_information");
   sEstimator.allocate("sEstimator");
  data.syr  = syr;
  data.nyr  = nyr;
@@ -235,7 +236,8 @@ void model_parameters::observation_model()
 void model_parameters::run_mse()
 {
 	int j;
-	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
+	                    value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	int e_hcr = n_hcr;

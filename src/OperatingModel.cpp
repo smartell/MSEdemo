@@ -104,6 +104,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 	dvector it_dev(pyr1,pyr2);
 	dvector pdo_dev(pyr1,pyr2);
 
+	// | Recruitment Scenario
 	double lambda;
 	if( m_nScenario==1 )
 	{
@@ -166,13 +167,24 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 
 		// -6. Conduct assessment and update parameters
 		// system("./OM -ind MSE.dat -nox -est > NUL");
-		m_cEstimator.runEstimator();
+		// If using perfect information, then don't run assessment.
+		if(m_flg_perfect_information)
+		{
+			m_cEstimator.runEstimator();
 
-		ifstream ifs("mse.par");
-		ifs>>est_bo;
-		ifs>>est_reck;
-		ifs>>est_s;
-		ifs>>est_bt;
+			ifstream ifs("mse.par");
+			ifs>>est_bo;
+			ifs>>est_reck;
+			ifs>>est_s;
+			ifs>>est_bt;
+		}
+		else if( !m_flg_perfect_information )
+		{
+			est_bo = m_bo;
+			est_reck = m_reck;
+			est_s = m_s;
+			est_bt = bt(i+1);
+		}
 
 
 		// -   Screen dump so you can watch the progress.

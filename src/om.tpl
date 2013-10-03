@@ -64,6 +64,7 @@ DATA_SECTION
 	// Harvest control rule
 	init_int n_hcr;
 	init_int n_pyr;
+	init_int n_flg_perfect_information;
 	init_adstring sEstimator;
 	// !! COUT(sEstimator);
 	// !! exit(1);
@@ -242,7 +243,8 @@ FUNCTION void observation_model()
 FUNCTION void run_mse()
 	int j;
 	
-	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
+	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
+	                    value(h),value(s),
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 
