@@ -34,6 +34,8 @@
 4
 # |  SCENARIO CLASS:
 # |  -  pyr             : number of projection years
+# |  -  flg_perfect_information 0=TRUE 1=FALSE
 35
+0
 # | ESTIMATOR SYSTEM COMMAND
 ./OM

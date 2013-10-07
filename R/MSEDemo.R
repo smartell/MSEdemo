@@ -36,9 +36,20 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		fnc <- function(X){return(X$ct)}
 		cdf <- sapply(M[[i]],fnc)
 		cqf <- t(apply(cdf,1,quantile,probs=c(0.05,0.5,0.95)))
+		cmu <- apply(cdf,1,mean)
+		csd <- apply(cdf,1,sd)
 
-		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],Year=year,qf,cqf)
-		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci","Ct.lci","Landings","Ct.uci")	
+		# depletion
+		fnd <- function(X)(return(X$t_bt/X$t_bo))
+		ddf <- sapply(M[[i]],fnd)
+		cdf <- (apply(ddf,1,mean))
+		sdf <- (apply(ddf,1,sd))
+
+		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
+		                  Year=year,qf,cqf,cdf,sdf/cdf,csd/cmu)
+		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
+		                  "Ct.lci","Landings","Ct.uci",
+		                  "Depletion.Mean","Depletion.CV","Catch.CV")	
 		qdf <- rbind(qdf,qf)
 	}
 	save(qdf,file="QDF.Rdata")

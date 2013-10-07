@@ -1,10 +1,13 @@
 #ui.R
+library(googleVis)
+library(reshape)
+library(reldist)
 library(shiny)
 library(ggplot2)
 load("QDF.Rdata")
-dataset <- qdf
+raw.data <- qdf
 mi <- c(-4,-6,-7,-9)
-argv <- names(dataset)[mi]
+argv <- names(raw.data)[mi]
 
 shinyUI(pageWithSidebar(
 
@@ -12,38 +15,26 @@ shinyUI(pageWithSidebar(
 	headerPanel("Management Strategy Evaluation Explorer"),
 
 	sidebarPanel(
-		selectInput('x','X',argv,select='Year'),
-		selectInput('y','Y',argv,select='Biomass'),
-		selectInput('clr','Color',c('none',argv),select='MP'),
+		
+	    numericInput('x','Maximum year',value=2010,
+	                 min=min(qdf$Year),max=max(qdf$Year),step=5),
+
+		selectInput('y','Variable',argv[-1:-3],select='Biomass'),
+
+		h4('Management Procedure:'),
+		checkboxGroupInput('iclr','Harvest Control Rule',
+		                   levels(raw.data$MP),selected="FortyTen"),
 
 		selectInput('facet_row','Facet Row',c(None='.',argv)),
 		selectInput('facet_col','Facet Column',c(None='.',argv),select='Scenario')
 
-		# selectInput("scn","Recruitment Scenario:",
-		#             list("Stationary distribution"="S1",
-		#                  "Cyclic (PDO-like)"="S2"))
-
-		# selectInput("hcr","Harvest Control Rule:",
-		#             list("Fixed Escapement"="fixE",
-		#                  "Fixed Escapement Cap"="fixcap",
-		#                  "Fixed Exploitation"="fixU",
-		#                  "Fourty Ten Rule"="fourten",
-		#                  "Thirty Twenty Rule"="thirtytwenty",
-		#                  "Conditional Constant Catch"="ccc"),
-		#             selected=TRUE,
-		#             multiple=TRUE),
-
-		# radioButtons("plotType","Output:",
-		#              list("Biomass"="sbio",
-		#                   "Total catch"="catch")),
-
-		# numericInput("txtNSAM","Number of traces",3,min=0,max=10)
+		
 		),
 
 	mainPanel(
 		tabsetPanel(
-			tabPanel("Plot",  h3(textOutput("caption")),  plotOutput("msePlot")),
-			tabPanel("Summary", verbatimTextOutput("caption")),
+			tabPanel("Plot Variables", plotOutput("msePlot")),
+			tabPanel("Performance Measures",uiOutput("gVisoutput"),htmlOutput("motionchart")),
 			tabPanel("Table",   tableOutput("table"))
 			)	          
 	    )
