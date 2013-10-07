@@ -166,7 +166,7 @@ void model_parameters::userfunction(void)
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
-	cout<<q<<endl;
+	// cout<<q<<endl;
 	// initialize_model();
 	// population_dynamics();
 	// observation_model();
@@ -246,12 +246,32 @@ void model_parameters::run_mse()
 	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
 	cOM.runMSEscenario(cScenario1);
 	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
-	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
-	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
-	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
-	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
+	ofs<<"t_bo\n"      << cOM.get_bo()       <<endl;
+	ofs<<"t_est_bo\n"  << cOM.get_est_bo()   <<endl;
+	ofs<<"t_bmsy\n"    << cOM.get_bmsy()     <<endl;
+	ofs<<"t_fmsy\n"    << cOM.get_fmsy()     <<endl;
+	ofs<<"t_msy\n"     << cOM.get_msy()      <<endl;
+	ofs<<"t_bt\n"      << cOM.get_bt()       <<endl;
+	ofs<<"t_aav\n"     << cOM.get_aav()      <<endl;
 	ofs.close();
+	// |--------------------------------------------|
+	// | NOW RUN THE MODEL WITH PERFECT INFORMATION |
+	// |--------------------------------------------|
+	Scenario cScenarioP(agek,nScenario,n_pyr,0,rseed,value(bo),
+	                    value(h),value(s),
+	                    value(q),value(sig),value(tau),value(ft),
+	                    value(wt),it,ct);
+	OperatingModel cOMP(cScenarioP,cEstimator,c_hcr);
+	cOMP.runMSEscenario(cScenarioP);
+	ofstream ofs1("OM.rep",ios::app);
+	ofs1<<"p_bo\n"  << cOMP.get_est_bo()   <<endl;
+	ofs1<<"p_bmsy\n"<< cOMP.get_bmsy()     <<endl;
+	ofs1<<"p_fmsy\n"<< cOMP.get_fmsy()     <<endl;
+	ofs1<<"p_msy\n" << cOMP.get_msy()      <<endl;
+	ofs1<<"p_bt\n"  << cOMP.get_bt()       <<endl;
+	ofs1<<"p_ct\n"  << cOMP.get_hat_ct()   <<endl;
+	ofs1<<"p_aav\n" << cOMP.get_aav()      <<endl;
+	ofs1.close();
 }
 
 void model_parameters::calc_objective_function()

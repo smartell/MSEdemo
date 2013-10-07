@@ -42,14 +42,27 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		# depletion
 		fnd <- function(X)(return(X$t_bt/X$t_bo))
 		ddf <- sapply(M[[i]],fnd)
+		dmed <- apply(ddf,1,median)
 		cdf <- (apply(ddf,1,mean))
 		sdf <- (apply(ddf,1,sd))
 
+		# perfect information
+		fnp <- function(X)(return(X$p_bt))
+		tmp <- sapply(M[[i]],fnp)
+		mdf <- apply(tmp,1,median)
+
+		# AAV
+		fnaav <- function(X)(return(X$t_aav))
+		tmp <- sapply(M[[i]],fnaav)
+		aav <- apply(tmp,1,median)
+
+		# print(i)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
-		                  Year=year,qf,cqf,cdf,sdf/cdf,csd/cmu)
+		                  Year=year,qf,cqf,dmed,sdf/cdf,csd/cmu,mdf,aav)
 		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
 		                  "Ct.lci","Landings","Ct.uci",
-		                  "Depletion.Mean","Depletion.CV","Catch.CV")	
+		                  "Depletion.Median","Depletion.CV","Catch.CV",
+		                  "PerfectInfo.Bt","AAV")	
 		qdf <- rbind(qdf,qf)
 	}
 	save(qdf,file="QDF.Rdata")

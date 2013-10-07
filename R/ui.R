@@ -19,7 +19,7 @@ shinyUI(pageWithSidebar(
 	    numericInput('x','Maximum year',value=2010,
 	                 min=min(qdf$Year),max=max(qdf$Year),step=5),
 
-		selectInput('y','Variable',argv[-1:-3],select='Biomass'),
+		# selectInput('y','Variable',argv[-1:-3],select='Biomass'),
 
 		h4('Management Procedure:'),
 		checkboxGroupInput('iclr','Harvest Control Rule',
@@ -33,8 +33,8 @@ shinyUI(pageWithSidebar(
 
 	mainPanel(
 		tabsetPanel(
-			tabPanel("Plot Variables", plotOutput("msePlot")),
-			tabPanel("Performance Measures",uiOutput("gVisoutput"),htmlOutput("motionchart")),
+			tabPanel("Plot Variables",uiOutput("gVisoutput"),plotOutput("msePlot")),
+			tabPanel("Performance Measures",htmlOutput("motionchart")),
 			tabPanel("Table",   tableOutput("table"))
 			)	          
 	    )

@@ -31,6 +31,7 @@ private:
 
 	int     m_agek;
 	double  m_bo;
+	double  m_est_bo;
 	double  m_h;
 	double  m_reck;
 	double  m_s;
@@ -45,6 +46,8 @@ private:
 	dvector m_it;
 	dvector m_ct;
 	dvector m_bt;
+	dvector m_hat_ct;
+	dvector m_AAV;
 
 
 	Scenario m_cScenario;
@@ -107,11 +110,14 @@ public:
 
 	
 	// getters:
-	double  get_bmsy() { return m_bmsy; }
-	double  get_fmsy() { return m_fmsy; }
-	double  get_msy()  { return m_msy;  }
-	double  get_bo()   { return m_bo;   }
-	dvector get_bt()   { return m_bt;   }
+	double  get_bmsy()   { return m_bmsy;   }
+	double  get_fmsy()   { return m_fmsy;   }
+	double  get_msy()    { return m_msy;    }
+	double  get_bo()     { return m_bo;     }
+	double  get_est_bo() { return m_est_bo; }
+	dvector get_bt()     { return m_bt;     }
+	dvector get_hat_ct() { return m_hat_ct; }
+	dvector get_aav()    { return m_AAV;    }
 
 
 

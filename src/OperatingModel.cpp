@@ -137,6 +137,9 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		fmsy = cRefPoints.get_fmsy();
 		msy  = cRefPoints.get_msy();
 		bmsy = cRefPoints.get_bmsy();
+		m_bmsy = bmsy;
+		m_msy  = msy;
+		m_fmsy = fmsy;
 		tac  = m_cHCR.getTac(est_bt,fmsy,msy,bmsy,est_bo);
 
 		// -3. Implement harvest on reference population, add implentation errors
@@ -177,13 +180,16 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 			ifs>>est_reck;
 			ifs>>est_s;
 			ifs>>est_bt;
+			m_est_bo = est_bo;
 		}
 		else if( !m_flg_perfect_information )
 		{
+			cout<<"|-- PERFECT INFORMATION --|"<<endl;
 			est_bo = m_bo;
 			est_reck = m_reck;
 			est_s = m_s;
 			est_bt = bt(i+1);
+			m_est_bo = est_bo;
 		}
 
 
@@ -205,8 +211,20 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		
 	} // 7. repeat steps 2-6
 	m_bt = bt(m_syr,m_nyr+m_pyr);
+	m_hat_ct = hat_ct;
 
 	// 8. Calculate performance measures
+	// AAV = |Ct - Ct-1| / Ct
+	dvector AAV(m_syr,pyr2);
+	AAV.initialize();
+	for( i = pyr1+1; i <= pyr2; i++ )
+	{
+		 AAV(i)  = sum(fabs(first_difference(hat_ct(pyr1,i))));
+		 AAV(i) /= sum(hat_ct(pyr1,i));
+		 // cout<<AAV(i)<<endl;
+	}
+	m_AAV = AAV;
+	
 }
 
 void OperatingModel::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
