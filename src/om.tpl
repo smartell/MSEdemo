@@ -65,6 +65,7 @@ DATA_SECTION
 	init_int n_hcr;
 	init_int n_pyr;
 	init_int n_flg_perfect_information;
+	init_number iuu_rate;
 	init_adstring sEstimator;
 	// !! COUT(sEstimator);
 	// !! exit(1);
@@ -244,7 +245,7 @@ FUNCTION void run_mse()
 	int j;
 	
 	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
-	                    value(h),value(s),
+	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 
@@ -272,7 +273,7 @@ FUNCTION void run_mse()
 	// |--------------------------------------------|
 
 	Scenario cScenarioP(agek,nScenario,n_pyr,0,rseed,value(bo),
-	                    value(h),value(s),
+	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	
@@ -322,40 +323,6 @@ FUNCTION void calc_objective_function()
 	f = sum(nll) + 100000.*fpen;
 
 
-
-
-
-
-
-///
-/// @brief Management Strategy Evaluation
-/// @author Steve Martell
-/// @remarks Based on OperatingModel class
-///
-FUNCTION void wtf()
-	int i;
-	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
-	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
-	exit(1);
-	int e_hcr = n_hcr;
-	HarvestControlRule c_hcr(e_hcr);
-
-	EstimatorClass cEstimator(sEstimator);
-
-
-	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
-	cOM.runMSEscenario(cScenario1);
-
-
-	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
-	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
-	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
-	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
-	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
-
-	ofs.close();
 
 
 

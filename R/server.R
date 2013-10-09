@@ -11,7 +11,11 @@ argv <- names(raw.data)[mi]
 shinyServer(function(input,output){
 
 	data <- reactive({
-		a <- subset(raw.data, MP %in% input$iclr & Year <= input$x)
+		a <- subset(raw.data, 
+		            MP %in% input$iclr           &
+		            Scenario %in% input$scenario &
+		            Year >= input$syr            &
+		            Year <= input$nyr)
 		# a <- cbind(a,SMP=paste(a$MP))
 		a <- droplevels(a)
 		return(a)
@@ -31,9 +35,11 @@ shinyServer(function(input,output){
 	# TAB 1
 	mse_plotinput = function(...){
 		tagList(
-				selectInput('yy','Variable',argv[-1:-3],select='Biomass'),
-				selectInput('facet_irow','Facet Row',c(None='.',argv[c(1,2)])),
-				selectInput('facet_jcol','Facet Column',c(None='.',argv[c(1,2)]),select='Scenario')
+		    withTags(div(class='row-fluid',    
+			  div(class='span3',	selectInput('yy','Variable',argv[-1:-3],select='Biomass')),
+			  div(class='span3',	selectInput('facet_irow','Facet Row',c(None='.',argv[c(1,2)]))),
+			  div(class='span3',	selectInput('facet_jcol','Facet Column',c(None='.',argv[c(1,2)]),select='Scenario'))
+			))
 			)
 	}
 
@@ -57,24 +63,30 @@ shinyServer(function(input,output){
 			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
 		}
-		if(input$yy == 'Landings')
+		if(input$yy == 'Catch')
 		{
 			eb <- aes(ymin=Ct.lci,ymax=Ct.uci)
 			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
 		}
-		if(input$yy == 'Depletion.Median')
+		if(input$yy == 'Depletion')
 		{
+			p <- p + ylim(0,1)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
 		}
-		# if(input$iclr != 'none')
+		# print(length(input$iclr))
+		if(length(input$iclr) > 1)
 		{
 			 p <- p + aes_string(color="MP",fill="MP")
 		}
 
+		facets <- paste(input$facet_irow, '~', input$facet_jcol)
+		if( length(input$iclr)==1 && facets =='. ~ .')
+		{
+			p <- p + aes_string(color="Scenario",fill="Scenario")	
+		}
 		
 
-		facets <- paste(input$facet_irow, '~', input$facet_jcol)
 		if(facets != '. ~ .')
 		{
 			p <- p + facet_grid(facets)
@@ -86,14 +98,33 @@ shinyServer(function(input,output){
 	# TAB 2
 
 	output$motionchart <- renderGvis({
+
 		# Combine Scenarios
-		mdf <- melt(data(),id=c("Scenario","MP","Year"))
-		tmp <- cast(mdf,MP+Year~variable,mean)
-		tmp <- cbind(tmp,Procedure=tmp$MP)
+		print(input$integrate)
+		if( input$integrate )
+		{
+			mdf <- melt(data(),id=c("Scenario","MP","Year"))
+			tmp <- cast(mdf,MP+Year~variable,mean)
+			tmp <- cbind(tmp,Procedure=tmp$MP)			
 		
-		M1 <- gvisMotionChart(tmp, idvar="MP", timevar="Year",
-		                      xvar="Depletion.Median",yvar="Landings",
-		                      sizevar="Catch.CV",colorvar="Procedure")
+		
+			M1 <- gvisMotionChart(tmp, idvar="MP", timevar="Year",
+		                      xvar="Depletion",yvar="Catch",
+		                      sizevar="AAV",colorvar="Procedure",
+		                      options=list(height=700,width=900))
+		}
+		else if( !input$integrate )
+		{  #NOT WORKING YET
+			tmp <<- data()
+			tmp <<- cbind(tmp,Procedure=tmp$MP)
+
+			M1 <- gvisMotionChart(tmp, idvar="Scenario", timevar="Year",
+		                      xvar="Depletion",yvar="Catch",
+		                      sizevar="AAV",colorvar="MP",
+		                      options=list(height=700,width=900))
+		}
+
+
 		return(M1)
 	})
 

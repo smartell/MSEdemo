@@ -56,12 +56,14 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 	dvector bt(m_syr,m_nyr+m_pyr+1);
 	dvector rt(m_syr,m_nyr+m_pyr);
 	dvector hat_ct(m_syr,m_nyr+m_pyr);
+	dvector hat_dt(m_syr,m_nyr+m_pyr);	// IUU Fishing
 	dvector hat_it(m_syr,m_nyr+m_pyr);
 
 	// |---------------------------------------------------------------------------------|
 	// | CONDITION REFERENCE MODEL BASED ON SCENARIO INFORMATION
 	// |---------------------------------------------------------------------------------|
 	// |
+	hat_dt.initialize();
 	bt.initialize();
 	bt(m_syr) = bo;
 	rt(m_syr,m_syr+agek) = ro * exp(wt(m_syr,m_syr+agek));
@@ -78,6 +80,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		bt(i+1)   = s*bt(i) + rt(i) - hat_ct(i);
 	}
 	hat_ct(m_syr,m_nyr) = m_ct;
+	hat_dt(m_syr,m_nyr) = 0;
 	// | END OF CONDITIONING PERIOD
 
 	// |---------------------------------------------------------------------------------|
@@ -154,14 +157,14 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 			frate = 0.8;
 		}
 		hat_ct(i) = bt(i) * (1.-mfexp(-frate));
-
+		hat_dt(i) = bt(i) * (1.-mfexp(-m_iuu_rate));
 
 		// -4. Update reference population
 		if(i-m_syr > agek)
 		{
 			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(rt_dev(i) + lambda*pdo_dev(i));	
 		}
-		bt(i+1) = s*bt(i) + rt(i) - hat_ct(i);
+		bt(i+1) = s*bt(i) + rt(i) - hat_ct(i) - hat_dt(i);
 
 		// -5. Update observation models and write data files.
 		// cout<<"Q = "<<q<<" "<<m_q<<endl;
@@ -217,10 +220,10 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 	// AAV = |Ct - Ct-1| / Ct
 	dvector AAV(m_syr,pyr2);
 	AAV.initialize();
-	for( i = pyr1+1; i <= pyr2; i++ )
+	for( i = m_syr+6; i <= pyr2; i++ )
 	{
-		 AAV(i)  = sum(fabs(first_difference(hat_ct(pyr1,i))));
-		 AAV(i) /= sum(hat_ct(pyr1,i));
+		 AAV(i)  = sum(fabs(first_difference(hat_ct(i-5,i))));
+		 AAV(i) /= sum(hat_ct(i-5,i));
 		 // cout<<AAV(i)<<endl;
 	}
 	m_AAV = AAV;

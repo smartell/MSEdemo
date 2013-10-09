@@ -41,6 +41,7 @@ private:
 	double  m_fmsy;
 	double  m_bmsy;
 	double  m_msy;
+	double  m_iuu_rate;
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
@@ -103,6 +104,7 @@ public:
 		m_wt        = cScenario.get_wt();
 		m_it        = cScenario.get_it();
 		m_ct        = cScenario.get_ct();
+		m_iuu_rate  = cScenario.get_iuu();
 	}
 
 	// destructor:

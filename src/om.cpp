@@ -49,6 +49,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   n_hcr.allocate("n_hcr");
   n_pyr.allocate("n_pyr");
   n_flg_perfect_information.allocate("n_flg_perfect_information");
+  iuu_rate.allocate("iuu_rate");
   sEstimator.allocate("sEstimator");
  data.syr  = syr;
  data.nyr  = nyr;
@@ -237,7 +238,7 @@ void model_parameters::run_mse()
 {
 	int j;
 	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
-	                    value(h),value(s),
+	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	int e_hcr = n_hcr;
@@ -258,7 +259,7 @@ void model_parameters::run_mse()
 	// | NOW RUN THE MODEL WITH PERFECT INFORMATION |
 	// |--------------------------------------------|
 	Scenario cScenarioP(agek,nScenario,n_pyr,0,rseed,value(bo),
-	                    value(h),value(s),
+	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
 	                    value(wt),it,ct);
 	OperatingModel cOMP(cScenarioP,cEstimator,c_hcr);
@@ -296,27 +297,6 @@ void model_parameters::calc_objective_function()
 	}
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
 	f = sum(nll) + 100000.*fpen;
-}
-
-void model_parameters::wtf()
-{
-	int i;
-	Scenario cScenario1(agek,nScenario,n_pyr,rseed,value(bo),value(h),value(s),
-	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
-	exit(1);
-	int e_hcr = n_hcr;
-	HarvestControlRule c_hcr(e_hcr);
-	EstimatorClass cEstimator(sEstimator);
-	OperatingModel cOM(cScenario1,cEstimator,c_hcr);
-	cOM.runMSEscenario(cScenario1);
-	ofstream ofs("OM.rep",ios::app);
-	ofs<<"t_bo\n"  << cOM.get_bo()   <<endl;
-	ofs<<"t_bmsy\n"<< cOM.get_bmsy() <<endl;
-	ofs<<"t_fmsy\n"<< cOM.get_fmsy() <<endl;
-	ofs<<"t_msy\n" << cOM.get_msy()  <<endl;
-	ofs<<"t_bt\n"  << cOM.get_bt()   <<endl;
-	ofs.close();
 }
 
 void model_parameters::report()

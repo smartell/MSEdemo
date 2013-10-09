@@ -60,6 +60,7 @@ private:
 	double  m_q;
 	double  m_sig;
 	double  m_tau;
+	double  m_iuu_rate;
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
@@ -72,19 +73,19 @@ public:
 	Constructor for the scenario class.
 	*/
 	Scenario(const int& agek, const int& _nScenario, const int& pyr, const int& rseed, double& bo,const double& h,
-	         const double& s, const double& q, const double& sig,const double tau,
+	         const double& s,const double& iuu_rate, const double& q, const double& sig,const double tau,
 	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
 		:m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
-		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)
+		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),m_iuu_rate(iuu_rate)
 	{}
 
 	Scenario(const int& agek, const int& _nScenario, const int& pyr, const int& _flg_perfect_information,
 	         const int& rseed, double& bo,const double& h,
-	         const double& s, const double& q, const double& sig,const double tau,
+	         const double& s,const double& iuu_rate,const double& q, const double& sig,const double tau,
 	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct)
 		:m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
 		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),
-		 m_flg_perfect_information(_flg_perfect_information)
+		 m_flg_perfect_information(_flg_perfect_information),m_iuu_rate(iuu_rate)
 	{}
 
 	~Scenario();
@@ -100,6 +101,7 @@ public:
 	double  get_q()    { return m_q;    } //!< get
 	double  get_sig()  { return m_sig;  } //!< get
 	double  get_tau()  { return m_tau;  } //!< get
+	double  get_iuu()  { return m_iuu_rate; }
 	dvector get_ft()   { return m_ft;   } //!< get
 	dvector get_wt()   { return m_wt;   } //!< get
 	dvector get_it()   { return m_it;   } //!< get

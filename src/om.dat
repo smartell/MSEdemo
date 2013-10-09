@@ -33,9 +33,11 @@
 # |  -                4 : HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
 4
 # |  SCENARIO CLASS:
-# |  -  pyr             : number of projection years
-# |  -  flg_perfect_information 0=TRUE 1=FALSE
+# |  -  pyr             		: number of projection years
+# |  -  flg_perfect_information : 0=TRUE 1=FALSE
+# |  -  iuu_rate                : instantaneous rate of iuu fishing (unreported discards)
 35
+0
 0
 # | ESTIMATOR SYSTEM COMMAND
 ./OM

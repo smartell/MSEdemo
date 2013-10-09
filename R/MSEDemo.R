@@ -60,8 +60,8 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
 		                  Year=year,qf,cqf,dmed,sdf/cdf,csd/cmu,mdf,aav)
 		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
-		                  "Ct.lci","Landings","Ct.uci",
-		                  "Depletion.Median","Depletion.CV","Catch.CV",
+		                  "Ct.lci","Catch","Ct.uci",
+		                  "Depletion","Depletion.CV","Catch.CV",
 		                  "PerfectInfo.Bt","AAV")	
 		qdf <- rbind(qdf,qf)
 	}
