@@ -1,13 +1,13 @@
 #ui.R
-library(googleVis)
-library(reshape)
-library(reldist)
-library(shiny)
-library(ggplot2)
-load("QDF.Rdata")
-raw.data <- qdf
-mi <- c(-4,-6,-7,-9)
-argv <- names(raw.data)[mi]
+# library(googleVis)
+# library(reshape)
+# library(reldist)
+# library(shiny)
+# library(ggplot2)
+# load("QDF.Rdata")
+# raw.data <- qdf
+# mi <- c(-4,-6,-7,-9)
+# argv <- names(raw.data)[mi]
 
 shinyUI(pageWithSidebar(
 

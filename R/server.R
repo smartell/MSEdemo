@@ -1,11 +1,11 @@
 #server.R
-library(shiny)
-library(ggplot2)
-library(plyr)
-load("QDF.Rdata")
-raw.data <- qdf
-mi <- c(-4,-6,-7,-9,-11:-13)
-argv <- names(raw.data)[mi]
+# library(shiny)
+# library(ggplot2)
+# library(plyr)
+# load("QDF.Rdata")
+# raw.data <- qdf
+# mi <- c(-4,-6,-7,-9,-11:-13)
+# argv <- names(raw.data)[mi]
 
 
 shinyServer(function(input,output){
@@ -54,6 +54,7 @@ shinyServer(function(input,output){
 
 	})
 
+	# This is the ggplot on the opening page.
 	output$msePlot <- renderPlot({
 		p <- ggplot(data(),aes_string(x="Year",y=input$yy))
 
@@ -96,14 +97,14 @@ shinyServer(function(input,output){
 	})
 
 	# TAB 2
-
+	# Function for the motion chart on the second tab
 	output$motionchart <- renderGvis({
 
 		# Combine Scenarios
 		print(input$integrate)
 		if( input$integrate )
 		{
-			mdf <- melt(data(),id=c("Scenario","MP","Year"))
+			mdf <- melt(data(),id=c("Scenario","MP","Year","SP"))
 			tmp <- cast(mdf,MP+Year~variable,mean)
 			tmp <- cbind(tmp,Procedure=tmp$MP)			
 		
@@ -113,14 +114,14 @@ shinyServer(function(input,output){
 		                      sizevar="AAV",colorvar="Procedure",
 		                      options=list(height=700,width=900))
 		}
-		else if( !input$integrate )
+		if( !input$integrate )
 		{  #NOT WORKING YET
-			tmp <<- data()
-			tmp <<- cbind(tmp,Procedure=tmp$MP)
+			tmp <- data()
+			tmp <- cbind(tmp,Procedure=tmp$MP)
 
-			M1 <- gvisMotionChart(tmp, idvar="Scenario", timevar="Year",
+			M1 <- gvisMotionChart(tmp, idvar="SP", timevar="Year",
 		                      xvar="Depletion",yvar="Catch",
-		                      sizevar="AAV",colorvar="MP",
+		                      sizevar="AAV",colorvar="Scenario",
 		                      options=list(height=700,width=900))
 		}
 

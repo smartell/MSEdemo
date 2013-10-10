@@ -65,6 +65,10 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		                  "PerfectInfo.Bt","AAV")	
 		qdf <- rbind(qdf,qf)
 	}
+	scen <- qdf$Scenario; sn<-paste0("S",1:length(unique(scen))); levels(scen)=sn
+	manp <- qdf$MP;       pn<-paste0("P",1:length(unique(manp))); #levels(manp)=pn
+	qdf <- cbind(qdf,SP=paste(scen,manp,sep=""))
+
 	save(qdf,file="QDF.Rdata")
 }
 
