@@ -135,7 +135,9 @@ shinyServer(function(input,output){
 		dt<-data()
 		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
 		# tmp <- cast(subset(mdf,variable=="Catch"),MP~Scenario,mean,margins=TRUE)
-		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="Depletion"))
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="Depletion"))
 		return(tmp)
 	})
 
@@ -143,7 +145,9 @@ shinyServer(function(input,output){
 		dt<-data()
 		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
 		# tmp <- cast(subset(mdf,variable=="Catch"),MP~Scenario,mean,margins=TRUE)
-		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="Catch"))
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="Catch"))
 		return(tmp)
 	})
 
@@ -152,7 +156,9 @@ shinyServer(function(input,output){
 		print(head(dt))
 		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
 		#tmp <- cast(subset(mdf,variable=="AAV"),MP~Scenario,mean,na.rm=TRUE,margins=TRUE)
-		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="AAV"))
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="AAV"))
 		return(tmp)
 	})
 })
