@@ -143,7 +143,7 @@ void OperatingModel::runMSEscenario(const Scenario &cScenario)
 		m_bmsy = bmsy;
 		m_msy  = msy;
 		m_fmsy = fmsy;
-		tac  = m_cHCR.getTac(est_bt,fmsy,msy,bmsy,est_bo);
+		tac  = m_cHCR.getTac(est_bt,fmsy,msy,bmsy,est_bo,0.15,hat_ct(i-1));
 
 		// -3. Implement harvest on reference population, add implentation errors
 		//     Watch out here if tac > bt(i), then need to set frate to some arbitrary max

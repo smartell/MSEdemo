@@ -31,7 +31,9 @@
 # |  -                2 : HarvestControlRule::FIXED_ESCAPEMENT_CAP;
 # |  -                3 : HarvestControlRule::FIXED_HARVEST_RATE;
 # |  -                4 : HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
-4
+# |  -                5 : HarvestControlRule::THIRTY_TWENTY;
+# |  -                6 : HarvestControlRule::FIXED_HR_DELTA;
+6
 # |  SCENARIO CLASS:
 # |  -  pyr             		: number of projection years
 # |  -  flg_perfect_information : 0=TRUE 1=FALSE

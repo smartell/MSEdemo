@@ -9,6 +9,7 @@ OBJS = $(EXEC).o         \
 SRCS = $(OBJS:.o=.cpp)  #!!!
 TPLS = $(EXEC).tpl
 ARG  = 
+OPT  = TRUE
 
 # identify some extra file name suffixes
 .SUFFIXES: .tpl .cpp .o .obj

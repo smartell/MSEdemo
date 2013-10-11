@@ -8,7 +8,8 @@
  *          appropriate function to calculate the TAC.
 **/
 double HarvestControlRule::getTac(const double &bt, const double &fmsy, const double &msy,
-	              				  const double &bmsy, const double &bo)
+	              				  const double &bmsy, const double &bo, 
+	              				  const double &delta, const double &ptac)
 {
 	/** \param bt preseason biomass forecast                    */
 	/** \param fmsy estimate of Fmsy                            */
@@ -42,6 +43,9 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 			tac = ThirtyTwenty(bt,bo,fmsy);
 			cout<<"Thirty Twenty tac = "<<tac<<endl;
 			break;
+		case FIXED_HR_DELTA:
+			tac = FixedHarvestRateDelta(bt,fmsy,delta,ptac);
+			cout<<"Fixed Harvest Rate Delta tac = "<<tac<<endl;
 		case FAO_PA_COMPLIANT:
 			cout<<"FAO_PA_COMPLIANT"<<endl;
 			break;
@@ -109,6 +113,23 @@ double HarvestControlRule::ThirtyTwenty(const double &bt, const double &bo, cons
 double HarvestControlRule::FixedHarvestRate(const double &bt, const double &fmsy)
 {
 	double tac = bt * (1. - exp(-fmsy));
+	return tac;
+}
+
+double HarvestControlRule::FixedHarvestRateDelta(const double &bt, const double &fmsy,
+                                                 const double &delta, const double &ptac)
+{
+	double tac = bt * (1. - exp(-fmsy));
+	double dc = (tac-ptac)/ptac;
+	cout<<"tac  = "<<tac<<endl;
+	cout<<"ptac = "<<ptac<<endl;
+	cout<<"dc   = "<<dc<<endl;
+	if( fabs(dc) > delta )
+	{
+		int v=(int)dc;  v > 0 ? v=1 : v=-1;
+		tac = (v*delta) * ptac + ptac;
+	cout<<"Steve'O has done some stupid stuff "<<v*delta<<"\t"<<tac<<endl;
+	}
 	return tac;
 }
 

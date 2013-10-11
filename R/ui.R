@@ -26,7 +26,7 @@ shinyUI(pageWithSidebar(
 	    h4('Scenarios:'),
 	    selectInput('scenario','Select multiple scenarios with shift key'
 	                ,levels(raw.data$Scenario),
-	                multiple=TRUE,selected='Deterministic.N.Theft'),
+	                multiple=TRUE,selected=c('DET.N.Theft','PDO.N.Theft')),
 
 		checkboxInput('integrate','Integrate Scenarios',value=TRUE),
 
@@ -45,7 +45,10 @@ shinyUI(pageWithSidebar(
 		tabsetPanel(
 			tabPanel("Worm Plots",uiOutput("gVisoutput"),plotOutput("msePlot")),
 			tabPanel("MSE Player",htmlOutput("motionchart")),
-			tabPanel("Table",   tableOutput("table"))
+			tabPanel("Table",
+			         h4("Average Depletion"), tableOutput("viewDepletionTable"),
+			         h4("Average Catch"),tableOutput("viewCatchTable"),
+			         h4("5-year Average Annual Variation"),tableOutput("viewAAVTable"))
 			)	          
 	    )
 ))

@@ -14,7 +14,7 @@ fn       <- as.character(hdr$File.Path)
 getObj   <- function(fn){load(fn);return(sims)}
 M        <- lapply(fn,getObj)
 names(M) <- hdr$Label
-.NSAMP    <- 1
+.NSAMP    <- 3
 IDX       <- sample(1:length(M[[1]]),.NSAMP)
 .FONTSIZE <- 12
 #load('fixedCCC.Rdata')
@@ -55,6 +55,8 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		fnaav <- function(X)(return(X$t_aav))
 		tmp <- sapply(M[[i]],fnaav)
 		aav <- apply(tmp,1,median)
+
+		# HarvestRate
 
 		# print(i)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],

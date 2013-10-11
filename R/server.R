@@ -57,7 +57,7 @@ shinyServer(function(input,output){
 	# This is the ggplot on the opening page.
 	output$msePlot <- renderPlot({
 		p <- ggplot(data(),aes_string(x="Year",y=input$yy))
-
+		if( is.null(input$yy)) return(NULL)
 		if(input$yy == 'Biomass')
 		{
 			eb <- aes(ymin=Bt.lci,ymax=Bt.uci)
@@ -130,4 +130,29 @@ shinyServer(function(input,output){
 	})
 
 
+	# Table panel
+	output$viewDepletionTable <- renderTable({
+		dt<-data()
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		# tmp <- cast(subset(mdf,variable=="Catch"),MP~Scenario,mean,margins=TRUE)
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="Depletion"))
+		return(tmp)
+	})
+
+	output$viewCatchTable <- renderTable({
+		dt<-data()
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		# tmp <- cast(subset(mdf,variable=="Catch"),MP~Scenario,mean,margins=TRUE)
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="Catch"))
+		return(tmp)
+	})
+
+	output$viewAAVTable <- renderTable({
+		dt<-data()
+		print(head(dt))
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		#tmp <- cast(subset(mdf,variable=="AAV"),MP~Scenario,mean,na.rm=TRUE,margins=TRUE)
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins="Scenario",subset=.(variable=="AAV"))
+		return(tmp)
+	})
 })
