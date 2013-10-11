@@ -9,6 +9,10 @@ This is a small demonstration model for developing the infrastructure for conduc
 
 * * *
 
+Has a cool Web-based interface!
+
+![Alt text](./MSEE.png)
+
 See the code documentation at http://smartell.github.io/MSEdemo/
 
 #### Makefile targets
