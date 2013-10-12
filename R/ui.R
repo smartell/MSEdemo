@@ -48,7 +48,7 @@ shinyUI(pageWithSidebar(
 			tabPanel("Table",
 			         h4("Average Depletion"), tableOutput("viewDepletionTable"),
 			         h4("Average Catch"),tableOutput("viewCatchTable"),
-			         h4("5-year Average Annual Variation"),tableOutput("viewAAVTable"))
+			         h4("5-year Average Annual Catch Variation"),tableOutput("viewAAVTable"))
 			)	          
 	    )
 ))
