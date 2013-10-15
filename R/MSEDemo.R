@@ -36,15 +36,15 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		fnc <- function(X){return(X$ct)}
 		cdf <- sapply(M[[i]],fnc)
 		cqf <- t(apply(cdf,1,quantile,probs=c(0.05,0.5,0.95)))
-		cmu <- apply(cdf,1,mean)
-		csd <- apply(cdf,1,sd)
+		#cmu <- apply(cdf,1,mean)
+		#csd <- apply(cdf,1,sd)
 
 		# depletion
 		fnd <- function(X)(return(X$t_bt/X$t_bo))
 		ddf <- sapply(M[[i]],fnd)
-		dmed <- apply(ddf,1,median)
-		cdf <- (apply(ddf,1,mean))
-		sdf <- (apply(ddf,1,sd))
+		dmed <- t(apply(ddf,1,quantile,probs=c(0.05,0.5,0.95)))
+		#cdf <- (apply(ddf,1,mean))
+		#sdf <- (apply(ddf,1,sd))
 
 		# perfect information
 		fnp <- function(X)(return(X$p_bt))
@@ -56,15 +56,26 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		tmp <- sapply(M[[i]],fnaav)
 		aav <- apply(tmp,1,median)
 
+		# No of closures
+		fnclose <- function(X)(return(X$ct != 0))
+		tmp <- sapply(M[[i]],fnclose)
+		closed <- apply(tmp,1,FUN=function(tmp){sum(tmp==FALSE)})
+		# closed <- apply(tmp,1,sum)
+
 		# HarvestRate
+		fnhr <- function(X)(return(X$ct/X$t_bt))
+		dfhr <- sapply(M[[i]],fnhr)
+		dhr  <- t(apply(dfhr,1,quantile,probs=c(0.05,0.5,0.95)))
 
 		# print(i)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
-		                  Year=year,qf,cqf,dmed,sdf/cdf,csd/cmu,mdf,aav)
+		                  Year=year,qf,cqf,dmed,mdf,aav,dhr,closed)
 		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
 		                  "Ct.lci","Catch","Ct.uci",
-		                  "Depletion","Depletion.CV","Catch.CV",
-		                  "PerfectInfo.Bt","AAV")	
+		                  "Dt.lci","Depletion","Dt.uci",
+		                  "PerfectInfo.Bt","AAV",
+		                  "Hr.lci","HarvestRate","Hr.uci",
+		                  "Closures")	
 		qdf <- rbind(qdf,qf)
 	}
 	scen <- qdf$Scenario; sn<-paste0("S",1:length(unique(scen))); levels(scen)=sn

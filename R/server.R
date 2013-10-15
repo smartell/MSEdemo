@@ -36,9 +36,13 @@ shinyServer(function(input,output){
 	mse_plotinput = function(...){
 		tagList(
 		    withTags(div(class='row-fluid',    
-			  div(class='span3',	selectInput('yy','Variable',argv[-1:-3],select='Biomass')),
-			  div(class='span3',	selectInput('facet_irow','Facet Row',c(None='.',argv[c(1,2)]))),
-			  div(class='span3',	selectInput('facet_jcol','Facet Column',c(None='.',argv[c(1,2)]),select='Scenario'))
+			  div(class='span3', selectInput('yy','Variable',argv[-1:-3],select='Biomass')),
+			  div(class='span3', selectInput('facet_irow','Facet Row',c(None='.',argv[c(1,2)]))),
+			  div(class='span3', selectInput('facet_jcol','Facet Column',c(None='.',argv[c(1,2)]),select='Scenario'))
+			)),
+			withTags(div(class='row-fluid',
+			  div(class='span5', checkboxInput('savePNG','Save (CurrentImage.PNG)',value=FALSE)),
+			  div(class='span3', selectInput('.FONTSIZE','Font size',c(10,12,16,18),select=18))
 			))
 			)
 	}
@@ -70,11 +74,22 @@ shinyServer(function(input,output){
 			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
 		}
+		if(input$yy == 'HarvestRate')
+		{
+			eb <- aes(ymin=Hr.lci,ymax=Hr.uci)
+			p <- p + geom_ribbon(eb,alpha=0.15)
+			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)	
+		}
+
 		if(input$yy == 'Depletion')
 		{
-			p <- p + ylim(0,1)
+			eb <- aes(ymin=Dt.lci,ymax=Dt.uci)
+			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
+			p <- p + ylim(0,1)
 		}
+
+
 		# print(length(input$iclr))
 		if(length(input$iclr) > 1)
 		{
@@ -94,12 +109,16 @@ shinyServer(function(input,output){
 			p <- p + facet_grid(facets)
 
 		}
-
+		print(input$.FONTSIZE)
+		.FONTSIZE = as.integer(input$.FONTSIZE)
 		print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
 		# print(p)
-		png("CurrentImage.png",width=9.08,height=6.81,res=600,units="in")
-		print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
-		dev.off()
+		if(input$savePNG)
+		{
+			png("CurrentImage.png",width=9.08,height=6.81,res=600,units="in")
+			print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
+			dev.off()			
+		}
 	})
 
 	# TAB 2
@@ -165,6 +184,18 @@ shinyServer(function(input,output){
 		if(  input$integrate ) mar = "Scenario"
 		if( !input$integrate ) mar = FALSE
 		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="AAV"))
+		return(tmp)
+	})
+
+	output$viewClosedTable <- renderTable({
+		dt<-data()
+		print(head(dt))
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		#tmp <- cast(subset(mdf,variable=="AAV"),MP~Scenario,mean,na.rm=TRUE,margins=TRUE)
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		
+		tmp <- dcast(mdf,MP~Scenario,sum,na.rm=TRUE,margins=mar,subset=.(variable=="Closures"))
 		return(tmp)
 	})
 })
