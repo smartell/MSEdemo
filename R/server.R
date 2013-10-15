@@ -67,12 +67,28 @@ shinyServer(function(input,output){
 			eb <- aes(ymin=Bt.lci,ymax=Bt.uci)
 			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
+			if(length(input$iclr)==1)
+			{
+				d <- data()[,c(1:3,grep("btrc",names(qdf)))]
+				d <- melt(d,id=c("Scenario","MP","Year"))
+				# print(head(d))
+
+				p <- p + geom_line(data=d,aes_string(x="Year",y='value',col='variable'))
+			}
 		}
 		if(input$yy == 'Catch')
 		{
 			eb <- aes(ymin=Ct.lci,ymax=Ct.uci)
 			p <- p + geom_ribbon(eb,alpha=0.15)
 			p <- p + geom_line(data=data(),aes_string(x="Year",y=input$yy),alpha=1)
+			if(length(input$iclr)==1)
+			{
+				d <- data()[,c(1:3,grep("ctrc",names(qdf)))]
+				d <- melt(d,id=c("Scenario","MP","Year"))
+				# print(head(d))
+
+				p <- p + geom_line(data=d,aes_string(x="Year",y='value',col='variable'))
+			}
 		}
 		if(input$yy == 'HarvestRate')
 		{
@@ -93,6 +109,7 @@ shinyServer(function(input,output){
 		# print(length(input$iclr))
 		if(length(input$iclr) > 1)
 		{
+			.LEGPOS <- 'top'
 			 p <- p + aes_string(color="MP",fill="MP")
 		}
 
@@ -111,12 +128,12 @@ shinyServer(function(input,output){
 		}
 		print(input$.FONTSIZE)
 		.FONTSIZE = as.integer(input$.FONTSIZE)
-		print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
+		print(p + theme_bw(.FONTSIZE) + theme( legend.position = .LEGPOS ))
 		# print(p)
 		if(input$savePNG)
 		{
 			png("CurrentImage.png",width=9.08,height=6.81,res=600,units="in")
-			print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
+			print(p + theme_bw(.FONTSIZE) + theme( legend.position = .LEGPOS ))
 			dev.off()			
 		}
 	})

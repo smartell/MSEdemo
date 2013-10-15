@@ -14,7 +14,7 @@ fn       <- as.character(hdr$File.Path)
 getObj   <- function(fn){load(fn);return(sims)}
 M        <- lapply(fn,getObj)
 names(M) <- hdr$Label
-.NSAMP    <- 3
+.NSAMP    <- 5
 IDX       <- sample(1:length(M[[1]]),.NSAMP)
 .FONTSIZE <- 18
 #load('fixedCCC.Rdata')
@@ -60,6 +60,7 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		fnclose <- function(X)(return(X$ct != 0))
 		tmp <- sapply(M[[i]],fnclose)
 		closed <- apply(tmp,1,FUN=function(tmp){sum(tmp==FALSE)})
+		closed <- closed/prod(dim(tmp)) * 100
 		# closed <- apply(tmp,1,sum)
 
 		# HarvestRate
@@ -67,15 +68,27 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		dfhr <- sapply(M[[i]],fnhr)
 		dhr  <- t(apply(dfhr,1,quantile,probs=c(0.05,0.5,0.95)))
 
+		# Biomass traces
+		fntb <- function(X)(return(X$t_bt))
+		tmp  <- sapply(M[[i]],fntb)
+		btrc <- tmp[,IDX]
+
+		# Catch Traces
+		fntc <- function(X)(return(X$ct))
+		tmp  <- sapply(M[[i]],fntc)
+		ctrc <- tmp[,IDX]
 		# print(i)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
-		                  Year=year,qf,cqf,dmed,mdf,aav,dhr,closed)
+		                  Year=year,qf,cqf,dmed,mdf,aav,dhr,closed,
+		                  btrc,ctrc)
 		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
 		                  "Ct.lci","Catch","Ct.uci",
 		                  "Dt.lci","Depletion","Dt.uci",
 		                  "PerfectInfo.Bt","AAV",
 		                  "Hr.lci","HarvestRate","Hr.uci",
-		                  "Closures")	
+		                  "Closures",
+		                  paste0("btrc",1:length(IDX)),
+		                  paste0("ctrc",1:length(IDX)))	
 		qdf <- rbind(qdf,qf)
 	}
 	scen <- qdf$Scenario; sn<-paste0("S",1:length(unique(scen))); levels(scen)=sn

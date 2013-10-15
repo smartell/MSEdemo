@@ -50,7 +50,7 @@ shinyUI(pageWithSidebar(
 			         h4("Average Depletion"), tableOutput("viewDepletionTable"),
 			         h4("Average Catch"),tableOutput("viewCatchTable"),
 			         h4("5-year Average Annual Catch Variation"),tableOutput("viewAAVTable"),
-			         h4("Total number of fishery closures"),tableOutput("viewClosedTable"))
+			         h4("Percent of time fishery is closed"),tableOutput("viewClosedTable"))
 			)	          
 	    )
 ))
