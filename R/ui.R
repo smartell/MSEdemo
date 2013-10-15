@@ -23,10 +23,11 @@ shinyUI(pageWithSidebar(
                  min=min(qdf$Year),max=max(qdf$Year),step=1),
 	    
 		# selectInput('y','Variable',argv[-1:-3],select='Biomass'),
-	    h4('Scenarios:'),
-	    selectInput('scenario','Select multiple scenarios with shift key'
+	    #
+	    selectInput('scenario','Scenarios'
 	                ,levels(raw.data$Scenario),
 	                multiple=TRUE,selected=c('DET.N.Theft','PDO.N.Theft')),
+	    helpText('Note: Select multiple scenarios using the shift or control key.'),
 
 		checkboxInput('integrate','Integrate Scenarios',value=TRUE),
 

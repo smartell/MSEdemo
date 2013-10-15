@@ -16,7 +16,7 @@ M        <- lapply(fn,getObj)
 names(M) <- hdr$Label
 .NSAMP    <- 3
 IDX       <- sample(1:length(M[[1]]),.NSAMP)
-.FONTSIZE <- 12
+.FONTSIZE <- 18
 #load('fixedCCC.Rdata')
 
 .saveDataFrame <- function(M)

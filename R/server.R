@@ -81,6 +81,7 @@ shinyServer(function(input,output){
 			 p <- p + aes_string(color="MP",fill="MP")
 		}
 
+
 		facets <- paste(input$facet_irow, '~', input$facet_jcol)
 		if( length(input$iclr)==1 && facets =='. ~ .')
 		{
@@ -91,9 +92,14 @@ shinyServer(function(input,output){
 		if(facets != '. ~ .')
 		{
 			p <- p + facet_grid(facets)
+
 		}
 
-		print(p + theme_bw())
+		print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
+		# print(p)
+		png("CurrentImage.png",width=9.08,height=6.81,res=600,units="in")
+		print(p + theme_bw(.FONTSIZE) + theme(legend.position = 'top'))
+		dev.off()
 	})
 
 	# TAB 2
@@ -111,8 +117,8 @@ shinyServer(function(input,output){
 		
 			M1 <- gvisMotionChart(tmp, idvar="MP", timevar="Year",
 		                      xvar="Depletion",yvar="Catch",
-		                      sizevar="AAV",colorvar="Procedure",
-		                      options=list(height=700,width=900))
+		                      sizevar="AAV",colorvar="Procedure"
+		                      )
 		}
 		if( !input$integrate )
 		{  #NOT WORKING YET
@@ -121,8 +127,8 @@ shinyServer(function(input,output){
 
 			M1 <- gvisMotionChart(tmp, idvar="SP", timevar="Year",
 		                      xvar="Depletion",yvar="Catch",
-		                      sizevar="AAV",colorvar="Scenario",
-		                      options=list(height=700,width=900))
+		                      sizevar="AAV",colorvar="Scenario"
+		                      )
 		}
 
 
