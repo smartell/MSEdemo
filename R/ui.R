@@ -50,7 +50,9 @@ shinyUI(pageWithSidebar(
 			         h4("Median Depletion"), tableOutput("viewDepletionTable"),
 			         h4("Median Catch"),tableOutput("viewCatchTable"),
 			         h4("5-year Average Annual Catch Variation"),tableOutput("viewAAVTable"),
-			         h4("Probability of closing the fishery"),tableOutput("viewClosedTable"))
+			         h4("Probability of closing the fishery"),tableOutput("viewClosedTable"),
+			         h4("Probability of SSB < 0.20"),tableOutput("viewSSBlimit"),
+			         h4("Probability of SSB < 0.30"),tableOutput("viewSSBthreshold") )
 			)	          
 	    )
 ))

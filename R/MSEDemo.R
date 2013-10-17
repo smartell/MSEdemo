@@ -62,6 +62,17 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		closed <- apply(tmp,1,FUN=function(tmp){sum(tmp==FALSE)})
 		closed <- closed/dim(tmp)[2]
 		
+		# P(Bt < 0.20)
+		fnp <- function(X)(return(X$t_bt/X$t_bo <= 0.2))
+		tmp <- sapply(M[[i]],fnp)
+		pb20 <- apply(tmp,1,FUN=function(tmp){sum(tmp==TRUE)})
+		pb20 <- pb20/dim(tmp)[2]
+
+		# P(Bt < 0.30)
+		fnp <- function(X)(return(X$t_bt/X$t_bo <= 0.3))
+		tmp <- sapply(M[[i]],fnp)
+		pb30 <- apply(tmp,1,FUN=function(tmp){sum(tmp==TRUE)})
+		pb30 <- pb30/dim(tmp)[2]
 
 		# HarvestRate
 		fnhr <- function(X)(return(X$ct/X$t_bt))
@@ -80,7 +91,7 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		# print(i)
 		qf  <- data.frame(Scenario=S_HCR[[i]][1],MP=S_HCR[[i]][2],
 		                  Year=year,qf,cqf,dmed,mdf,aav,dhr,closed,
-		                  btrc,ctrc)
+		                  btrc,ctrc,pb20,pb30)
 		colnames(qf) <- c("Scenario","MP","Year","Bt.lci","Biomass","Bt.uci",
 		                  "Ct.lci","Catch","Ct.uci",
 		                  "Dt.lci","Depletion","Dt.uci",
@@ -88,7 +99,8 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		                  "Hr.lci","HarvestRate","Hr.uci",
 		                  "Closures",
 		                  paste0("btrc",1:length(IDX)),
-		                  paste0("ctrc",1:length(IDX)))	
+		                  paste0("ctrc",1:length(IDX)),
+		                  "P(SSB<0.2)","P(SSB<0.3)")	
 		qdf <- rbind(qdf,qf)
 	}
 	scen <- qdf$Scenario; sn<-paste0("S",1:length(unique(scen))); levels(scen)=sn

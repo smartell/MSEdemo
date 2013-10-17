@@ -215,4 +215,28 @@ shinyServer(function(input,output){
 		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="Closures"))
 		return(tmp)
 	})
+
+	output$viewSSBlimit <- renderTable({
+		dt<-data()
+		print(head(dt))
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		#tmp <- cast(subset(mdf,variable=="AAV"),MP~Scenario,mean,na.rm=TRUE,margins=TRUE)
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="P(SSB<0.2)"))
+		return(tmp)
+	})
+
+	output$viewSSBthreshold <- renderTable({
+		dt<-data()
+		print(head(dt))
+		mdf <- melt(dt,id=c("Scenario","MP","SP","Year"))
+		#tmp <- cast(subset(mdf,variable=="AAV"),MP~Scenario,mean,na.rm=TRUE,margins=TRUE)
+		if(  input$integrate ) mar = "Scenario"
+		if( !input$integrate ) mar = FALSE
+		
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="P(SSB<0.3)"))
+		return(tmp)
+	})
 })
