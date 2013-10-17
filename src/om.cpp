@@ -50,6 +50,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   n_pyr.allocate("n_pyr");
   n_flg_perfect_information.allocate("n_flg_perfect_information");
   iuu_rate.allocate("iuu_rate");
+  min_tac.allocate("min_tac");
   sEstimator.allocate("sEstimator");
  data.syr  = syr;
  data.nyr  = nyr;
@@ -240,7 +241,7 @@ void model_parameters::run_mse()
 	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
 	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
+	                    value(wt),it,ct,min_tac);
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);
 	EstimatorClass cEstimator(sEstimator);

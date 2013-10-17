@@ -16,7 +16,7 @@ M        <- lapply(fn,getObj)
 names(M) <- hdr$Label
 .NSAMP    <- 5
 IDX       <- sample(1:length(M[[1]]),.NSAMP)
-.FONTSIZE <- 18
+.FONTSIZE <- 12
 #load('fixedCCC.Rdata')
 
 .saveDataFrame <- function(M)
@@ -60,8 +60,8 @@ IDX       <- sample(1:length(M[[1]]),.NSAMP)
 		fnclose <- function(X)(return(X$ct != 0))
 		tmp <- sapply(M[[i]],fnclose)
 		closed <- apply(tmp,1,FUN=function(tmp){sum(tmp==FALSE)})
-		closed <- closed/prod(dim(tmp)) * 100
-		# closed <- apply(tmp,1,sum)
+		closed <- closed/dim(tmp)[2]
+		
 
 		# HarvestRate
 		fnhr <- function(X)(return(X$ct/X$t_bt))

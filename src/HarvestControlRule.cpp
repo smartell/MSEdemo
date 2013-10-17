@@ -9,7 +9,8 @@
 **/
 double HarvestControlRule::getTac(const double &bt, const double &fmsy, const double &msy,
 	              				  const double &bmsy, const double &bo, 
-	              				  const double &delta, const double &ptac)
+	              				  const double &delta, const double &ptac,
+	              				  const double &mintac)
 {
 	/** \param bt preseason biomass forecast                    */
 	/** \param fmsy estimate of Fmsy                            */
@@ -46,10 +47,26 @@ double HarvestControlRule::getTac(const double &bt, const double &fmsy, const do
 		case FIXED_HR_DELTA:
 			tac = FixedHarvestRateDelta(bt,fmsy,delta,ptac);
 			cout<<"Fixed Harvest Rate Delta tac = "<<tac<<endl;
+			break;
 		case FAO_PA_COMPLIANT:
 			cout<<"FAO_PA_COMPLIANT"<<endl;
 			break;
+		case FLOOR_THIRTY_TWENTY:
+			cout<<"FLOOR_THIRTY_TWENTY"<<endl;
+			tac = FloorThirtyTwenty(bt,bo,fmsy,mintac);
+			break;
+
 	}
+
+	// Put in SUFD adjustment here
+	// 50% decrease, 33% increase
+
+	// Evaluation framework, need to be able
+	// to tune the MP to achieve the best 
+	// tradeoff in the performance measures.
+
+
+	// Floor 
 	return tac;
 }
 
@@ -109,6 +126,29 @@ double HarvestControlRule::ThirtyTwenty(const double &bt, const double &bo, cons
 
 	return bt*(1.-exp(-ft));
 }
+
+double HarvestControlRule::FloorThirtyTwenty(const double &bt, const double &bo, const double &fmsy, const double &mintac)
+{
+	
+	double dt = bt/bo;
+	double ft = fmsy;
+	if( dt <= 0.2 )
+	{
+		ft = 0;	
+	} 
+	else if( dt > 0.2 && dt <= 0.3 )
+	{
+		ft = fmsy * (dt-0.2)/(0.3-0.2);
+	}
+	else if( dt > 0.3 )
+	{
+		ft = fmsy;
+	}
+	double tac = bt*(1.-exp(-ft));
+	tac <= mintac? tac=mintac: tac=tac;
+	return tac;
+}
+
 
 double HarvestControlRule::FixedHarvestRate(const double &bt, const double &fmsy)
 {

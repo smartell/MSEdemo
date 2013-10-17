@@ -1,31 +1,42 @@
-SUBDIR= HCR_NOTHEFT/fortyten   			    \
-		HCR_NOTHEFT/fixedEsc    			\
-		HCR_NOTHEFT/fixedEscCap 			\
-		HCR_NOTHEFT/fixedHarvestRate 		\
-		HCR_NOTHEFT/fixedCCC 				\
-		HCR_NOTHEFT/thirtytwenty  			\
-		HCR_NOTHEFT/fixedHRdelta  			\
-		HCR_THEFT/fortyten 					\
-		HCR_THEFT/fixedEsc 					\
-		HCR_THEFT/fixedEscCap 				\
-		HCR_THEFT/fixedHarvestRate 			\
-		HCR_THEFT/fixedCCC 					\
-		HCR_THEFT/thirtytwenty  			\
-		HCR_THEFT/fixedHRdelta  			\
-		PDO_NOTHEFT/fortyten 				\
-		PDO_NOTHEFT/fixedEsc 				\
-		PDO_NOTHEFT/fixedEscCap 			\
-		PDO_NOTHEFT/fixedHarvestRate 		\
-		PDO_NOTHEFT/fixedCCC 				\
-		PDO_NOTHEFT/thirtytwenty 			\
-		PDO_NOTHEFT/fixedHRdelta  			\
-		PDO_THEFT/fortyten 					\
-		PDO_THEFT/fixedEsc 					\
-		PDO_THEFT/fixedEscCap 				\
-		PDO_THEFT/fixedHarvestRate 			\
-		PDO_THEFT/fixedCCC 					\
-		PDO_THEFT/thirtytwenty				\
-		PDO_THEFT/fixedHRdelta  			
+# SUBDIR= HCR_NOTHEFT/fortyten   			    \
+# 		HCR_NOTHEFT/fixedEsc    			\
+# 		HCR_NOTHEFT/fixedEscCap 			\
+# 		HCR_NOTHEFT/fixedHarvestRate 		\
+# 		HCR_NOTHEFT/fixedCCC 				\
+# 		HCR_NOTHEFT/thirtytwenty  			\
+# 		HCR_NOTHEFT/thirtytwentyfloor		\
+# 		HCR_NOTHEFT/fixedHRdelta  			\
+# 		HCR_THEFT/fortyten 					\
+# 		HCR_THEFT/fixedEsc 					\
+# 		HCR_THEFT/fixedEscCap 				\
+# 		HCR_THEFT/fixedHarvestRate 			\
+# 		HCR_THEFT/fixedCCC 					\
+# 		HCR_THEFT/thirtytwenty  			\
+# 		HCR_THEFT/thirtytwentyfloor			\
+# 		HCR_THEFT/fixedHRdelta  			\
+# 		PDO_NOTHEFT/fortyten 				\
+# 		PDO_NOTHEFT/fixedEsc 				\
+# 		PDO_NOTHEFT/fixedEscCap 			\
+# 		PDO_NOTHEFT/fixedHarvestRate 		\
+# 		PDO_NOTHEFT/fixedCCC 				\
+# 		PDO_NOTHEFT/thirtytwenty 			\
+# 		PDO_NOTHEFT/thirtytwentyfloor		\
+# 		PDO_NOTHEFT/fixedHRdelta  			\
+# 		PDO_THEFT/fortyten 					\
+# 		PDO_THEFT/fixedEsc 					\
+# 		PDO_THEFT/fixedEscCap 				\
+# 		PDO_THEFT/fixedHarvestRate 			\
+# 		PDO_THEFT/fixedCCC 					\
+# 		PDO_THEFT/thirtytwenty				\
+# 		PDO_THEFT/thirtytwentyfloor			\
+# 		PDO_THEFT/fixedHRdelta  
+
+SUBDIR= \
+		HCR_NOTHEFT/thirtytwentyfloor		\
+		HCR_THEFT/thirtytwentyfloor			\
+		PDO_NOTHEFT/thirtytwentyfloor		\
+		PDO_THEFT/thirtytwentyfloor			
+
 TARGET = sims 
 ifndef DISK
   DISK = dist

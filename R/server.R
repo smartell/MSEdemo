@@ -153,11 +153,11 @@ shinyServer(function(input,output){
 		
 			M1 <- gvisMotionChart(tmp, idvar="MP", timevar="Year",
 		                      xvar="Depletion",yvar="Catch",
-		                      sizevar="AAV",colorvar="Procedure"
-		                      )
+		                      sizevar="AAV",colorvar="Procedure",
+		                      options=list(sizeAxis=FALSE))
 		}
 		if( !input$integrate )
-		{  #NOT WORKING YET
+		{  
 			tmp <- data()
 			tmp <- cbind(tmp,Procedure=tmp$MP)
 
@@ -212,7 +212,7 @@ shinyServer(function(input,output){
 		if(  input$integrate ) mar = "Scenario"
 		if( !input$integrate ) mar = FALSE
 		
-		tmp <- dcast(mdf,MP~Scenario,sum,na.rm=TRUE,margins=mar,subset=.(variable=="Closures"))
+		tmp <- dcast(mdf,MP~Scenario,mean,na.rm=TRUE,margins=mar,subset=.(variable=="Closures"))
 		return(tmp)
 	})
 })

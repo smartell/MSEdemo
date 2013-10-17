@@ -33,13 +33,16 @@
 # |  -                4 : HarvestControlRule::CONDITIONAL_CONSTANT_CATCH;
 # |  -                5 : HarvestControlRule::THIRTY_TWENTY;
 # |  -                6 : HarvestControlRule::FIXED_HR_DELTA;
-6
+# |  -                7 : HarvestControlRule::FLOOR_THIRTY_TWENTY;
+7
 # |  SCENARIO CLASS:
 # |  -  pyr             		: number of projection years
 # |  -  flg_perfect_information : 0=TRUE 1=FALSE
 # |  -  iuu_rate                : instantaneous rate of iuu fishing (unreported discards)
+# |  -  minTac                  : Minimum TAC for harvest control rule.
 35
+1
 0
-0
+200
 # | ESTIMATOR SYSTEM COMMAND
 ./OM

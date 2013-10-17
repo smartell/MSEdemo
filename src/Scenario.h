@@ -61,6 +61,7 @@ private:
 	double  m_sig;
 	double  m_tau;
 	double  m_iuu_rate;
+	double  m_mintac;
 	dvector m_ft;
 	dvector m_wt;
 	dvector m_it;
@@ -88,24 +89,36 @@ public:
 		 m_flg_perfect_information(_flg_perfect_information),m_iuu_rate(iuu_rate)
 	{}
 
+	Scenario(const int& agek, const int& _nScenario, const int& pyr, const int& _flg_perfect_information,
+	         const int& rseed, double& bo,const double& h,
+	         const double& s,const double& iuu_rate,const double& q, const double& sig,const double tau,
+	         const dvector& ft, const dvector &wt, const dvector &it,const dvector &ct,
+	         const double &mintac)
+		:m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),Population(bo,h,s), m_q(q),
+		 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),
+		 m_flg_perfect_information(_flg_perfect_information),m_iuu_rate(iuu_rate),
+		 m_mintac(mintac)
+	{}
+
 	~Scenario();
 	// getters
 	int     get_agek() { return m_agek; } //!< get
 	int     get_nScenario(){ return m_nScenario; }
 	int     get_nInformation() {return m_flg_perfect_information; }
-	int     get_pyr()  { return m_pyr;  } //!< get
-	int     get_rseed(){ return m_rseed;} //!< get
-	double  get_bo()   { return m_bo;   } //!< get
-	double  get_h()    { return m_h;    } //!< get
-	double  get_s()    { return m_s;    } //!< get
-	double  get_q()    { return m_q;    } //!< get
-	double  get_sig()  { return m_sig;  } //!< get
-	double  get_tau()  { return m_tau;  } //!< get
-	double  get_iuu()  { return m_iuu_rate; }
-	dvector get_ft()   { return m_ft;   } //!< get
-	dvector get_wt()   { return m_wt;   } //!< get
-	dvector get_it()   { return m_it;   } //!< get
-	dvector get_ct()   { return m_ct;   } //!< get
+	int     get_pyr()   { return m_pyr;  } //!< get
+	int     get_rseed() { return m_rseed;} //!< get
+	double  get_bo()    { return m_bo;   } //!< get
+	double  get_h()     { return m_h;    } //!< get
+	double  get_s()     { return m_s;    } //!< get
+	double  get_q()     { return m_q;    } //!< get
+	double  get_sig()   { return m_sig;  } //!< get
+	double  get_tau()   { return m_tau;  } //!< get
+	double  get_iuu()   { return m_iuu_rate; }
+	double  get_mintac(){ return m_mintac;   }
+	dvector get_ft()    { return m_ft;   } //!< get
+	dvector get_wt()    { return m_wt;   } //!< get
+	dvector get_it()    { return m_it;   } //!< get
+	dvector get_ct()    { return m_ct;   } //!< get
 
 	// setters
 	void  set_pyr(int v1)     { m_pyr = v1;  } //!< set projections years

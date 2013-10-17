@@ -66,6 +66,7 @@ DATA_SECTION
 	init_int n_pyr;
 	init_int n_flg_perfect_information;
 	init_number iuu_rate;
+	init_number min_tac;
 	init_adstring sEstimator;
 	// !! COUT(sEstimator);
 	// !! exit(1);
@@ -247,7 +248,7 @@ FUNCTION void run_mse()
 	Scenario cScenario1(agek,nScenario,n_pyr,n_flg_perfect_information,rseed,value(bo),
 	                    value(h),value(s),iuu_rate,
 	                    value(q),value(sig),value(tau),value(ft),
-	                    value(wt),it,ct);
+	                    value(wt),it,ct,min_tac);
 
 	int e_hcr = n_hcr;
 	HarvestControlRule c_hcr(e_hcr);

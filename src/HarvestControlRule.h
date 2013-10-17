@@ -25,6 +25,7 @@ public:
 		CONDITIONAL_CONSTANT_CATCH,	/**< IPHC's Conditional constant catch rule  */
 		THIRTY_TWENTY,				/**< 30:20 harvest control rule              */
 		FIXED_HR_DELTA,             /**< Fixed catch with 15% maximum changed    */
+		FLOOR_THIRTY_TWENTY,        /**< 30:20 rule with a minimum catch floor.  */
 		FAO_PA_COMPLIANT   			/**< Not implemented yet                     */
 	};
 
@@ -38,7 +39,7 @@ public:
 	// Prototypes
 	double getTac(const double &bt, const double &fmsy, const double &msy,
 	              const double &bmsy, const double &bo,
-	              const double &delta, const double &ptac);
+	              const double &delta, const double &ptac, const double &mintac);
 	double FortyTen(const double &bt, const double &bo, const double &fmsy);
 	double ThirtyTwenty(const double &bt, const double &bo, const double &fmsy);
 	double FixedHarvestRate(const double &bt, const double &fmsy);
@@ -46,6 +47,7 @@ public:
 	double FixedEscapementCap(const double &bt, const double &bmsy, const double &msy);
 	double ConditionalConstantCatch(const double& bt, const double& bmsy, const double& msy, const double& fmsy);
 	double FixedHarvestRateDelta(const double& bt,const double& fmsy,const double &delta, const double &ptac);
+	double FloorThirtyTwenty(const double &bt, const double &bo, const double &fmsy, const double &mintac);
 };
 
 
