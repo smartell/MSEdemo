@@ -5,7 +5,8 @@ OBJS = $(EXEC).o         \
 	HarvestControlRule.o \
 	Scenario.o           \
 	EstimatorClass.o     \
-	LRGS.o
+	LRGS.o               \
+	lrgsOM.o
 SRCS = $(OBJS:.o=.cpp)  #!!!
 TPLS = $(EXEC).tpl
 ARG  = 

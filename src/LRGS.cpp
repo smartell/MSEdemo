@@ -31,7 +31,7 @@ LRGS::LRGS(const int& syr,
 
 LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 {
-	cout<<"The other constructor"<<endl;
+	// cout<<"The other constructor"<<endl;
 	m_syr  = data.syr;
 	m_nyr  = data.nyr;
 	m_agek = data.agek;

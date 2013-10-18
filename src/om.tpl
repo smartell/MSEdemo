@@ -116,8 +116,8 @@ PARAMETER_SECTION
 
 	sdreport_number sd_dep;
 PROCEDURE_SECTION
-
-	sLRGSparameters sPars;
+	cout<<"here I am"<<endl;
+	//sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
 	sPars.h  = h;
 	sPars.s = s;
@@ -146,96 +146,46 @@ PROCEDURE_SECTION
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
-	// cout<<q<<endl;
 	
-
-	// initialize_model();
-	// population_dynamics();
-	// observation_model();
 	calc_objective_function();
 	
-
-
 ///
-/// @brief Reference points check
+/// @brief Objective Function	
 /// @author Steve Martell
-/// @remarks Checking my calculus.
+/// @remarks Based on the negative log likelihood
 ///
-FUNCTION void calc_Reference_Points()
-	int i;
-	int j;
-	dvector fe(1,100);
-	double be,ce;
-	for( i = 1; i <= 100; i++ )
+FUNCTION void calc_objective_function()
+	nll.initialize();
+	dvariable isig2 = mfexp(log_sigma);
+	dvariable itau2 = mfexp(log_tau);
+
+	// No comments
+	nll(1) = dnorm(epsilon,sig);
+	nll(2) = dbeta(s,30.01,10.01);
+	nll(3) = dnorm(log_bo,log(3000),1.0);
+	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
+	nll(5) = dgamma(isig2,1.01,1.01);
+	if(active(log_tau))
 	{
-		be = value(bo);
-		fe(i) = double((i-1.)/(100.-1.))*1.2;
-		for( j = 1; j <= 100; j++ )
-		{
-			ce = be * (1.-exp(-fe(i)));
-			be = value(s*be + a*be/(1.+b*be)) - ce;
-		}
-		cout<<setprecision(5)<<fe(i)<<"\t"<<ce<<"\t"<<be<<endl;
+		nll(6) = dgamma(itau2,1.01,1.01);
+		nll(7) = dnorm(wt,tau);
+	}
+	else
+	{
+		nll(7) = dnorm(wt,1.0);
 	}
 
-///
-/// @brief A simple function
-/// @author Steve Martell
-/// @remarks Yet to be documented.
-///
-FUNCTION void initialize_model()
-	rt.initialize();
-	bt.initialize();
-	bo               = mfexp(log_bo);
-	ro               = bo*(1.-s);
-	reck             = 4.*h/(1.-h);
-	a                = reck*ro/bo;
-	b                = (reck-1.0)/bo;
-	rt(syr,syr+agek) = ro * exp(wt(syr,syr+agek));
-	bt(syr)          = bo;
-	sig              = sqrt(1.0/mfexp(log_sigma));
-	tau              = sqrt(1.0/mfexp(log_tau));
+	
+	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
+	f = sum(nll) + 100000.*fpen;
 
 
+FUNCTION void mse2()
+	//lrgsOM OM;
+	lrgsOM OM2("S1.scn");
 
+	cout<<"Running the new Operating Model Class"<<endl;
 
-
-///
-/// @brief Population dynamics for lagged recruit growth survival model
-/// @author Steve Martell
-/// @remarks
-/// \f$ b_{t+1} = s*b_{t}+r_{t} - c_{t} \f$	
-/// Taken from the Ecological Detective
-///
-FUNCTION void population_dynamics()
-	int i;
-	dvariable btmp;
-	fpen.initialize();
-	for(i=syr;i<=nyr;i++)
-	{
-		ft(i) = -log((-ct(i)+bt(i))/bt(i));
-		if(i-syr > agek)
-		{
-			rt(i) = a*bt(i-agek)/(1.+b*bt(i-agek)) * exp(wt(i));	
-		}
-		
-		btmp    = s*bt(i) + rt(i) - ct(i);
-		bt(i+1) = posfun(btmp,0.1,fpen);
-	}
-	sd_dep = bt(nyr)/bo;
-
-///
-/// @brief Observation model
-/// @author Steve Martell
-/// @remarks
-/// Assumes observation errors are log-normal and based on the 
-/// conditional maximum likelihood estimate of q.
-///
-FUNCTION void observation_model()
-	int i;
-	dvar_vector zt = log(it) - log(bt(syr,nyr));
-	q              = exp(mean(zt));
-	epsilon        = zt - mean(zt);
 
 ///
 /// @brief WTF
@@ -292,36 +242,6 @@ FUNCTION void run_mse()
 	ofs1<<"p_aav\n" << cOMP.get_aav()      <<endl;
 
 	ofs1.close();
-
-///
-/// @brief Objective Function	
-/// @author Steve Martell
-/// @remarks Based on the negative log likelihood
-///
-FUNCTION void calc_objective_function()
-	nll.initialize();
-	dvariable isig2 = mfexp(log_sigma);
-	dvariable itau2 = mfexp(log_tau);
-
-	// No comments
-	nll(1) = dnorm(epsilon,sig);
-	nll(2) = dbeta(s,30.01,10.01);
-	nll(3) = dnorm(log_bo,log(3000),1.0);
-	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
-	nll(5) = dgamma(isig2,1.01,1.01);
-	if(active(log_tau))
-	{
-		nll(6) = dgamma(itau2,1.01,1.01);
-		nll(7) = dnorm(wt,tau);
-	}
-	else
-	{
-		nll(7) = dnorm(wt,1.0);
-	}
-
-	
-	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
-	f = sum(nll) + 100000.*fpen;
 
 
 
@@ -380,6 +300,7 @@ GLOBALS_SECTION
 	#include <time.h>
 	//#include <statsLib.h>
 	#include "LRGS.h"
+	#include "lrgsOM.h"
 	#include "MSYReferencePoints.h"
 	// #include "Scenario.h"
 	#include "OperatingModel.h"
@@ -389,7 +310,7 @@ GLOBALS_SECTION
 	long hour,minute,second;
 	double elapsed_time;
 
-	// sLRGSparameters sPars;
+	sLRGSparameters sPars;
 	sLRGSdata data;
 
 	
@@ -398,7 +319,8 @@ FINAL_SECTION
 	if(do_mse)
 	{
 		cout<<"Running MSE"<<endl;
-		run_mse();
+		//run_mse();
+		mse2();
 	}
 
 	time(&finish);
