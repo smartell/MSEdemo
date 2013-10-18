@@ -31,6 +31,50 @@ shinyServer(function(input,output){
 		captionText()
 	})
 
+	output$gHCR <- renderPlot({
+		x <- seq(0,1,b=0.01)
+		y <- rep(0,length(x))
+		sblim = input$hcr1
+		sbthr = input$hcr2
+		sbtar = input$hcr3
+		frate = input$hcr4
+		y[x<=sblim] <- 0
+		y[x>=sbthr] <- frate
+		ii          <- x>sblim&x<sbthr
+		y[ii]       <- frate * (x[ii]-min(x[ii]))/(diff(range(x[ii])))
+
+		plot(x,y,type="l")
+	})
+
+	output$gCt <- renderPlot({
+		x <- seq(0,1,b=0.01)
+		y <- rep(0,length(x))
+		sblim = input$hcr1
+		sbthr = input$hcr2
+		sbtar = input$hcr3
+		frate = input$hcr4
+		y[x<=sblim] <- 0
+		y[x>=sbthr] <- frate
+		ii          <- x>sblim&x<sbthr
+		y[ii]       <- frate * (x[ii]-min(x[ii]))/(diff(range(x[ii])))
+		fe = y
+		be = 1
+		rk = 55
+		s  = 0.85
+		a  = rk*(1-s)
+		b  = (rk-1)/be
+		ce = rep(0,length=length(fe))
+		bmsy = be*(-1+sqrt(k))/(k-1)
+		msy  = (bmsy*(-1+s)*(-1+k)*(-be-bmsy)) / (be+(k-1)*bmsy)
+		for(i in 1:length(fe))
+		{
+			be = ((a/(1-s+fe[i]))-1)/b
+			ce[i] = be * fe[i]
+			cat(fe[i]," ",be," ",ce[i],"\n")
+			# be    = s*be +(a*be)/(1+b*be)-ce[i]
+		}
+		plot(x,ce,type="l")
+	})
 
 	# TAB 1
 	mse_plotinput = function(...){

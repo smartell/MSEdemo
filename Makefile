@@ -32,10 +32,10 @@
 # 		PDO_THEFT/fixedHRdelta  
 
 SUBDIR= \
-		HCR_NOTHEFT/thirtytwentyfloor		\
-		HCR_THEFT/thirtytwentyfloor			\
-		PDO_NOTHEFT/thirtytwentyfloor		\
-		PDO_THEFT/thirtytwentyfloor			
+		HCR_NOTHEFT/fixedHRdelta		\
+		HCR_THEFT/fixedHRdelta			\
+		PDO_NOTHEFT/fixedHRdelta		\
+		PDO_THEFT/fixedHRdelta			
 
 TARGET = sims 
 ifndef DISK

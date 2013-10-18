@@ -31,6 +31,14 @@ shinyUI(pageWithSidebar(
 
 		checkboxInput('integrate','Integrate Scenarios',value=TRUE),
 
+		wellPanel( 
+			h5('Harvest Control Rule'),
+			sliderInput('hcr1', 'SSB Limit'    , min=0, max=1.0, value=0.2, step = 0.05),
+			sliderInput('hcr2', 'SSB Threshold', min=0, max=1.0, value=0.3, step = 0.05),
+			sliderInput('hcr3', 'SSB Target   ', min=0, max=1.0, value=0.4, step = 0.05),
+			numericInput('hcr4', 'F target',value=0.2,min=0.05,max=0.50,step=0.05)
+		),
+
 		h4('Management Procedure:'),
 		checkboxGroupInput('iclr','Harvest Control Rule',
 		                   levels(raw.data$MP),selected="ThirtyTwenty")
@@ -51,9 +59,9 @@ shinyUI(pageWithSidebar(
 			         h4("Median Catch"),tableOutput("viewCatchTable"),
 			         h4("5-year Average Annual Catch Variation"),tableOutput("viewAAVTable"),
 			         h4("Probability of closing the fishery"),tableOutput("viewClosedTable"),
-			         h4("Probability of SSB < 0.20"),tableOutput("viewSSBlimit"),
-			         h4("Probability of SSB < 0.30"),tableOutput("viewSSBthreshold") ),
-		    tabPanel("Documentation")
+			         h4("Probability of SSB < 0.20 (Objective P < 0.05)"),tableOutput("viewSSBlimit"),
+			         h4("Probability of SSB < 0.30 (Objective P < 0.25)"),tableOutput("viewSSBthreshold") ),
+		    tabPanel("Harvest control Rule",plotOutput("gHCR"),plotOutput("gCt"))
 			)	          
 	    )
 ))

@@ -6,6 +6,7 @@ require(PBSmodelling)
 # load('demo.Rdata')
 
 setwd('~/Documents/IPHC/MSEdemo/R/')
+source("global.R")
 
 ifiles   <- read.table("MSEView.txt",header=TRUE,sep=",")
 createWin("MSEDemoWin.txt")
