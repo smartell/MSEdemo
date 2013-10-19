@@ -12,6 +12,7 @@ struct sLRGSdata
 	int syr;
 	int nyr;
 	int agek;
+	int rseed;
 	dvector ct;
 	dvector it;
 	// friend class LRGS;

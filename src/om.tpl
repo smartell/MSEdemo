@@ -76,6 +76,7 @@ DATA_SECTION
 	!! data.agek = agek;
 	!! data.ct   = ct;
 	!! data.it   = it;
+	!! data.rseed = rseed;
 	!! cout<<data.it<<endl;
 	
 INITIALIZATION_SECTION
@@ -116,8 +117,8 @@ PARAMETER_SECTION
 
 	sdreport_number sd_dep;
 PROCEDURE_SECTION
-	cout<<"here I am"<<endl;
-	//sLRGSparameters sPars;
+	
+	sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
 	sPars.h  = h;
 	sPars.s = s;
@@ -182,7 +183,16 @@ FUNCTION void calc_objective_function()
 
 FUNCTION void mse2()
 	//lrgsOM OM;
-	lrgsOM OM2("S1.scn");
+	//lrgsOM OM("S1.scn");
+	sLRGSparameters sPars;
+	sPars.log_bo    = log_bo;
+	sPars.h         = h;
+	sPars.s         = s;
+	sPars.log_sigma = log_sigma;
+	sPars.log_tau   = log_tau;
+	sPars.wt        = wt;
+
+	lrgsOM cOM(data,sPars,"S1.scn","MP1.mp");
 
 	cout<<"Running the new Operating Model Class"<<endl;
 
@@ -310,7 +320,7 @@ GLOBALS_SECTION
 	long hour,minute,second;
 	double elapsed_time;
 
-	sLRGSparameters sPars;
+	//sLRGSparameters sPars;  //causes segmenation fault.
 	sLRGSdata data;
 
 	

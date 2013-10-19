@@ -18,7 +18,7 @@
 	time_t start,finish;
 	long hour,minute,second;
 	double elapsed_time;
-	sLRGSparameters sPars;
+	//sLRGSparameters sPars;  //causes segmenation fault.
 	sLRGSdata data;
 	
 #include <admodel.h>
@@ -58,6 +58,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
  data.agek = agek;
  data.ct   = ct;
  data.it   = it;
+ data.rseed = rseed;
  cout<<data.it<<endl;
 }
 
@@ -145,8 +146,7 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
 void model_parameters::userfunction(void)
 {
   f =0.0;
-	cout<<"here I am"<<endl;
-	//sLRGSparameters sPars;
+	sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
 	sPars.h  = h;
 	sPars.s = s;
@@ -200,7 +200,15 @@ void model_parameters::calc_objective_function()
 void model_parameters::mse2()
 {
 	//lrgsOM OM;
-	lrgsOM OM2("S1.scn");
+	//lrgsOM OM("S1.scn");
+	sLRGSparameters sPars;
+	sPars.log_bo    = log_bo;
+	sPars.h         = h;
+	sPars.s         = s;
+	sPars.log_sigma = log_sigma;
+	sPars.log_tau   = log_tau;
+	sPars.wt        = wt;
+	lrgsOM cOM(data,sPars,"S1.scn","MP1.mp");
 	cout<<"Running the new Operating Model Class"<<endl;
 }
 
