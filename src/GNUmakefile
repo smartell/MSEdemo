@@ -1,12 +1,12 @@
 EXEC = om
 OBJS = $(EXEC).o         \
 	MSYReferencePoints.o \
-	OperatingModel.o     \
-	HarvestControlRule.o \
 	Scenario.o           \
 	EstimatorClass.o     \
 	LRGS.o               \
 	lrgsOM.o
+	# OperatingModel.o     \
+	# HarvestControlRule.o \
 SRCS = $(OBJS:.o=.cpp)  #!!!
 TPLS = $(EXEC).tpl
 ARG  = 

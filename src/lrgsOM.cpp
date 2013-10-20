@@ -57,13 +57,15 @@ void lrgsOM::readScenarioInput(const adstring s_file)
 void lrgsOM::readProcedureInput(const adstring s_file)
 {
 	cifstream ifs(s_file);
-	ifs >> m_hr;
+	ifs >> m_phi;
+	ifs >> m_sAssessmentModel;
 	ifs >> m_limit;
 	ifs >> m_threshold;
 	ifs >> m_target;
 	ifs >> m_ftarget; // Should correspond to fishing rate at depletion target.
 	ifs >> m_fmax;    // Should correspond to fishing rate at threshold.
 	ifs >> m_catch_floor;
+	cout<<"Assessment Model"<<m_sAssessmentModel<<endl;
 }
 
 void lrgsOM::conditionOperatingModel()
@@ -73,8 +75,8 @@ void lrgsOM::conditionOperatingModel()
 	m_bo   = exp(m_log_bo);
 	m_ro   = m_bo * (1.0-m_s);
 	m_reck = 4.0*m_h/(1.0-m_h);
-	m_sig  = exp(m_log_sigma);
-	m_tau  = exp(m_log_tau);
+	m_sig  = sqrt(1.0/mfexp(m_log_sigma)); 
+	m_tau  = sqrt(1.0/mfexp(m_log_tau));
 	m_so   = m_reck * (1.0 - m_s);
 	m_beta = (m_reck - 1.0)/m_bo;
 
@@ -127,28 +129,83 @@ void lrgsOM::runOperatingModel()
 	random_number_generator rng(m_rseed);
 	dvector rt_dev(m_nyr+1,m_pyr);
 	dvector it_dev(m_nyr+1,m_pyr);
+	dvector et_dev(m_nyr+1,m_pyr);
 
 	rt_dev.fill_randn(rng);
 	it_dev.fill_randn(rng);
+	et_dev.fill_randn(rng);
 
 
 	rt_dev = rt_dev*m_tau - 0.5*m_tau*m_tau;
 	it_dev = it_dev*m_sig - 0.5*m_sig*m_sig;
+	et_dev = et_dev*m_phi - 0.5*m_phi*m_phi;
 	cout<<"Biomass limit = "<<m_limit<<endl;
 
-	HarvestControlRule cTAC(m_limit,m_threshold,m_target);
+	read_parameter_estimates("mse.par");
+	calcReferencePoints();
+	calcReferencePoints(m_est_bo,m_est_reck,m_est_s,m_est_fmsy,m_est_bmsy,m_est_msy);
+	EstimatorClass cAssessmentModel(m_sAssessmentModel);
+	HarvestControlRule cTAC(m_limit,m_threshold,m_target,m_ftarget);
 
-	for( i = m_nyr; i <= m_pyr; i++ )
+	for( i = m_nyr+1; i <= m_pyr; i++ )
 	{
 		// | - Calculate reference points
-		calcReferencePoints();
+		calcReferencePoints(m_est_bo,m_est_reck,m_est_s,m_est_fmsy,m_est_bmsy,m_est_msy);
 
 		// | - Calculate TAC based on harvest control rule parameters.
-		m_chat(i) = cTAC(m_bt(i));	
+		// TODO: replace with estimated biomass and bo from assessment.
+		m_chat(i)  = cTAC(m_bt(i),m_bo,m_est_fmsy);
+
+		// | - Implement fishery
+		m_chat(i) *= exp( et_dev(i) );
+		if( m_chat(i) >= m_bt(i) )
+		{
+			m_chat(i) = 0.8 * m_bt(i);
+		}
+
+
+		// | - Update population dynamics
+		m_rt(i)   = m_so * m_bt(i-m_agek) / (1.0 + m_beta*m_bt(i-m_agek));
+		m_rt(i)   = m_rt(i) * exp(rt_dev(i));
+		m_bt(i+1) = m_s*m_bt(i) + m_rt(i) - m_chat(i);
+
+		// | - Catch and effort statistics
+		m_ihat(i) = m_q * m_bt(i) * exp(it_dev(i));
+
+		// | - Write new data file
+		write_data_file(i,m_chat(m_syr,i),m_ihat(m_syr,i));
+
+		// | - Run Assessment Model
+		cAssessmentModel.runEstimator();
+
+		// | - Get estimated parameters
+		read_parameter_estimates("mse.par");
+		
+		// | - Screen dump
+		if( !(i % 5)) print_mse(i);
 	}
-	cout<<m_chat<<endl;
+	//cout<<m_bt<<endl;
+	//cout<<elem_div(m_chat,m_bt(m_syr,m_pyr))<<endl;
 	
 	
+}
+
+void lrgsOM::print_mse(const int &i)
+{
+	// -   Screen dump so you can watch the progress.
+	cout<<setprecision(3)<<setw(11);
+	cout<<"|---------------------------------|"                      <<endl;
+	cout<<"| - Year    "<<i<<"                  |"                   <<endl;
+	cout<<"|---------------------------------|"                      <<endl;
+	cout<<"|           True  "<<"\t" <<"Estimated |"                 <<endl;
+	cout<<"| - Bo      "<<m_bo<<"\t" <<m_est_bo                      <<endl;
+	cout<<"| - Biomass "<<m_bt(i)<<"\t"<<m_est_bt                    <<endl;
+	cout<<"| - F       "<<m_chat(i)/m_bt(i)<<"\t"<<m_chat(i)/m_est_bt<<endl;
+	cout<<"| - Fmsy    "<<m_fmsy<<"\t"<<m_est_fmsy                   <<endl;
+	cout<<"| - Bmsy    "<<m_bmsy<<"\t" <<m_est_bmsy                  <<endl;
+	cout<<"| - msy     "<<m_msy<<"\t"<<m_est_msy                     <<endl;
+	cout<<"| - Catch   "<<m_chat(i)                                  <<endl;
+	cout<<"|---------------------------------|\n"                    <<endl;
 }
 
 void lrgsOM::calcReferencePoints()
@@ -162,18 +219,135 @@ void lrgsOM::calcReferencePoints()
 }
 
 
+void lrgsOM::calcReferencePoints(const double &bo, const double & reck,const double &s,
+                                 double &fmsy, double &bmsy, double &msy)
+{
+	bmsy = (bo*(-1.+sqrt(reck))/(reck-1.)); 
+	msy  = (m_bmsy * (-1. + s) * (-1. + reck)*(-bo + m_bmsy)) 
+			 / (bo + (-1. + reck)*m_bmsy);
+	
+	fmsy = m_msy / m_bmsy;
+	//cout<<"MSY\n"<<m_msy<<endl;
+}
+
+void lrgsOM::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
+{
+	ofstream ofs("MSE.dat");
+	ofs<<m_agek<<endl;
+	ofs<<m_syr<<endl;
+	ofs<<nyr<<endl;
+	ivector iyr(m_syr,nyr);
+	iyr.fill_seqadd(m_syr,1);
+	ofs<<iyr<<endl;
+	ofs<<ct<<endl;
+	ofs<<it<<endl;
+}
+
+void lrgsOM::read_parameter_estimates(const adstring &sParFile)
+{
+	ifstream ifs(sParFile);
+	ifs >> m_est_bo;
+	ifs >> m_est_reck;
+	ifs >> m_est_s;
+	ifs >> m_est_bt;
+}
 
 // HARVEST CONTROL RULE FUNCTIONS
 HarvestControlRule::~HarvestControlRule()
 {}
 
 HarvestControlRule::HarvestControlRule(const double &limit, const double &threshold,
-                                       const double &target)
+                                       const double &target, const double &ftarget)
+: m_limit(limit), m_threshold(threshold), m_target(target), m_ftarget(ftarget)
 {
-	cout<<"Limit"<<limit<<endl;
+	
 }
 
-double HarvestControlRule::operator( )(const double& bt)
+HarvestControlRule::HarvestControlRule(const double &limit, const double &threshold,
+                   const double &target, const double &ftarget,
+                   const double &fmax, const double &catch_floor)
+: m_limit(limit), m_threshold(threshold), m_target(target),
+  m_ftarget(ftarget), m_fmax(fmax), m_catch_floor(catch_floor)
 {
-	return(4);
+	
 }
+
+
+double HarvestControlRule::operator( )(const double& bt,const double &bo)
+{
+	// User defined harvest control rule.
+	double tac = 0;
+	double f_rate=0;
+	double bstatus = bt/bo;
+	if( bstatus <= m_limit )
+	{
+		f_rate = 0;
+	}
+
+	if( bstatus >= m_threshold )
+	{
+		f_rate = m_ftarget;
+	}
+
+	if( bstatus > m_limit && bstatus <= m_threshold )
+	{
+		f_rate = m_ftarget * ( bstatus - m_limit ) 
+				            /( m_threshold - m_limit );
+	}
+
+	
+	tac = f_rate * bt;
+	return(tac);
+}
+
+double HarvestControlRule::operator( )(const double& bt,const double &bo, 
+                                       double& f_rate)
+{
+	// User defined harvest control rule.
+	double tac = 0;
+	//double f_rate=0;
+	double bstatus = bt/bo;
+	if( bstatus <= m_limit )
+	{
+		f_rate = 0;
+	}
+
+	if( bstatus >= m_threshold )
+	{
+		f_rate = m_ftarget;
+	}
+
+	if( bstatus > m_limit && bstatus <= m_threshold )
+	{
+		f_rate = m_ftarget * ( bstatus - m_limit ) 
+				            /( m_threshold - m_limit );
+	}
+
+	
+	tac = f_rate * bt;
+	return(tac);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

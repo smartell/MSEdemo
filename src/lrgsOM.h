@@ -4,13 +4,23 @@
 class HarvestControlRule
 {
 private:
+	double m_limit;
+	double m_threshold;
+	double m_target;
+	double m_ftarget;
+	double m_fmax;
+	double m_catch_floor;
 
 public:
 	~HarvestControlRule();
 	HarvestControlRule(const double &limit, const double &threshold,
-                                       const double &target);
+	                   const double &target,const double &ftarget);
+	HarvestControlRule(const double &limit, const double &threshold,
+                       const double &target, const double &ftarget,
+                       const double &fmax, const double &catch_floor);
 
-	double operator( )(const double& bt);
+	double operator( )(const double& bt,const double &bo);
+	double operator( )(const double& bt,const double &bo, double& f_rate);
 };
 
 #endif
@@ -22,6 +32,7 @@ public:
 
 #include <admodel.h>
 #include "LRGS.h"
+#include "EstimatorClass.h"
 
 
 
@@ -34,7 +45,6 @@ private:
 	int m_rseed;
 
 
-	double m_hr;
 	double m_log_bo;
 	double m_h;
 	double m_s;
@@ -46,6 +56,7 @@ private:
 	dvector m_it;
 
 	int m_pyr;
+	double m_phi;
 	double m_bo;
 	double m_ro;
 	double m_reck;
@@ -66,7 +77,15 @@ private:
 	double m_bmsy;
 	double m_msy;
 
-	
+	// model name
+	adstring m_sAssessmentModel;
+	double m_est_bo;
+	double m_est_reck;
+	double m_est_s;
+	double m_est_bt;
+	double m_est_fmsy;
+	double m_est_bmsy;
+	double m_est_msy;
 
 	// Depeltion based referece variables
 	double m_limit;
@@ -92,6 +111,11 @@ public:
 	void conditionOperatingModel();
 	void runOperatingModel();
 	void calcReferencePoints();
+	void calcReferencePoints(const double &bo, const double & reck,
+                                 const double &s, double &fmsy, double &bmsy, double &msy);
+	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
+	void read_parameter_estimates(const adstring &sParFile);
+	void print_mse(const int &i);
 };
 
 
