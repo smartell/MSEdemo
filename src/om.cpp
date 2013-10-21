@@ -209,6 +209,15 @@ void model_parameters::mse2()
 	sPars.log_tau   = log_tau;
 	sPars.wt        = wt;
 	lrgsOM cOM(data,sPars,"S1.scn","MP1.mp");
+	ofstream ofs("OM.rep",ios::app);
+	ofs<<"t_bo\n"      << cOM.get_bo()       <<endl;
+	ofs<<"t_est_bo\n"  << cOM.get_est_bo()   <<endl;
+	ofs<<"t_bmsy\n"    << cOM.get_bmsy()     <<endl;
+	ofs<<"t_fmsy\n"    << cOM.get_fmsy()     <<endl;
+	ofs<<"t_msy\n"     << cOM.get_msy()      <<endl;
+	ofs<<"t_bt\n"      << cOM.get_bt()       <<endl;
+	ofs<<"t_aav\n"     << cOM.get_aav()      <<endl;
+	ofs.close();
 	cout<<"Running the new Operating Model Class"<<endl;
 }
 

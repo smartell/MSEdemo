@@ -65,12 +65,14 @@ private:
 	double m_so;
 	double m_beta;
 	double m_q;
+	
 
 	dvector m_bt;
 	dvector m_rt;
 	dvector m_chat;
 	dvector m_ft;
 	dvector m_ihat;
+	dvector m_aav;
 
 	// MSY-based variables
 	double m_fmsy;
@@ -105,6 +107,13 @@ public:
 	       const adstring s_Scfile,const adstring s_Mpfile);
 
 	
+	double get_bo()     { return m_bo;     }
+	double get_est_bo() { return m_est_bo; }
+	double get_bmsy()   { return m_bmsy;   }
+	double get_fmsy()   { return m_fmsy;   }
+	double get_msy()    { return m_msy;    }
+	dvector get_bt()     { return m_bt;     }
+	dvector get_aav()    { return m_aav;    }
 
 	void readScenarioInput(const adstring s_file);
 	void readProcedureInput(const adstring s_file);

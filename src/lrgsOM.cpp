@@ -66,6 +66,19 @@ void lrgsOM::readProcedureInput(const adstring s_file)
 	ifs >> m_fmax;    // Should correspond to fishing rate at threshold.
 	ifs >> m_catch_floor;
 	cout<<"Assessment Model"<<m_sAssessmentModel<<endl;
+
+
+	// Constructor, where if ftarget==0, the calculate the corresponding
+	// value of ftarget that results in btarget.
+	if( m_ftarget == 0 )
+	{
+		double t1 = (m_reck-1.0);
+		double t2 = (m_bo-m_target)*(-1.0+m_s)*t1;
+		double t3 = m_bo+t1*m_target;
+		m_ftarget = t2 / t3;
+
+		cout<<"The new Ftarget is = "<<m_ftarget<<endl;
+	}
 }
 
 void lrgsOM::conditionOperatingModel()
@@ -142,10 +155,12 @@ void lrgsOM::runOperatingModel()
 	cout<<"Biomass limit = "<<m_limit<<endl;
 
 	read_parameter_estimates("mse.par");
+
 	calcReferencePoints();
 	calcReferencePoints(m_est_bo,m_est_reck,m_est_s,m_est_fmsy,m_est_bmsy,m_est_msy);
 	EstimatorClass cAssessmentModel(m_sAssessmentModel);
 	HarvestControlRule cTAC(m_limit,m_threshold,m_target,m_ftarget);
+	// HarvestControlRule cTAC(m_limit,m_threshold,m_target,m_fmsy);
 
 	for( i = m_nyr+1; i <= m_pyr; i++ )
 	{
@@ -154,7 +169,7 @@ void lrgsOM::runOperatingModel()
 
 		// | - Calculate TAC based on harvest control rule parameters.
 		// TODO: replace with estimated biomass and bo from assessment.
-		m_chat(i)  = cTAC(m_bt(i),m_bo,m_est_fmsy);
+		m_chat(i)  = cTAC(m_est_bt,m_est_bo,m_est_fmsy);
 
 		// | - Implement fishery
 		m_chat(i) *= exp( et_dev(i) );
@@ -182,11 +197,18 @@ void lrgsOM::runOperatingModel()
 		read_parameter_estimates("mse.par");
 		
 		// | - Screen dump
-		if( !(i % 5)) print_mse(i);
+		if( !(i % 5) ) print_mse(i);
 	}
-	//cout<<m_bt<<endl;
-	//cout<<elem_div(m_chat,m_bt(m_syr,m_pyr))<<endl;
 	
+
+	// | - Calculate average annual variation in catch.
+	m_aav.allocate(m_syr,m_pyr);
+	m_aav.initialize();
+	for( i = m_syr+5; i <= m_pyr; i++ )
+	{
+		m_aav(i)  = sum(fabs(first_difference(m_chat(i-5,i))));
+		m_aav(i) /= sum(m_chat(i-5,i));
+	}
 	
 }
 
@@ -223,10 +245,10 @@ void lrgsOM::calcReferencePoints(const double &bo, const double & reck,const dou
                                  double &fmsy, double &bmsy, double &msy)
 {
 	bmsy = (bo*(-1.+sqrt(reck))/(reck-1.)); 
-	msy  = (m_bmsy * (-1. + s) * (-1. + reck)*(-bo + m_bmsy)) 
-			 / (bo + (-1. + reck)*m_bmsy);
+	msy  = (bmsy * (-1. + s) * (-1. + reck)*(-bo + bmsy)) 
+			 / (bo + (-1. + reck)*bmsy);
 	
-	fmsy = m_msy / m_bmsy;
+	fmsy = msy / bmsy;
 	//cout<<"MSY\n"<<m_msy<<endl;
 }
 
@@ -260,7 +282,7 @@ HarvestControlRule::HarvestControlRule(const double &limit, const double &thresh
                                        const double &target, const double &ftarget)
 : m_limit(limit), m_threshold(threshold), m_target(target), m_ftarget(ftarget)
 {
-	
+
 }
 
 HarvestControlRule::HarvestControlRule(const double &limit, const double &threshold,
