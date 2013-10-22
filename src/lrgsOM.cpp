@@ -76,7 +76,7 @@ void lrgsOM::readProcedureInput(const adstring s_file)
 		double t2 = (m_bo-m_target)*(-1.0+m_s)*t1;
 		double t3 = m_bo+t1*m_target;
 		m_ftarget = t2 / t3;
-
+		cout<<"Limit =" <<m_limit<<endl;
 		cout<<"The new Ftarget is = "<<m_ftarget<<endl;
 	}
 }

@@ -9,11 +9,11 @@
 ## | HARVEST CONTROL RULE PARAMETERS | ##
 ## ----------------------------------  ##
 ## | Limit reference point (depletion)
-0.1 
+0.2 
 ## | Threshold reference point (depletion)
-0.4
+0.3
 ## | Target reference point (depletion)
-0.45
+0.4
 ## | Target fishing mortality rate; (0 = use rate that corresponds to target.)
 0
 ## | Max fishing mortality rate (0 = use rate that corresponds to threshold.)

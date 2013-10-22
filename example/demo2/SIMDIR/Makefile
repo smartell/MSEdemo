@@ -20,7 +20,7 @@ runmse:
 	touch runmse
 
 clean:
-	rm -f $(EXEC) $(EXEC).rep *.[bcelprs]* *.hes variance admodel.*
+	rm -f $(EXEC) $(EXEC).rep *.[bcelpr]* *.hes variance admodel.*
 	rm -f simdone
 
 
@@ -34,7 +34,7 @@ runsims := $(foreach dir,$(simdirs),$(dir)/runsims)
 
 $(datadone): $(DATA)
 	mkdir -p $(@D);
-	cp $(EXEC) $(EXEC).dat Makefile $(@D)
+	cp $(EXEC) $(EXEC).dat Makefile *.scn *.mp $(@D)
 	cd $(@D); touch datadone;  
 	cd $(@D); rm -f runmse
 
