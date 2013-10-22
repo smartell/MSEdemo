@@ -30,5 +30,8 @@ $(procdone): job-%:
 	-cp SIMDIR/$(sdir) $(dir)/$(sdir)/ManagementProcedure.mp
 	cd $(dir)/$(sdir); touch procdone
 
+
+
+
 clean:
 	rm -fr *.scn *.mp
