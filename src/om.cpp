@@ -208,7 +208,7 @@ void model_parameters::mse2()
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau   = log_tau;
 	sPars.wt        = wt;
-	lrgsOM cOM(data,sPars,"S1.scn","MP1.mp");
+	lrgsOM cOM(data,sPars,"Scenario.scn","ManagementProcedure.mp");
 	ofstream ofs("OM.rep",ios::app);
 	ofs<<"t_bo\n"      << cOM.get_bo()       <<endl;
 	ofs<<"t_est_bo\n"  << cOM.get_est_bo()   <<endl;

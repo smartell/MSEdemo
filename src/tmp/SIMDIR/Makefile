@@ -1,6 +1,6 @@
 EXEC  = om
 DATA  = om.dat
-DIST  = ../../../dist/
+DIST  = ../../../../dist/
 NOSIM = 8
 
 

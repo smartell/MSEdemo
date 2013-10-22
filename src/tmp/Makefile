@@ -26,6 +26,8 @@ $(procdone): job-%:
 	@echo The directory is $(dir) and sdir is $(sdir);
 	-cd $(dir) && mkdir $(sdir);
 	-cp SIMDIR/om.dat SIMDIR/Makefile $(dir)/$(sdir)/
+	-cp SIMDIR/$(dir) $(dir)/$(sdir)/Scenario.scn
+	-cp SIMDIR/$(sdir) $(dir)/$(sdir)/ManagementProcedure.mp
 	cd $(dir)/$(sdir); touch procdone
 
 clean:
