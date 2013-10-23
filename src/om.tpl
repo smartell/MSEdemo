@@ -56,7 +56,7 @@ DATA_SECTION
 	init_matrix catch_data(syr,nyr,0,ngear);
 	init_3darray   it_data(1,nEpochs,1,nIt_nobs,1,4);
 	init_int eof;
-
+	!! cout<<eof<<endl;
 	!! if(eof != -999){cout<<"Error reading data"<<endl; exit(1);}
 
 	ivector iyr(syr,nyr);
@@ -120,17 +120,19 @@ INITIALIZATION_SECTION
 	
 
 PARAMETER_SECTION
-	init_bounded_number log_bo(0,10,1);
-	init_bounded_number h(0.2,1.0,1);
+	init_bounded_number log_bo(0,10,2);
+	init_bounded_number log_b1(0,10,1);
+	init_bounded_number h(0.2,1.0,2);
 	init_bounded_number s(0.0,1.0,1);
-	init_number log_sigma(2);
+	init_number log_sigma(3);
 	init_number log_tau(3);
 	init_bounded_dev_vector wt(syr,nyr,-15,15,3);
 	
 
 	objective_function_value f;
 
-	number bo;	
+	number bo;
+	number b1;	
 	number ro;	
 	number sig;
 	number tau;	
@@ -153,6 +155,7 @@ PROCEDURE_SECTION
 	
 	sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
+	sPars.log_b1 = log_b1;
 	sPars.h  = h;
 	sPars.s = s;
 	sPars.log_sigma = log_sigma;
@@ -162,6 +165,7 @@ PROCEDURE_SECTION
 	
 
 	bo               = mfexp(log_bo);
+	b1               = mfexp(log_b1);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
 	reck             = 4.*h/(1.-h);
@@ -170,6 +174,7 @@ PROCEDURE_SECTION
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
 	// Test cTest;
+	fpen = 0;
 	LRGS cLRGSmodel(data,sPars);
 
 	cLRGSmodel.initialize_model();
@@ -180,6 +185,8 @@ PROCEDURE_SECTION
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
+	fpen    = cLRGSmodel.get_fpen();
+	//cout<<"Fpen " <<fpen<<endl;
 	
 	calc_objective_function();
 	
@@ -201,7 +208,8 @@ FUNCTION void calc_objective_function()
 	//nll(2) = dbeta(s,30.01,10.01);
 	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
 	nll(2) = dbeta(s,13.06849,2.11493);
-	nll(3) = dnorm(log_bo,log(3000),1.0);
+	nll(3) = dnorm(log_bo,log(3000),5.0);
+	nll(3)+= dnorm(log_b1,log(3000),5.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
 	if(active(log_tau))
@@ -224,6 +232,7 @@ FUNCTION void mse2()
 	//lrgsOM OM("S1.scn");
 	sLRGSparameters sPars;
 	sPars.log_bo    = log_bo;
+	sPars.log_b1    = log_b1;
 	sPars.h         = h;
 	sPars.s         = s;
 	sPars.log_sigma = log_sigma;
@@ -310,6 +319,7 @@ REPORT_SECTION
 	msy_reference_points cMSY(value(reck),value(s),value(bo));
 
 	REPORT(bo);
+	REPORT(b1);
 	REPORT(h);
 	REPORT(s);
 	REPORT(q);

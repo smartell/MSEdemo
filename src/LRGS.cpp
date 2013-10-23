@@ -51,6 +51,7 @@ LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 	m_nEpochs  = data.nEpochs;
 
 	m_bo   = mfexp(pars.log_bo);
+	m_b1   = mfexp(pars.log_b1);
 	m_h    = pars.h;
 	m_s    = pars.s;
 	m_sig  = sqrt(1.0/mfexp(pars.log_sigma));
@@ -73,7 +74,7 @@ void LRGS::initialize_model()
 	m_a                = m_reck*m_ro/m_bo;
 	m_b                = (m_reck-1.0)/m_bo;
 	m_rt(m_syr,m_syr+m_agek) = m_ro * exp(m_wt(m_syr,m_syr+m_agek));
-	m_bt(m_syr)          = m_bo;
+	m_bt(m_syr)          = m_b1;
 	// m_sig              = sqrt(1.0/mfexp(log_sigma));
 	// m_tau              = sqrt(1.0/mfexp(log_tau));
 
@@ -89,6 +90,7 @@ void LRGS::population_dynamics()
 	int i;
 	dvariable btmp;
 	m_fpen.initialize();
+
 	for(i=m_syr;i<=m_nyr;i++)
 	{
 		// m_ft(i) = -log((-m_ct(i)+m_bt(i))/m_bt(i));
@@ -100,9 +102,10 @@ void LRGS::population_dynamics()
 		}
 		
 		btmp    = m_s*m_bt(i) + m_rt(i) - sum(m_ct(i));
-		m_bt(i+1) = posfun(btmp,0.1,m_fpen);
+		m_bt(i+1) = posfun(btmp,0.01,m_fpen);
 		// m_ft(i) = -log( (m_bt(i)*(1.-m_s) + m_bt(i+1) - m_rt(i))/m_bt(i) );
 	}
+		// cout<<" fpen = "<<m_fpen<<endl;
 	// sd_dep = m_bt(nyr)/m_bo;
 }
 

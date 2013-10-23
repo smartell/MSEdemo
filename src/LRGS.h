@@ -27,6 +27,7 @@ struct sLRGSdata
 struct sLRGSparameters
 {
 	dvariable log_bo;
+	dvariable log_b1;
 	dvariable h;
 	dvariable s;
 	dvariable log_sigma;
@@ -44,6 +45,7 @@ private:
 	int m_nEpochs;
 	ivector m_nIt_nobs;
 	dvariable   m_bo;
+	dvariable   m_b1;
 	dvariable   m_h;
 	dvariable   m_ro;
 	dvariable   m_s;
@@ -96,6 +98,7 @@ public:
 	dvar_vector get_bt()        {return m_bt;            }
 	dvar_vector get_ft()        {return m_ft;            }
 	dvariable   get_depletion() {return m_bt(m_nyr)/m_bo;}
+	dvariable   get_fpen()      {return m_fpen;          }
 	dvar_vector get_q()         {return m_q;             }
 	/* data */
 };

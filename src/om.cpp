@@ -49,6 +49,7 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   catch_data.allocate(syr,nyr,0,ngear,"catch_data");
   it_data.allocate(1,nEpochs,1,nIt_nobs,1,4,"it_data");
   eof.allocate("eof");
+ cout<<eof<<endl;
  if(eof != -999){cout<<"Error reading data"<<endl; exit(1);}
   iyr.allocate(syr,nyr);
   ct.allocate(syr,nyr,1,ngear);
@@ -93,10 +94,11 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
  model_data(argc,argv) , function_minimizer(sz)
 {
   initializationfunction();
-  log_bo.allocate(0,10,1,"log_bo");
-  h.allocate(0.2,1.0,1,"h");
+  log_bo.allocate(0,10,2,"log_bo");
+  log_b1.allocate(0,10,1,"log_b1");
+  h.allocate(0.2,1.0,2,"h");
   s.allocate(0.0,1.0,1,"s");
-  log_sigma.allocate(2,"log_sigma");
+  log_sigma.allocate(3,"log_sigma");
   log_tau.allocate(3,"log_tau");
   wt.allocate(syr,nyr,-15,15,3,"wt");
   f.allocate("f");
@@ -105,6 +107,10 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   bo.allocate("bo");
   #ifndef NO_AD_INITIALIZE
   bo.initialize();
+  #endif
+  b1.allocate("b1");
+  #ifndef NO_AD_INITIALIZE
+  b1.initialize();
   #endif
   ro.allocate("ro");
   #ifndef NO_AD_INITIALIZE
@@ -166,12 +172,14 @@ void model_parameters::userfunction(void)
   f =0.0;
 	sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
+	sPars.log_b1 = log_b1;
 	sPars.h  = h;
 	sPars.s = s;
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau  = log_tau;
 	sPars.wt = wt;
 	bo               = mfexp(log_bo);
+	b1               = mfexp(log_b1);
 	sig              = sqrt(1.0/mfexp(log_sigma));
 	tau              = sqrt(1.0/mfexp(log_tau));
 	reck             = 4.*h/(1.-h);
@@ -179,6 +187,7 @@ void model_parameters::userfunction(void)
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
 	// Test cTest;
+	fpen = 0;
 	LRGS cLRGSmodel(data,sPars);
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
@@ -188,6 +197,8 @@ void model_parameters::userfunction(void)
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
+	fpen    = cLRGSmodel.get_fpen();
+	//cout<<"Fpen " <<fpen<<endl;
 	calc_objective_function();
 }
 
@@ -204,7 +215,8 @@ void model_parameters::calc_objective_function()
 	//nll(2) = dbeta(s,30.01,10.01);
 	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
 	nll(2) = dbeta(s,13.06849,2.11493);
-	nll(3) = dnorm(log_bo,log(3000),1.0);
+	nll(3) = dnorm(log_bo,log(3000),5.0);
+	nll(3)+= dnorm(log_b1,log(3000),5.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
 	if(active(log_tau))
@@ -226,6 +238,7 @@ void model_parameters::mse2()
 	//lrgsOM OM("S1.scn");
 	sLRGSparameters sPars;
 	sPars.log_bo    = log_bo;
+	sPars.log_b1    = log_b1;
 	sPars.h         = h;
 	sPars.s         = s;
 	sPars.log_sigma = log_sigma;
@@ -259,6 +272,7 @@ void model_parameters::report()
   }
 	msy_reference_points cMSY(value(reck),value(s),value(bo));
 	REPORT(bo);
+	REPORT(b1);
 	REPORT(h);
 	REPORT(s);
 	REPORT(q);
