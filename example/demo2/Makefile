@@ -5,11 +5,11 @@
 #   3) Run Realizations
 #   4) Read R files
 #   5) Concatenate SCEN & PROC to Rdatabase
-SCEN = S1.scn S2.scn
-PROC = MP1.mp MP2.mp MP3.mp
+#SCEN = S1.scn S2.scn
+#PROC = MP1.mp MP2.mp MP3.mp
 
-scenarios = $(wildcard SIMDIR/*.scn)
-procedure = $(wildcard SIMDIR/*.mp)
+scenarios := $(wildcard SIMDIR/*.scn)
+procedure := $(wildcard SIMDIR/*.mp)
 
 bSCEN := $(notdir $(basename $(scenarios)))
 bPROC := $(notdir $(basename $(procedure)))
@@ -21,7 +21,7 @@ ddir := $(foreach dir, $(notdir $(scenarios)), \
         $(foreach sdir, $(notdir $(procedure)), job-$(dir)-$(sdir)/ddir))
 
 runam := $(foreach dir, $(bSCEN),$(foreach sdir, $(bPROC), $(dir)/$(sdir)/runam))
-runmse:= $(foreach dir, $(bSCEN),$(foreach sdir, $(bPROC), $(dir)/$(sdir)/runmse))
+runms := $(foreach dir, $(bSCEN),$(foreach sdir, $(bPROC), $(dir)/$(sdir)/runms))
 
 .PHONY: run configure
 
@@ -34,10 +34,10 @@ $(runam):
 
 # Run a Candidate Management Procedure
 TARGET = sims
-runcmp: $(runmse)
-$(runmse):
-	cd $(@D) && $(MAKE) $(TARGET) 
-	# cd $(@D) && $(MAKE) collect
+runcmp: $(runms)
+$(runms):
+	cd $(@D); $(MAKE) $(TARGET) -j8
+	cd $(@D); $(MAKE) collect
 
 # Configure script to set up directories
 configure: $(sdir) $(pdir) $(cdir) $(ddir)

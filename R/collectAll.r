@@ -1,4 +1,4 @@
-source(file.path("../..","R","read.admb.r"));
+source(file.path("../../../..","R","read.admb.r"));
 
 readOutput <- function(d){
   return(read.admb(file.path(d,"om")));
