@@ -43,22 +43,40 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
   agek.allocate("agek");
   syr.allocate("syr");
   nyr.allocate("nyr");
-  iyr.allocate(syr,nyr,"iyr");
-  ct.allocate(syr,nyr,"ct");
-  it.allocate(syr,nyr,"it");
-  nScenario.allocate("nScenario");
-  n_hcr.allocate("n_hcr");
-  n_pyr.allocate("n_pyr");
-  n_flg_perfect_information.allocate("n_flg_perfect_information");
-  iuu_rate.allocate("iuu_rate");
-  min_tac.allocate("min_tac");
-  sEstimator.allocate("sEstimator");
- data.syr  = syr;
- data.nyr  = nyr;
- data.agek = agek;
- data.ct   = ct;
- data.it   = it;
- data.rseed = rseed;
+  ngear.allocate("ngear");
+  nEpochs.allocate("nEpochs");
+  nIt_nobs.allocate(1,nEpochs,"nIt_nobs");
+  catch_data.allocate(syr,nyr,0,ngear,"catch_data");
+  it_data.allocate(1,nEpochs,1,nIt_nobs,1,4,"it_data");
+  eof.allocate("eof");
+ if(eof != -999){cout<<"Error reading data"<<endl; exit(1);}
+  iyr.allocate(syr,nyr);
+  ct.allocate(syr,nyr,1,ngear);
+  it_yr.allocate(1,nEpochs,1,nIt_nobs);
+  epoch.allocate(1,nEpochs,1,nIt_nobs);
+  it.allocate(1,nEpochs,1,nIt_nobs);
+  cv.allocate(1,nEpochs,1,nIt_nobs);
+		iyr   = ivector(column(catch_data,0));
+		ct    = trans(trans(catch_data).sub(1,ngear));
+		for(int i = 1; i <= nEpochs; i++ )
+		{
+			it_yr(i) = ivector(column(it_data(i),1));
+			epoch(i) = ivector(column(it_data(i),2));
+			it(i)    = column(it_data(i),3);
+			cv(i)    = column(it_data(i),4);		
+		}
+ data.syr      = syr;
+ data.nyr      = nyr;
+ data.agek     = agek;
+ data.ngear    = ngear;
+ data.nIt_nobs = nIt_nobs;
+ data.ct       = ct;
+ data.it       = it;
+ data.rseed    = rseed;
+ data.it_yr    = it_yr;
+ data.nEpochs  = nEpochs;
+ data.epoch    = epoch;
+ data.cv       = cv;
  cout<<data.it<<endl;
 }
 
@@ -112,13 +130,13 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
   reck.initialize();
   #endif
-  q.allocate("q");
-  #ifndef NO_AD_INITIALIZE
-  q.initialize();
-  #endif
   fpen.allocate("fpen");
   #ifndef NO_AD_INITIALIZE
   fpen.initialize();
+  #endif
+  q.allocate(1,nEpochs,"q");
+  #ifndef NO_AD_INITIALIZE
+    q.initialize();
   #endif
   bt.allocate(syr,nyr+1,"bt");
   #ifndef NO_AD_INITIALIZE
@@ -132,7 +150,7 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     ft.initialize();
   #endif
-  epsilon.allocate(syr,nyr,"epsilon");
+  epsilon.allocate(1,nEpochs,1,nIt_nobs,"epsilon");
   #ifndef NO_AD_INITIALIZE
     epsilon.initialize();
   #endif
@@ -179,8 +197,13 @@ void model_parameters::calc_objective_function()
 	dvariable isig2 = mfexp(log_sigma);
 	dvariable itau2 = mfexp(log_tau);
 	// No comments
-	nll(1) = dnorm(epsilon,sig);
-	nll(2) = dbeta(s,30.01,10.01);
+	for(int i = 1; i <= nEpochs; i++ )
+	{
+		nll(1) = dnorm(epsilon(i),sig);
+	}
+	//nll(2) = dbeta(s,30.01,10.01);
+	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
+	nll(2) = dbeta(s,13.06849,2.11493);
 	nll(3) = dnorm(log_bo,log(3000),1.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);

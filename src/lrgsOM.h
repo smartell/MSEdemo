@@ -43,6 +43,9 @@ private:
 	int m_nyr;
 	int m_agek;
 	int m_rseed;
+	int m_ngear;
+	int m_nEpochs;
+	ivector m_nIt_nobs;
 
 
 	double m_log_bo;
@@ -52,8 +55,10 @@ private:
 	double m_log_tau;
 
 	dvector m_wt;
-	dvector m_ct;
-	dvector m_it;
+	dmatrix m_ct;
+	dmatrix m_it;
+	imatrix m_it_yr;
+	dmatrix m_cv;
 
 	int m_pyr;
 	double m_phi;
@@ -64,14 +69,16 @@ private:
 	double m_tau;
 	double m_so;
 	double m_beta;
-	double m_q;
+	dvector m_q;
 	
 
 	dvector m_bt;
 	dvector m_rt;
-	dvector m_chat;
+	dmatrix m_chat;
 	dvector m_ft;
-	dvector m_ihat;
+	dmatrix m_ihat;
+	dmatrix m_cvhat;
+	imatrix m_it_yr_hat;
 	dvector m_aav;
 
 	// MSY-based variables
@@ -122,7 +129,7 @@ public:
 	void calcReferencePoints();
 	void calcReferencePoints(const double &bo, const double & reck,
                                  const double &s, double &fmsy, double &bmsy, double &msy);
-	void write_data_file(const int &nyr, const dvector &ct,const dvector& it);
+	void write_data_file(const int &nyr, const dmatrix &ct,const dmatrix& it);
 	void read_parameter_estimates(const adstring &sParFile);
 	void print_mse(const int &i);
 };

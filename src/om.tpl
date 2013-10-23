@@ -50,9 +50,35 @@ DATA_SECTION
 	init_int agek;
 	init_int syr;
 	init_int nyr;
-	init_ivector iyr(syr,nyr);
-	init_vector ct(syr,nyr);
-	init_vector it(syr,nyr);
+	init_int ngear;
+	init_int nEpochs;
+	init_ivector nIt_nobs(1,nEpochs);
+	init_matrix catch_data(syr,nyr,0,ngear);
+	init_3darray   it_data(1,nEpochs,1,nIt_nobs,1,4);
+	init_int eof;
+
+	!! if(eof != -999){cout<<"Error reading data"<<endl; exit(1);}
+
+	ivector iyr(syr,nyr);
+	matrix   ct(syr,nyr,1,ngear);
+	imatrix it_yr(1,nEpochs,1,nIt_nobs);
+	imatrix epoch(1,nEpochs,1,nIt_nobs);
+	matrix     it(1,nEpochs,1,nIt_nobs);
+	matrix     cv(1,nEpochs,1,nIt_nobs);
+
+
+	LOC_CALCS
+		iyr   = ivector(column(catch_data,0));
+		ct    = trans(trans(catch_data).sub(1,ngear));
+		for(int i = 1; i <= nEpochs; i++ )
+		{
+			it_yr(i) = ivector(column(it_data(i),1));
+			epoch(i) = ivector(column(it_data(i),2));
+			it(i)    = column(it_data(i),3);
+			cv(i)    = column(it_data(i),4);		
+		}
+	END_CALCS
+
 
 	// |---------------------------------------------------------------------------------|
 	// | MANAGEMENT STRATEGY EVALUATION COMMANDS
@@ -60,23 +86,29 @@ DATA_SECTION
 	// |
 	// Scenario 1 = stationarity
 	// Scenario 2 = pdo
-	init_int nScenario;
-	// Harvest control rule
-	init_int n_hcr;
-	init_int n_pyr;
-	init_int n_flg_perfect_information;
-	init_number iuu_rate;
-	init_number min_tac;
-	init_adstring sEstimator;
+	//init_int nScenario;
+	//// Harvest control rule
+	//init_int n_hcr;
+	//init_int n_pyr;
+	//init_int n_flg_perfect_information;
+	//init_number iuu_rate;
+	//init_number min_tac;
+	//init_adstring sEstimator;
 	// !! COUT(sEstimator);
 	// !! exit(1);
 	// !! sLRGSdata data;
-	!! data.syr  = syr;
-	!! data.nyr  = nyr;
-	!! data.agek = agek;
-	!! data.ct   = ct;
-	!! data.it   = it;
-	!! data.rseed = rseed;
+	!! data.syr      = syr;
+	!! data.nyr      = nyr;
+	!! data.agek     = agek;
+	!! data.ngear    = ngear;
+	!! data.nIt_nobs = nIt_nobs;
+	!! data.ct       = ct;
+	!! data.it       = it;
+	!! data.rseed    = rseed;
+	!! data.it_yr    = it_yr;
+	!! data.nEpochs  = nEpochs;
+	!! data.epoch    = epoch;
+	!! data.cv       = cv;
 	!! cout<<data.it<<endl;
 	
 INITIALIZATION_SECTION
@@ -105,13 +137,14 @@ PARAMETER_SECTION
 	number a;	
 	number b;	
 	number reck;
-	number q;	
 	number fpen;
 
+	vector q(1,nEpochs);	
 	vector bt(syr,nyr+1);	
 	vector rt(syr,nyr);
 	vector ft(syr,nyr);	
-	vector epsilon(syr,nyr);
+	//vector epsilon(syr,nyr);
+	matrix epsilon(1,nEpochs,1,nIt_nobs);
 	
 	vector nll(1,8);		
 
@@ -161,8 +194,13 @@ FUNCTION void calc_objective_function()
 	dvariable itau2 = mfexp(log_tau);
 
 	// No comments
-	nll(1) = dnorm(epsilon,sig);
-	nll(2) = dbeta(s,30.01,10.01);
+	for(int i = 1; i <= nEpochs; i++ )
+	{
+		nll(1) = dnorm(epsilon(i),sig);
+	}
+	//nll(2) = dbeta(s,30.01,10.01);
+	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
+	nll(2) = dbeta(s,13.06849,2.11493);
 	nll(3) = dnorm(log_bo,log(3000),1.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
@@ -193,6 +231,7 @@ FUNCTION void mse2()
 	sPars.wt        = wt;
 
 	lrgsOM cOM(data,sPars,"Scenario.scn","ManagementProcedure.mp");
+	
 
 	ofstream ofs("OM.rep",ios::app);
 	ofs<<"t_bo\n"      << cOM.get_bo()       <<endl;

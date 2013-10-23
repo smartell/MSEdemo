@@ -21,9 +21,14 @@ lrgsOM::lrgsOM(const sLRGSdata& data,const sLRGSparameters& pars,
 : m_syr(data.syr),
   m_nyr(data.nyr),
   m_agek(data.agek),
+  m_ngear(data.ngear),
+  m_nEpochs(data.nEpochs),
+  m_nIt_nobs(data.nIt_nobs),
   m_rseed(data.rseed),
   m_ct(data.ct),
   m_it(data.it),
+  m_it_yr(data.it_yr),
+  m_cv(data.cv),
   m_log_bo(value(pars.log_bo)),
   m_h(value(pars.h)),
   m_s(value(pars.s)),
@@ -83,7 +88,7 @@ void lrgsOM::readProcedureInput(const adstring s_file)
 
 void lrgsOM::conditionOperatingModel()
 {
-	int i;
+	int i,j;
 	// Population variables.
 	m_bo   = exp(m_log_bo);
 	m_ro   = m_bo * (1.0-m_s);
@@ -92,10 +97,12 @@ void lrgsOM::conditionOperatingModel()
 	m_tau  = sqrt(1.0/mfexp(m_log_tau));
 	m_so   = m_reck * (1.0 - m_s);
 	m_beta = (m_reck - 1.0)/m_bo;
-
 	// Population dynamics
-	m_chat.allocate(m_syr,m_pyr);   m_chat.initialize();
-	m_ihat.allocate(m_syr,m_pyr);   m_ihat.initialize();
+	m_chat.allocate(m_syr,m_pyr,1,m_ngear);   m_chat.initialize();
+	ivector extra = m_nIt_nobs+(m_pyr-m_nyr);
+	m_ihat.allocate(1,m_nEpochs,1,extra);   m_ihat.initialize();
+	m_cvhat.allocate(1,m_nEpochs,1,extra);   m_cvhat.initialize();
+	m_it_yr_hat.allocate(1,m_nEpochs,1,extra); m_it_yr_hat.initialize();
 	m_bt.allocate(m_syr,m_pyr+1);   m_bt.initialize();
 	m_rt.allocate(m_syr,m_pyr);     m_rt.initialize();
 	m_ft.allocate(m_syr,m_pyr);     m_ft.initialize();
@@ -109,16 +116,35 @@ void lrgsOM::conditionOperatingModel()
 			m_rt(i)  = m_so * m_bt(i-m_agek) / (1.0 + m_beta*m_bt(i-m_agek)); 
 			m_rt(i) *= exp(m_wt(i));
 		}
-		m_bt(i+1) = m_s*m_bt(i) + m_rt(i) - m_ct(i);
+		m_bt(i+1) = m_s*m_bt(i) + m_rt(i) - sum(m_ct(i));
+
+		m_ft(i) = sum(m_ct(i)) / m_bt(i);
 	}
 	// Verified biomass with assessment model.  SJDM
 
-	m_chat(m_syr,m_nyr) = m_ct(m_syr,m_nyr);
-	m_ihat(m_syr,m_nyr) = m_it(m_syr,m_nyr);
-	m_ft(m_syr,m_nyr)   = elem_div(m_ct(m_syr,m_nyr),m_bt(m_syr,m_nyr));
+	for( i = m_syr; i <= m_nyr; i++ )
+	{
+		for( j = 1; j <= m_ngear; j++ )
+		{
+			m_chat(i,j) = m_ct(i,j);
+		}		
+	}
+	//m_ft(m_syr,m_nyr)   = elem_div(m_ct(m_syr,m_nyr),m_bt(m_syr,m_nyr));
 	
 	// Catchability coefficient
-	m_q = exp(mean( log(m_it) - log(m_bt(m_syr,m_nyr)) ));
+	m_q.allocate(1,m_nEpochs);
+	for( i = 1; i <= m_nEpochs; i++ )
+	{
+		m_ihat(i)(1,m_nIt_nobs(i)) = m_it(i)(1,m_nIt_nobs(i));
+		m_cvhat(i)(1,m_nIt_nobs(i)) = m_cv(i)(1,m_nIt_nobs(i));
+		m_it_yr_hat(i)(1,m_nIt_nobs(i)) = m_it_yr(i)(1,m_nIt_nobs(i));
+
+		ivector iyr = m_it_yr(i);
+		dvector zt  = log(m_it(i)) - log(m_bt(iyr).shift(1));
+		m_q(i)      = exp(mean(zt));
+	}
+	cout<<"Malloc"<<endl;
+	// m_q = exp(mean( log(m_it) - log(m_bt(m_syr,m_nyr)) ));
 	
 	cout<<"q\n"<<m_q<<endl;
 }
@@ -137,11 +163,11 @@ void lrgsOM::runOperatingModel()
 	// | - Write data file
 	// | - Conduct stock assessment.
 
-	int i;
+	int i,j,k;
 	// | - Set Random numbers
 	random_number_generator rng(m_rseed);
 	dvector rt_dev(m_nyr+1,m_pyr);
-	dvector it_dev(m_nyr+1,m_pyr);
+	dmatrix it_dev(1,m_nEpochs,m_nyr+1,m_pyr);
 	dvector et_dev(m_nyr+1,m_pyr);
 
 	rt_dev.fill_randn(rng);
@@ -173,22 +199,32 @@ void lrgsOM::runOperatingModel()
 
 		// | - Implement fishery
 		m_chat(i) *= exp( et_dev(i) );
-		if( m_chat(i) >= m_bt(i) )
+		for( j = 1; j <= m_ngear; j++ )
 		{
-			m_chat(i) = 0.8 * m_bt(i);
+			if( m_chat(i,j) >= m_bt(i) )
+			{
+				m_chat(i,j) = 0.8/m_ngear * m_bt(i);
+			}
 		}
 
 
 		// | - Update population dynamics
 		m_rt(i)   = m_so * m_bt(i-m_agek) / (1.0 + m_beta*m_bt(i-m_agek));
 		m_rt(i)   = m_rt(i) * exp(rt_dev(i));
-		m_bt(i+1) = m_s*m_bt(i) + m_rt(i) - m_chat(i);
+		m_bt(i+1) = m_s*m_bt(i) + m_rt(i) - sum(m_chat(i));
 
 		// | - Catch and effort statistics
-		m_ihat(i) = m_q * m_bt(i) * exp(it_dev(i));
+		for( j = 1; j <= m_nEpochs; j++ )
+		{
+
+			k = m_nIt_nobs(j) + (i-m_nyr);
+			m_ihat(j,k) = m_q(j) * m_bt(i) * exp(it_dev(j,i));
+			m_it_yr_hat(j,k) = i;
+			m_cvhat(j,k) = m_sig / m_ihat(j,k);
+		}
 
 		// | - Write new data file
-		write_data_file(i,m_chat(m_syr,i),m_ihat(m_syr,i));
+		write_data_file(i,m_chat.sub(m_syr,i),m_ihat);
 
 		// | - Run Assessment Model
 		cAssessmentModel.runEstimator();
@@ -206,8 +242,8 @@ void lrgsOM::runOperatingModel()
 	m_aav.initialize();
 	for( i = m_syr+5; i <= m_pyr; i++ )
 	{
-		m_aav(i)  = sum(fabs(first_difference(m_chat(i-5,i))));
-		m_aav(i) /= sum(m_chat(i-5,i));
+		m_aav(i)  = sum(fabs(first_difference(rowsum(m_chat.sub(i-5,i)))));
+		m_aav(i) /= sum(m_chat.sub(i-5,i));
 	}
 	
 }
@@ -252,17 +288,43 @@ void lrgsOM::calcReferencePoints(const double &bo, const double & reck,const dou
 	//cout<<"MSY\n"<<m_msy<<endl;
 }
 
-void lrgsOM::write_data_file(const int &nyr, const dvector &ct,const dvector& it)
+void lrgsOM::write_data_file(const int &nyr, const dmatrix &ct,const dmatrix& it)
 {
+	int extra = (nyr-m_nyr);
+
 	ofstream ofs("MSE.dat");
 	ofs<<m_agek<<endl;
 	ofs<<m_syr<<endl;
 	ofs<<nyr<<endl;
+	ofs<<m_ngear<<endl;
+	ofs<<m_nEpochs<<endl;
+	ofs<<m_nIt_nobs+extra<<endl;
+
+	ofs<<"# Catch Data"<<endl;
+	int i,j;
 	ivector iyr(m_syr,nyr);
 	iyr.fill_seqadd(m_syr,1);
-	ofs<<iyr<<endl;
-	ofs<<ct<<endl;
-	ofs<<it<<endl;
+	for( i = m_syr; i <= nyr; i++ )
+	{
+		ofs<<iyr(i)<<"\t"<<ct(i)<<endl;
+	}
+
+
+	ofs<<"#CPUE data"<<endl;
+	ofs<<"#Year Epoch It CV"<<endl;
+	for( j = 1; j <= m_nEpochs; j++ )
+	{
+		for( i = 1; i <= m_nIt_nobs(j) + extra; i++ )
+		{
+			ofs<<m_it_yr_hat(j,i)<<"\t"<<j<<"\t"<<m_ihat(j,i)<<" \t"<<m_cvhat(j,i)<<endl;;
+		}
+		
+	}
+	// ofs<<iyr<<endl;
+	// ofs<<ct<<endl;
+	// ofs<<it<<endl;
+
+	ofs<<"#eof -999\n"<<-999<<endl;
 }
 
 void lrgsOM::read_parameter_estimates(const adstring &sParFile)

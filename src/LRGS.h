@@ -13,8 +13,14 @@ struct sLRGSdata
 	int nyr;
 	int agek;
 	int rseed;
-	dvector ct;
-	dvector it;
+	int ngear;
+	int nEpochs;
+	ivector nIt_nobs;
+	dmatrix ct;
+	dmatrix it;
+	imatrix it_yr;
+	imatrix epoch;
+	dmatrix cv;
 	// friend class LRGS;
 };
 
@@ -34,6 +40,9 @@ private:
 	int m_syr;
 	int m_nyr;
 	int m_agek;
+	int m_ngear;
+	int m_nEpochs;
+	ivector m_nIt_nobs;
 	dvariable   m_bo;
 	dvariable   m_h;
 	dvariable   m_ro;
@@ -44,14 +53,17 @@ private:
 	dvariable   m_sig;
 	dvariable   m_tau;
 	dvariable   m_fpen;
-	dvariable   m_q;
-	dvector     m_ct;
-	dvector     m_it;
+	dmatrix     m_ct;
+	dmatrix     m_it;
+	imatrix     m_it_yr;
+	imatrix     m_epoch;
+	dmatrix     m_cv;
 	dvar_vector m_wt;
+	dvar_vector m_q;
 	dvar_vector m_rt;
 	dvar_vector m_bt;
 	dvar_vector m_ft;
-	dvar_vector m_epsilon;
+	dvar_matrix m_epsilon;
 	
 	// sLRGSdata       m_data;
 	// sLRGSparameters m_pars;
@@ -67,8 +79,11 @@ public:
 	     dvariable& s, 
 	     dvariable& sig, 
 	     dvariable& tau,
-	     dvector& ct,
-	     dvector& it,
+	     dmatrix& ct,
+	     dmatrix& it,
+	     imatrix& it_yr,
+	     imatrix& epoch,
+	     dmatrix& cv,
 	     dvar_vector& wt);
 
 	LRGS(sLRGSdata& data,sLRGSparameters& pars);
@@ -77,11 +92,11 @@ public:
 	void population_dynamics();
 	void observation_model();  
 
-	dvar_vector get_epsilon()   {return m_epsilon;       }
+	dvar_matrix get_epsilon()   {return m_epsilon;       }
 	dvar_vector get_bt()        {return m_bt;            }
 	dvar_vector get_ft()        {return m_ft;            }
 	dvariable   get_depletion() {return m_bt(m_nyr)/m_bo;}
-	dvariable   get_q()         {return m_q;             }
+	dvar_vector get_q()         {return m_q;             }
 	/* data */
 };
 

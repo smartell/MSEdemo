@@ -11,8 +11,11 @@ LRGS::LRGS(const int& syr,
            dvariable& s, 
            dvariable& sig, 
            dvariable& tau,
-           dvector& ct,
-           dvector& it,
+           dmatrix& ct,
+           dmatrix& it,
+           imatrix& it_yr,
+	       imatrix& epoch,
+	       dmatrix& cv,
            dvar_vector& wt)
 :	m_syr(syr),
 	m_nyr(nyr),
@@ -24,6 +27,9 @@ LRGS::LRGS(const int& syr,
 	m_tau(tau),
 	m_ct(ct),
 	m_it(it),
+	m_it_yr(it_yr),
+	m_epoch(epoch),
+	m_cv(cv),
 	m_wt(wt)
 {
 	cout<<"IN CONSTRUCTOR"<<endl;
@@ -32,11 +38,17 @@ LRGS::LRGS(const int& syr,
 LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 {
 	// cout<<"The other constructor"<<endl;
-	m_syr  = data.syr;
-	m_nyr  = data.nyr;
-	m_agek = data.agek;
-	m_ct   = data.ct;
-	m_it   = data.it;
+	m_syr      = data.syr;
+	m_nyr      = data.nyr;
+	m_agek     = data.agek;
+	m_ct       = data.ct;
+	m_it       = data.it;
+	m_it_yr    = data.it_yr;
+	m_nIt_nobs = data.nIt_nobs;
+	m_epoch    = data.epoch;
+	m_cv       = data.cv;
+	m_ngear    = data.ngear;
+	m_nEpochs  = data.nEpochs;
 
 	m_bo   = mfexp(pars.log_bo);
 	m_h    = pars.h;
@@ -80,13 +92,14 @@ void LRGS::population_dynamics()
 	for(i=m_syr;i<=m_nyr;i++)
 	{
 		// m_ft(i) = -log((-m_ct(i)+m_bt(i))/m_bt(i));
-		m_ft(i) = m_ct(i) / m_bt(i);
+		// m_ft(i) = m_ct(i) / m_bt(i);
+		m_ft(i) = sum(m_ct(i)) / m_bt(i);
 		if(i-m_syr > m_agek)
 		{
 			m_rt(i) = m_a*m_bt(i-m_agek)/(1.+m_b*m_bt(i-m_agek)) * exp(m_wt(i));	
 		}
 		
-		btmp    = m_s*m_bt(i) + m_rt(i) - m_ct(i);
+		btmp    = m_s*m_bt(i) + m_rt(i) - sum(m_ct(i));
 		m_bt(i+1) = posfun(btmp,0.1,m_fpen);
 		// m_ft(i) = -log( (m_bt(i)*(1.-m_s) + m_bt(i+1) - m_rt(i))/m_bt(i) );
 	}
@@ -95,9 +108,31 @@ void LRGS::population_dynamics()
 
 void LRGS::observation_model()
 {
-
+	// SM CHanges Oct 23, to accomodate new data structures & multiple surveys.
 	int i;
-	dvar_vector zt = log(m_it) - log(m_bt(m_syr,m_nyr));
-	m_q            = exp(mean(zt));
-	m_epsilon      = zt - mean(zt);
+	m_epsilon.allocate(1,m_nEpochs,1,m_nIt_nobs);
+	m_epsilon.initialize();
+
+	m_q.allocate(1,m_nEpochs);
+	m_q.initialize();
+
+	for( i = 1; i <= m_nEpochs; i++ )
+	{
+		 ivector iyr    = m_it_yr(i);
+		 dvar_vector zt = log(m_it(i)) - log(m_bt(iyr).shift(1));
+		 m_q(i)         = exp(mean(zt));
+		 m_epsilon(i)   = zt - mean(zt);
+	}
+
+	// dvar_vector zt = log(m_it) - log(m_bt(m_syr,m_nyr));
+	// m_q            = exp(mean(zt));
+	// m_epsilon      = zt - mean(zt);
+	
+
+	
+
+
 }
+
+
+
