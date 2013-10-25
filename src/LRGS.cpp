@@ -1,4 +1,5 @@
 #include <admodel.h>
+#include <contrib.h>
 #include <LRGS.h>
 
 
@@ -50,13 +51,14 @@ LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 	m_ngear    = data.ngear;
 	m_nEpochs  = data.nEpochs;
 
-	m_bo   = mfexp(pars.log_bo);
-	m_b1   = mfexp(pars.log_b1);
-	m_h    = pars.h;
-	m_s    = pars.s;
-	m_sig  = sqrt(1.0/mfexp(pars.log_sigma));
-	m_tau  = sqrt(1.0/mfexp(pars.log_tau));
-	m_wt   = pars.wt;
+	m_bo    = mfexp(pars.log_bo);
+	m_b1    = mfexp(pars.log_b1);
+	m_h     = pars.h;
+	m_s     = pars.s;
+	m_gamma = *pars.gamma;
+	m_sig   = sqrt(1.0/mfexp(pars.log_sigma));
+	m_tau   = sqrt(1.0/mfexp(pars.log_tau));
+	m_wt    = pars.wt;
 }
 
 
@@ -105,7 +107,7 @@ void LRGS::population_dynamics()
 		m_bt(i+1) = posfun(btmp,0.01,m_fpen);
 		// m_ft(i) = -log( (m_bt(i)*(1.-m_s) + m_bt(i+1) - m_rt(i))/m_bt(i) );
 	}
-		// cout<<" fpen = "<<m_fpen<<endl;
+		// cout<<" fpen = "<<m_fpen <<endl;
 	// sd_dep = m_bt(nyr)/m_bo;
 }
 
@@ -130,12 +132,43 @@ void LRGS::observation_model()
 	// dvar_vector zt = log(m_it) - log(m_bt(m_syr,m_nyr));
 	// m_q            = exp(mean(zt));
 	// m_epsilon      = zt - mean(zt);
-	
-
-	
-
 
 }
 
+void LRGS::calc_negative_loglikelihoods()
+{
+	int i;
+	m_nll.allocate(1,2,1,m_nEpochs); m_nll.initialize();
+	
+	// Likelihood component for the residuals.
+	for( i = 1; i <= m_nEpochs; i++ )
+	{
+		dvar_vector std = m_sig + sqrt(log( 1.0 + square(m_cv(i)) ));
+		m_nll(1)(i)     = dnorm(m_epsilon(i),std);
+	}
+	
+
+	// Likelihood component for the process error components.
+	// If gamma is not active (i.e. no autocorrelation)
+	m_delta.allocate(m_syr,m_nyr);  m_delta.initialize();
+	if( (m_gamma==0.0) || (m_gamma==1.0) )
+	{
+		m_delta = m_wt;
+		m_nll(2,1) = dnorm(m_delta,m_tau);
+	}
+	else
+	{
+		m_delta(m_syr) = square(m_wt(m_syr));
+		for( i = m_syr+1; i <= m_nyr; i++ )
+		{
+			m_delta(i) = log(m_rt(i)) - (1.0-m_gamma)*(log(m_rt(i))-m_wt(i)) 
+			           - m_gamma*(log(m_rt(i-1)));
+		}
+		m_nll(2,1) = dnorm(m_delta,m_tau);
+	}
+
+
+	// cout<<m_nll<<endl;
+}
 
 

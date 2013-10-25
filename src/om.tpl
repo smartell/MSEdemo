@@ -79,6 +79,23 @@ DATA_SECTION
 		}
 	END_CALCS
 
+	// |---------------------------------------------------------------------------------|
+	// | Read control file for turning on and off parameters & setting priors            |
+	// |---------------------------------------------------------------------------------|
+
+	!! ad_comm::change_datafile_name("om.ctl");
+	int npar;
+	!!  npar=8;
+	init_matrix   d_PC(1,8,1,7);
+	
+
+	int ir;
+	int iphz;
+
+	number dval;
+	number dlb;
+	number dub;
+
 
 	// |---------------------------------------------------------------------------------|
 	// | MANAGEMENT STRATEGY EVALUATION COMMANDS
@@ -120,13 +137,37 @@ INITIALIZATION_SECTION
 	
 
 PARAMETER_SECTION
-	init_bounded_number log_bo(0,10,2);
-	init_bounded_number log_b1(0,10,1);
-	init_bounded_number h(0.2,1.0,2);
-	init_bounded_number s(0.0,1.0,1);
-	init_number log_sigma(3);
-	init_number log_tau(3);
-	init_bounded_dev_vector wt(syr,nyr,-15,15,3);
+	!! ir=1; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number log_bo(dlb,dub,iphz);
+	!! log_bo = dval;
+
+	!! ir=2; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number log_b1(dlb,dub,iphz);
+	!! log_b1 = dval;
+
+	!! ir=3; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number h(dlb,dub,iphz);
+	!! h = dval;
+
+	!! ir=4; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number s(dlb,dub,iphz);
+	!! s = dval;
+
+	!! ir=5; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number gamma(dlb,dub,iphz);
+	!! gamma = dval;
+
+	!! ir=6; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number log_sigma(dlb,dub,iphz);
+	!! log_sigma = dval;
+
+	!! ir=7; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_number log_tau(dlb,dub,iphz);
+	!! log_tau = dval;
+
+	!! ir=8; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+	init_bounded_dev_vector wt(syr,nyr,dlb,dub,iphz);
+	!! wt = dval;
 	
 
 	objective_function_value f;
@@ -145,8 +186,9 @@ PARAMETER_SECTION
 	vector bt(syr,nyr+1);	
 	vector rt(syr,nyr);
 	vector ft(syr,nyr);	
-	//vector epsilon(syr,nyr);
+	vector delta(syr,nyr);
 	matrix epsilon(1,nEpochs,1,nIt_nobs);
+	matrix negloglike(1,2,1,nEpochs);
 	
 	vector nll(1,8);		
 
@@ -161,6 +203,7 @@ PROCEDURE_SECTION
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau  = log_tau;
 	sPars.wt = wt;
+	sPars.gamma = &gamma;
 
 	
 
@@ -180,11 +223,14 @@ PROCEDURE_SECTION
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
 	cLRGSmodel.observation_model();
+	cLRGSmodel.calc_negative_loglikelihoods();
 	epsilon = cLRGSmodel.get_epsilon();
 	sd_dep  = cLRGSmodel.get_depletion();
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
+	negloglike = cLRGSmodel.get_nll();
+	delta   = cLRGSmodel.get_delta();
 	fpen    = cLRGSmodel.get_fpen();
 	//cout<<"Fpen " <<fpen<<endl;
 	
@@ -203,28 +249,29 @@ FUNCTION void calc_objective_function()
 	// No comments
 	for(int i = 1; i <= nEpochs; i++ )
 	{
-		nll(1) = dnorm(epsilon(i),sig);
+		//nll(1) += dnorm(epsilon(i),sig);
 	}
 	//nll(2) = dbeta(s,30.01,10.01);
-	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
-	nll(2) = dbeta(s,13.06849,2.11493);
-	nll(3) = dnorm(log_bo,log(3000),5.0);
-	nll(3)+= dnorm(log_b1,log(3000),5.0);
+	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.02
+	nll(2) = dbeta(s,347.3694,56.21626);
+	nll(3) = dnorm(log_bo,log(500),5.0);
+	nll(3)+= dnorm(log_b1,log(500),5.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
 	if(active(log_tau))
 	{
 		nll(6) = dgamma(itau2,1.01,1.01);
-		nll(7) = dnorm(wt,tau);
+		//nll(7) = dnorm(wt,tau);
 	}
 	else
 	{
-		nll(7) = dnorm(wt,1.0);
+		//nll(7) = dnorm(wt,1.0);
 	}
+
 
 	
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
-	f = sum(nll) + 100000.*fpen;
+	f = sum(nll) + 100000.*fpen + sum(negloglike);
 
 
 FUNCTION void mse2()
@@ -238,6 +285,7 @@ FUNCTION void mse2()
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau   = log_tau;
 	sPars.wt        = wt;
+	sPars.gamma     = &gamma;
 
 	lrgsOM cOM(data,sPars,"Scenario.scn","ManagementProcedure.mp");
 	
@@ -335,7 +383,7 @@ REPORT_SECTION
 	REPORT(wt);
 	REPORT(bt);
 	REPORT(ct);
-	
+	REPORT(delta);
 	REPORT(epsilon);
 
 	// print mle estimates of key parameters for MSE

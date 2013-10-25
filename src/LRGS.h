@@ -30,6 +30,7 @@ struct sLRGSparameters
 	dvariable log_b1;
 	dvariable h;
 	dvariable s;
+	dvariable *gamma;
 	dvariable log_sigma;
 	dvariable log_tau;
 	dvar_vector wt;
@@ -49,6 +50,7 @@ private:
 	dvariable   m_h;
 	dvariable   m_ro;
 	dvariable   m_s;
+	dvariable   m_gamma;
 	dvariable   m_reck;
 	dvariable   m_a;
 	dvariable   m_b;
@@ -65,7 +67,9 @@ private:
 	dvar_vector m_rt;
 	dvar_vector m_bt;
 	dvar_vector m_ft;
+	dvar_vector m_delta;
 	dvar_matrix m_epsilon;
+	dvar_matrix m_nll;
 	
 	// sLRGSdata       m_data;
 	// sLRGSparameters m_pars;
@@ -92,14 +96,17 @@ public:
 
 	void initialize_model();
 	void population_dynamics();
-	void observation_model();  
+	void observation_model();
+	void calc_negative_loglikelihoods();
 
 	dvar_matrix get_epsilon()   {return m_epsilon;       }
+	dvar_matrix get_nll()       {return m_nll;           }
 	dvar_vector get_bt()        {return m_bt;            }
 	dvar_vector get_ft()        {return m_ft;            }
 	dvariable   get_depletion() {return m_bt(m_nyr)/m_bo;}
 	dvariable   get_fpen()      {return m_fpen;          }
 	dvar_vector get_q()         {return m_q;             }
+	dvar_vector get_delta()     {return m_delta;         }
 	/* data */
 };
 

@@ -66,6 +66,9 @@ model_data::model_data(int argc,char * argv[]) : ad_comm(argc,argv)
 			it(i)    = column(it_data(i),3);
 			cv(i)    = column(it_data(i),4);		
 		}
+ ad_comm::change_datafile_name("om.ctl");
+  npar=8;
+  d_PC.allocate(1,8,1,7,"d_PC");
  data.syr      = syr;
  data.nyr      = nyr;
  data.agek     = agek;
@@ -94,13 +97,30 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
  model_data(argc,argv) , function_minimizer(sz)
 {
   initializationfunction();
-  log_bo.allocate(0,10,2,"log_bo");
-  log_b1.allocate(0,10,1,"log_b1");
-  h.allocate(0.2,1.0,2,"h");
-  s.allocate(0.0,1.0,1,"s");
-  log_sigma.allocate(3,"log_sigma");
-  log_tau.allocate(3,"log_tau");
-  wt.allocate(syr,nyr,-15,15,3,"wt");
+ ir=1; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  log_bo.allocate(dlb,dub,iphz,"log_bo");
+ log_bo = dval;
+ ir=2; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  log_b1.allocate(dlb,dub,iphz,"log_b1");
+ log_b1 = dval;
+ ir=3; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  h.allocate(dlb,dub,iphz,"h");
+ h = dval;
+ ir=4; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  s.allocate(dlb,dub,iphz,"s");
+ s = dval;
+ ir=5; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  gamma.allocate(dlb,dub,iphz,"gamma");
+ gamma = dval;
+ ir=6; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  log_sigma.allocate(dlb,dub,iphz,"log_sigma");
+ log_sigma = dval;
+ ir=7; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  log_tau.allocate(dlb,dub,iphz,"log_tau");
+ log_tau = dval;
+ ir=8; dval=d_PC(ir,1); dlb=d_PC(ir,2); dub=d_PC(ir,3); iphz=int(d_PC(ir,4));
+  wt.allocate(syr,nyr,dlb,dub,iphz,"wt");
+ wt = dval;
   f.allocate("f");
   prior_function_value.allocate("prior_function_value");
   likelihood_function_value.allocate("likelihood_function_value");
@@ -156,9 +176,17 @@ model_parameters::model_parameters(int sz,int argc,char * argv[]) :
   #ifndef NO_AD_INITIALIZE
     ft.initialize();
   #endif
+  delta.allocate(syr,nyr,"delta");
+  #ifndef NO_AD_INITIALIZE
+    delta.initialize();
+  #endif
   epsilon.allocate(1,nEpochs,1,nIt_nobs,"epsilon");
   #ifndef NO_AD_INITIALIZE
     epsilon.initialize();
+  #endif
+  negloglike.allocate(1,2,1,nEpochs,"negloglike");
+  #ifndef NO_AD_INITIALIZE
+    negloglike.initialize();
   #endif
   nll.allocate(1,8,"nll");
   #ifndef NO_AD_INITIALIZE
@@ -178,6 +206,7 @@ void model_parameters::userfunction(void)
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau  = log_tau;
 	sPars.wt = wt;
+	sPars.gamma = &gamma;
 	bo               = mfexp(log_bo);
 	b1               = mfexp(log_b1);
 	sig              = sqrt(1.0/mfexp(log_sigma));
@@ -192,11 +221,14 @@ void model_parameters::userfunction(void)
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
 	cLRGSmodel.observation_model();
+	cLRGSmodel.calc_negative_loglikelihoods();
 	epsilon = cLRGSmodel.get_epsilon();
 	sd_dep  = cLRGSmodel.get_depletion();
 	bt      = cLRGSmodel.get_bt();	
 	ft      = cLRGSmodel.get_ft();
 	q       = cLRGSmodel.get_q();
+	negloglike = cLRGSmodel.get_nll();
+	delta   = cLRGSmodel.get_delta();
 	fpen    = cLRGSmodel.get_fpen();
 	//cout<<"Fpen " <<fpen<<endl;
 	calc_objective_function();
@@ -210,26 +242,26 @@ void model_parameters::calc_objective_function()
 	// No comments
 	for(int i = 1; i <= nEpochs; i++ )
 	{
-		nll(1) = dnorm(epsilon(i),sig);
+		//nll(1) += dnorm(epsilon(i),sig);
 	}
 	//nll(2) = dbeta(s,30.01,10.01);
-	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.1
-	nll(2) = dbeta(s,13.06849,2.11493);
-	nll(3) = dnorm(log_bo,log(3000),5.0);
-	nll(3)+= dnorm(log_b1,log(3000),5.0);
+	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.02
+	nll(2) = dbeta(s,347.3694,56.21626);
+	nll(3) = dnorm(log_bo,log(500),5.0);
+	nll(3)+= dnorm(log_b1,log(500),5.0);
 	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
 	nll(5) = dgamma(isig2,1.01,1.01);
 	if(active(log_tau))
 	{
 		nll(6) = dgamma(itau2,1.01,1.01);
-		nll(7) = dnorm(wt,tau);
+		//nll(7) = dnorm(wt,tau);
 	}
 	else
 	{
-		nll(7) = dnorm(wt,1.0);
+		//nll(7) = dnorm(wt,1.0);
 	}
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
-	f = sum(nll) + 100000.*fpen;
+	f = sum(nll) + 100000.*fpen + sum(negloglike);
 }
 
 void model_parameters::mse2()
@@ -244,6 +276,7 @@ void model_parameters::mse2()
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau   = log_tau;
 	sPars.wt        = wt;
+	sPars.gamma     = &gamma;
 	lrgsOM cOM(data,sPars,"Scenario.scn","ManagementProcedure.mp");
 	ofstream ofs("OM.rep",ios::app);
 	ofs<<"t_bo\n"      << cOM.get_bo()       <<endl;
@@ -288,6 +321,7 @@ void model_parameters::report()
 	REPORT(wt);
 	REPORT(bt);
 	REPORT(ct);
+	REPORT(delta);
 	REPORT(epsilon);
 	// print mle estimates of key parameters for MSE
 	ofstream ofs("mse.par");
