@@ -25,7 +25,7 @@ OPT  = TRUE
 export ADMB_HOME=/Users/stevenmartell1/admb-trunk/build/dist
 
 # establish the C++ compiler
-CC=g++
+CC=clang++
 # and linker
 LL=$(CC)
 
