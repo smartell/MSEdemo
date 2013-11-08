@@ -95,7 +95,7 @@ info:
 	@echo LFLAGS = $(LFLAGS)
 
 clean:
-	rm -f $(EXEC).[bcehlprs]* $(EXEC) $(OBJS)
+	rm -f $(EXEC).[behlprs]* $(EXEC) $(OBJS)
 
 dust: 
 	rm -f *.r* *.p0* *.b* *.cor *.b0* *.eva *.std *.par *.log
