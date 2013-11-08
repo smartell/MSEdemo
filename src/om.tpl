@@ -224,14 +224,14 @@ PROCEDURE_SECTION
 	cLRGSmodel.population_dynamics();
 	cLRGSmodel.observation_model();
 	cLRGSmodel.calc_negative_loglikelihoods();
-	epsilon = cLRGSmodel.get_epsilon();
-	sd_dep  = cLRGSmodel.get_depletion();
-	bt      = cLRGSmodel.get_bt();	
-	ft      = cLRGSmodel.get_ft();
-	q       = cLRGSmodel.get_q();
+	epsilon    = cLRGSmodel.get_epsilon();
+	sd_dep     = cLRGSmodel.get_depletion();
+	bt         = cLRGSmodel.get_bt();	
+	ft         = cLRGSmodel.get_ft();
+	q          = cLRGSmodel.get_q();
 	negloglike = cLRGSmodel.get_nll();
-	delta   = cLRGSmodel.get_delta();
-	fpen    = cLRGSmodel.get_fpen();
+	delta      = cLRGSmodel.get_delta();
+	fpen       = cLRGSmodel.get_fpen();
 	//cout<<"Fpen " <<fpen<<endl;
 	
 	calc_objective_function();
