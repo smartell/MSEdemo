@@ -114,18 +114,19 @@ DATA_SECTION
 	// !! COUT(sEstimator);
 	// !! exit(1);
 	// !! sLRGSdata data;
-	!! data.syr      = syr;
-	!! data.nyr      = nyr;
-	!! data.agek     = agek;
-	!! data.ngear    = ngear;
-	!! data.nIt_nobs = nIt_nobs;
-	!! data.ct       = ct;
-	!! data.it       = it;
-	!! data.rseed    = rseed;
-	!! data.it_yr    = it_yr;
-	!! data.nEpochs  = nEpochs;
-	!! data.epoch    = epoch;
-	!! data.cv       = cv;
+	!! data.syr            = syr;
+	!! data.nyr            = nyr;
+	!! data.agek           = agek;
+	!! data.ngear          = ngear;
+	!! data.nIt_nobs       = nIt_nobs;
+	!! data.ct             = ct;
+	!! data.it             = it;
+	!! data.rseed          = rseed;
+	!! data.it_yr          = it_yr;
+	!! data.nEpochs        = nEpochs;
+	!! data.epoch          = epoch;
+	!! data.cv             = cv;
+	!! data.prior_controls = d_PC;
 	!! cout<<data.it<<endl;
 	
 INITIALIZATION_SECTION
@@ -189,8 +190,10 @@ PARAMETER_SECTION
 	vector delta(syr,nyr);
 	matrix epsilon(1,nEpochs,1,nIt_nobs);
 	matrix negloglike(1,2,1,nEpochs);
+
 	
-	vector nll(1,8);		
+	vector nll(1,8);
+	vector prior(1,8);
 
 	sdreport_number sd_dep;
 PROCEDURE_SECTION
@@ -224,12 +227,15 @@ PROCEDURE_SECTION
 	cLRGSmodel.population_dynamics();
 	cLRGSmodel.observation_model();
 	cLRGSmodel.calc_negative_loglikelihoods();
+	cLRGSmodel.calc_prior_densities();
+
 	epsilon    = cLRGSmodel.get_epsilon();
 	sd_dep     = cLRGSmodel.get_depletion();
 	bt         = cLRGSmodel.get_bt();	
 	ft         = cLRGSmodel.get_ft();
 	q          = cLRGSmodel.get_q();
 	negloglike = cLRGSmodel.get_nll();
+	prior      = cLRGSmodel.get_prior_pdf();
 	delta      = cLRGSmodel.get_delta();
 	fpen       = cLRGSmodel.get_fpen();
 	//cout<<"Fpen " <<fpen<<endl;
@@ -243,8 +249,8 @@ PROCEDURE_SECTION
 ///
 FUNCTION void calc_objective_function()
 	nll.initialize();
-	dvariable isig2 = mfexp(log_sigma);
-	dvariable itau2 = mfexp(log_tau);
+	//dvariable isig2 = mfexp(log_sigma);
+	//dvariable itau2 = mfexp(log_tau);
 
 	// No comments
 	for(int i = 1; i <= nEpochs; i++ )
@@ -253,14 +259,14 @@ FUNCTION void calc_objective_function()
 	}
 	//nll(2) = dbeta(s,30.01,10.01);
 	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.02
-	nll(2) = dbeta(s,347.3694,56.21626);
-	nll(3) = dnorm(log_bo,log(500),5.0);
-	nll(3)+= dnorm(log_b1,log(500),5.0);
-	nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
-	nll(5) = dgamma(isig2,1.01,1.01);
+	//nll(2) = dbeta(s,347.3694,56.21626);
+	//nll(3) = dnorm(log_bo,log(500),5.0);
+	//nll(3)+= dnorm(log_b1,log(500),5.0);
+	//nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
+	//nll(5) = dgamma(isig2,1.01,1.01);
 	if(active(log_tau))
 	{
-		nll(6) = dgamma(itau2,1.01,1.01);
+		//nll(6) = dgamma(itau2,1.01,1.01);
 		//nll(7) = dnorm(wt,tau);
 	}
 	else
@@ -271,7 +277,7 @@ FUNCTION void calc_objective_function()
 
 	
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
-	f = sum(nll) + 100000.*fpen + sum(negloglike);
+	f = 100000.*fpen + sum(negloglike) + sum(prior);
 
 
 FUNCTION void mse2()
@@ -373,6 +379,7 @@ REPORT_SECTION
 	REPORT(q);
 	REPORT(sig);
 	REPORT(tau);
+	REPORT(prior);
 	double fmsy = cMSY.get_fmsy();
 	double bmsy = cMSY.get_bmsy();
 	double msy  = cMSY.get_msy();
@@ -385,6 +392,7 @@ REPORT_SECTION
 	REPORT(ct);
 	REPORT(delta);
 	REPORT(epsilon);
+	REPORT(it_data);
 
 	// print mle estimates of key parameters for MSE
 	ofstream ofs("mse.par");

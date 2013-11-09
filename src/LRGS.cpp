@@ -39,17 +39,18 @@ LRGS::LRGS(const int& syr,
 LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 {
 	// cout<<"The other constructor"<<endl;
-	m_syr      = data.syr;
-	m_nyr      = data.nyr;
-	m_agek     = data.agek;
-	m_ct       = data.ct;
-	m_it       = data.it;
-	m_it_yr    = data.it_yr;
-	m_nIt_nobs = data.nIt_nobs;
-	m_epoch    = data.epoch;
-	m_cv       = data.cv;
-	m_ngear    = data.ngear;
-	m_nEpochs  = data.nEpochs;
+	m_syr            = data.syr;
+	m_nyr            = data.nyr;
+	m_agek           = data.agek;
+	m_ct             = data.ct;
+	m_it             = data.it;
+	m_it_yr          = data.it_yr;
+	m_nIt_nobs       = data.nIt_nobs;
+	m_epoch          = data.epoch;
+	m_cv             = data.cv;
+	m_ngear          = data.ngear;
+	m_nEpochs        = data.nEpochs;
+	m_prior_controls = data.prior_controls;
 
 	m_bo    = mfexp(pars.log_bo);
 	m_b1    = mfexp(pars.log_b1);
@@ -59,6 +60,18 @@ LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 	m_sig   = sqrt(1.0/mfexp(pars.log_sigma));
 	m_tau   = sqrt(1.0/mfexp(pars.log_tau));
 	m_wt    = pars.wt;
+
+	int n = m_prior_controls.rowmax();
+	m_theta.allocate(1,n);
+	m_theta.initialize();
+	m_theta(1) = pars.log_bo;
+	m_theta(2) = pars.log_b1;
+	m_theta(3) = pars.h;
+	m_theta(4) = pars.s;
+	m_theta(5) = *pars.gamma;
+	m_theta(6) = exp(pars.log_sigma);
+	m_theta(7) = exp(pars.log_tau);
+	m_theta(8) = pars.wt(m_syr);   //problem here b/c wt is a vector
 }
 
 
@@ -171,4 +184,58 @@ void LRGS::calc_negative_loglikelihoods()
 	// cout<<m_nll<<endl;
 }
 
+void LRGS::calc_prior_densities()
+{
+	/*
+		Calculate prior densities based on prior controls
+		m_prior_controls(,5) = prior type
+		m_prior_controls(,6) = p1
+		m_prior_controls(,7) = p2
+	*/
+
+	int i;
+	dvariable theta;
+	int n = m_prior_controls.rowmax();
+	m_prior_pdf.allocate(1,n);
+	m_prior_pdf.initialize();
+
+	for( i = 1; i <= n; i++ )
+	{
+		int n_type = m_prior_controls(i,5);
+		double lb  = m_prior_controls(i,2);
+		double ub  = m_prior_controls(i,3);
+		double p1  = m_prior_controls(i,6);
+		double p2  = m_prior_controls(i,6);
+		theta      = m_theta(i);
+		switch(n_type)
+		{
+			case 0:  // uniform
+				m_prior_pdf(i) = log(p2 - p1);
+			break;
+
+			case 1:  // normal
+				m_prior_pdf(i) = dnorm(theta,p1,p2);
+			break;
+
+			case 2:  // lognormal
+				m_prior_pdf(i) = dlnorm(theta,p1,p2);
+			break;
+
+			case 3:  // beta
+				m_prior_pdf(i) = dbeta((theta-lb)/(ub-lb),p1,p2);
+			break;
+
+			case 4:  // gamma
+				m_prior_pdf(i) = dgamma(theta,p1,p2);
+			break;
+
+			default:
+				m_prior_pdf(i) = 0;
+			break;
+		};
+	}
+
+
+
+}
 

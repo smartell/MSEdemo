@@ -21,6 +21,7 @@ struct sLRGSdata
 	imatrix it_yr;
 	imatrix epoch;
 	dmatrix cv;
+	dmatrix prior_controls;
 	// friend class LRGS;
 };
 
@@ -62,14 +63,18 @@ private:
 	imatrix     m_it_yr;
 	imatrix     m_epoch;
 	dmatrix     m_cv;
+	dmatrix     m_prior_controls;
 	dvar_vector m_wt;
 	dvar_vector m_q;
 	dvar_vector m_rt;
 	dvar_vector m_bt;
 	dvar_vector m_ft;
 	dvar_vector m_delta;
+	dvar_vector m_theta;    // vector of parameters in the control file with priors.
+	dvar_vector m_prior_pdf;
 	dvar_matrix m_epsilon;
 	dvar_matrix m_nll;
+
 	
 	// sLRGSdata       m_data;
 	// sLRGSparameters m_pars;
@@ -98,9 +103,11 @@ public:
 	void population_dynamics();
 	void observation_model();
 	void calc_negative_loglikelihoods();
+	void calc_prior_densities();
 
 	dvar_matrix get_epsilon()   {return m_epsilon;       }
 	dvar_matrix get_nll()       {return m_nll;           }
+	dvar_vector get_prior_pdf() {return m_prior_pdf;     }
 	dvar_vector get_bt()        {return m_bt;            }
 	dvar_vector get_ft()        {return m_ft;            }
 	dvariable   get_depletion() {return m_bt(m_nyr)/m_bo;}
