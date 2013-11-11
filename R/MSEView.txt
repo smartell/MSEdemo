@@ -1,6 +1,6 @@
 #MSEView.txt
 "Select",  "Label"  ,    "File Path"
-TRUE,Halibut.2012,../halibut/2012/
+TRUE,Halibut.2012,../halibut/2012/2012.Rdata
 ## TRUE,DET.N.Theft_FortyTen,../HCR_NOTHEFT/fortyten/fortyten.Rdata
 ## TRUE,DET.N.Theft_ThirtyTwenty,../HCR_NOTHEFT/thirtytwenty/thirtytwenty.Rdata
 ## TRUE,DET.N.Theft_ThirtyTwentyFloor75,../HCR_NOTHEFT/thirtytwentyfloor/thirtytwentyfloor.Rdata

@@ -225,7 +225,7 @@ PROCEDURE_SECTION
 
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
-	cLRGSmodel.observation_model();
+	cLRGSmodel.observation_model_q_random_walk();
 	cLRGSmodel.calc_negative_loglikelihoods();
 	cLRGSmodel.calc_prior_densities();
 

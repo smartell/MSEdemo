@@ -145,8 +145,37 @@ void LRGS::observation_model()
 	// dvar_vector zt = log(m_it) - log(m_bt(m_syr,m_nyr));
 	// m_q            = exp(mean(zt));
 	// m_epsilon      = zt - mean(zt);
-
 }
+
+void LRGS::observation_model_q_random_walk()
+{
+	/*
+		This is an observation model for allowing q to change on an annual basis.
+		The way this model works is that we first calculate q_t for each year
+		in each gear (epoch).  Then calculate a vector of first differences (dZt) in qt's
+		which represents how q changes over time.  We then subtract the mean dZt from this
+		vector, and the corresponding vector is the residual pattern in q.  The objective
+		function then attempts to minimize the variation in q subject to the assumed CV
+		in  a given year.
+	*/
+	int i,nx;
+	m_epsilon.allocate(1,m_nEpochs,1,m_nIt_nobs);
+	m_epsilon.initialize();
+
+	m_q.allocate(1,m_nEpochs);
+	m_q.initialize();
+
+	for( i = 1; i <= m_nEpochs; i++ )
+	{
+		 ivector iyr        = m_it_yr(i);
+		 nx                 = size_count(iyr)-1;
+		 dvar_vector zt     = log(m_it(i)) - log(m_bt(iyr).shift(1));
+		 dvar_vector dzt    = first_difference(zt);
+		 m_q(i)             = exp(zt(1));
+		 m_epsilon(i)(1,nx) = dzt - mean(dzt);
+	}	
+}
+
 
 void LRGS::calc_negative_loglikelihoods()
 {

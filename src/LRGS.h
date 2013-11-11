@@ -102,6 +102,7 @@ public:
 	void initialize_model();
 	void population_dynamics();
 	void observation_model();
+	void observation_model_q_random_walk();
 	void calc_negative_loglikelihoods();
 	void calc_prior_densities();
 
