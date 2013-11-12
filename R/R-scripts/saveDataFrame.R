@@ -1,6 +1,10 @@
+
+
 .saveDataFrame <- function(M)
 {
 	n <- length(M)
+	.NSAMP    <- 5
+	IDX       <- sample(1:length(M[[1]]),.NSAMP)
 	S_HCR <- strsplit(names(M),"_")
 	year  <- 1964:(1964+length(M[[1]][[1]]$t_bt)-1)
 	mdf   <- qdf  <- NULL

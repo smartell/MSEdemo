@@ -17,13 +17,18 @@ grid 1 1 relief="sunken" padx=5 pady=5
 	font="Courier" padx=2 pady=2
 
 # ASSESSMENT TAB
-	grid 1 2 relief="solid" toptitle="Select item to plot" topfont="Times" padx=2 pady=2
+	grid 1 3 relief="solid" toptitle="Select item to plot" topfont="Times" padx=2 pady=2
 
 	#-- widget 2a
-	radio name=plotType value=biomass text="Biomass" function=.viewPlot mode=character sticky=W edit=TRUE
-	radio name=plotType value=catch   text="Catch"   function=.viewPlot mode=character sticky=W edit=TRUE
+	radio name=plotType value=ass.biomass text="Biomass" function=.viewPlot mode=character sticky=W edit=TRUE
+	radio name=plotType value=ass.ut   text="Exploitation Rate"   function=.viewPlot mode=character sticky=W edit=TRUE
+	radio name=plotType value=ass.catch   text="Catch"   function=.viewPlot mode=character sticky=W edit=TRUE
 
 
 # MSE TAB
+	grid 1 2 relief="solid" toptitle="Select item to plot" topfont="Times" padx=2 pady=2
 
-	label name=jnk text="Communications"
+	#-- widget 2a
+	radio name=plotType value=mse.biomass text="Biomass" function=.viewPlot mode=character sticky=W edit=TRUE
+	radio name=plotType value=mse.catch   text="Catch"   function=.viewPlot mode=character sticky=W edit=TRUE
+

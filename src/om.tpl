@@ -371,6 +371,10 @@ FUNCTION void run_mse()
 
 REPORT_SECTION
 	msy_reference_points cMSY(value(reck),value(s),value(bo));
+	ivector yr(syr,nyr);
+	ivector yrs(syr,nyr+1);
+	yr.fill_seqadd(syr,1);
+	yrs.fill_seqadd(syr,1);
 
 	REPORT(bo);
 	REPORT(b1);
@@ -386,6 +390,8 @@ REPORT_SECTION
 	REPORT(fmsy);
 	REPORT(bmsy);
 	REPORT(msy);
+	REPORT(yr);
+	REPORT(yrs);
 	REPORT(ft);
 	REPORT(wt);
 	REPORT(bt);
