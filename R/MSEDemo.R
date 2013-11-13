@@ -55,6 +55,14 @@ guiView <- function()
 	{
 		.plotASScatch( M )
 	}
+	if( plotType=="ass.cpue" )
+	{
+		.plotASScpue( M )
+	}
+	if( plotType=="ass.cpue.res" )
+	{
+		.plotCPUEresiduals( M )
+	}
 
 	# MSE Plots
 	if( plotType=="mse.biomass" )
@@ -68,7 +76,26 @@ guiView <- function()
 }
 
 
+.plotCPUEresiduals <- function( M )
+{
+	cat(".plotCPUEresiduals\n")
+	n <- length(M)
+	mdf <- NULL
+	for(i in 1:n)
+	{
+		df  <- M[[i]]$it_data
+		ep  <-na.omit(as.vector(M[[i]]$epsilon))
+		df  <- data.frame(Model=names(M)[i],df,Residual=ep)
+		names(df) = c("Model","Year","Epoch","CPUE","CV","Residual")
+		mdf <- rbind(mdf,df)
+	}
 
+	p <- ggplot(mdf,aes(x=Year,y=Residual,fill=factor(Epoch))) 
+	p <- p + geom_bar(stat='identity',position='dodge')
+	p <- p + facet_wrap(~Model)
+	print(p)
+
+}
 
 
 
