@@ -25,7 +25,7 @@ grid 1 1 relief="sunken" padx=5 pady=5
 	radio name=plotType value=ass.catch   text="Catch"   function=.viewPlot mode=character sticky=W edit=TRUE
 	radio name=plotType value=ass.cpue   text="CPUE"   function=.viewPlot mode=character sticky=W edit=TRUE
 	radio name=plotType value=ass.cpue.res   text="CPUE Residuals"   function=.viewPlot mode=character sticky=W edit=TRUE
-	NULL
+	radio name=plotType value=ass.rec.dev   text="Recruit devs"   function=.viewPlot mode=character sticky=W edit=TRUE
 	
 
 # MSE TAB

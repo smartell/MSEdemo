@@ -63,6 +63,11 @@ guiView <- function()
 	{
 		.plotCPUEresiduals( M )
 	}
+	if( plotType=="ass.rec.dev" )
+	{
+		.plotRecDevs( M )
+	}
+
 
 	# MSE Plots
 	if( plotType=="mse.biomass" )
@@ -84,7 +89,7 @@ guiView <- function()
 	for(i in 1:n)
 	{
 		df  <- M[[i]]$it_data
-		ep  <-na.omit(as.vector(M[[i]]$epsilon))
+		ep  <-na.omit(as.vector(t(M[[i]]$epsilon)))
 		df  <- data.frame(Model=names(M)[i],df,Residual=ep)
 		names(df) = c("Model","Year","Epoch","CPUE","CV","Residual")
 		mdf <- rbind(mdf,df)
@@ -95,6 +100,24 @@ guiView <- function()
 	p <- p + facet_wrap(~Model)
 	print(p)
 
+}
+
+.plotRecDevs <- function( M )
+{
+	cat("plotRecDevs.\n")
+	n   <- length(M)
+	mdf <- NULL
+	for(i in 1:n)
+	{
+		yr  <- M[[i]]$yr
+		wt  <- M[[i]]$wt
+		df  <- data.frame(Model=names(M)[i],Year=yr,wt=wt)
+		mdf <- rbind(mdf,df)
+	}
+
+	p <- ggplot(mdf,aes(x=Year,y=wt)) + geom_bar(stat='identity')
+	p <- p + facet_wrap(~Model)
+	print(p)
 }
 
 

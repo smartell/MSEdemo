@@ -87,6 +87,9 @@ DATA_SECTION
 	int npar;
 	!!  npar=8;
 	init_matrix   d_PC(1,8,1,7);
+	init_matrix tmp_d_BC(1,nEpochs,1,7);
+	matrix d_BC(1,7,1,nEpochs);
+	!! d_BC = trans(tmp_d_BC);
 	
 
 	int ir;
@@ -96,24 +99,17 @@ DATA_SECTION
 	number dlb;
 	number dub;
 
+	ivector i_phz(1,nEpochs);
+	vector  d_val(1,nEpochs);
+	vector  d_lb(1,nEpochs);
+	vector  d_ub(1,nEpochs);
+
 
 	// |---------------------------------------------------------------------------------|
-	// | MANAGEMENT STRATEGY EVALUATION COMMANDS
+	// | DATA STRUCTURE
 	// |---------------------------------------------------------------------------------|
 	// |
-	// Scenario 1 = stationarity
-	// Scenario 2 = pdo
-	//init_int nScenario;
-	//// Harvest control rule
-	//init_int n_hcr;
-	//init_int n_pyr;
-	//init_int n_flg_perfect_information;
-	//init_number iuu_rate;
-	//init_number min_tac;
-	//init_adstring sEstimator;
-	// !! COUT(sEstimator);
-	// !! exit(1);
-	// !! sLRGSdata data;
+
 	!! data.syr            = syr;
 	!! data.nyr            = nyr;
 	!! data.agek           = agek;
@@ -127,7 +123,7 @@ DATA_SECTION
 	!! data.epoch          = epoch;
 	!! data.cv             = cv;
 	!! data.prior_controls = d_PC;
-	!! cout<<data.it<<endl;
+	
 	
 INITIALIZATION_SECTION
 	log_bo     8.0;
@@ -170,6 +166,12 @@ PARAMETER_SECTION
 	init_bounded_dev_vector wt(syr,nyr,dlb,dub,iphz);
 	!! wt = dval;
 	
+	// Controls for log_beta power parameters for each CPUE series
+	!! d_val=d_BC(1); d_lb=d_BC(2); d_ub=d_BC(3); i_phz=ivector(d_BC(4));
+	init_bounded_number_vector log_beta(1,nEpochs,d_lb,d_ub,i_phz);
+	!! for(ir=1; ir<=nEpochs; ir++) log_beta(ir) = d_val(ir);
+
+	//!! cout<<"log_beta = "<<i_phz<<endl; exit(1);
 
 	objective_function_value f;
 
@@ -198,24 +200,32 @@ PARAMETER_SECTION
 	sdreport_number sd_dep;
 PROCEDURE_SECTION
 	
+
+	
+
+	bo               = mfexp(log_bo);
+	if(active(log_b1))
+	{
+		b1           = mfexp(log_b1);
+	}
+	else  // assumed population starts at unfished state
+	{
+		b1           = mfexp(log_bo);  	
+	}
+	sig              = sqrt(1.0/mfexp(log_sigma));
+	tau              = sqrt(1.0/mfexp(log_tau));
+	reck             = 4.*h/(1.-h);
+
 	sLRGSparameters sPars;
 	sPars.log_bo = log_bo;
-	sPars.log_b1 = log_b1;
+	sPars.log_b1 = log(b1);
 	sPars.h  = h;
 	sPars.s = s;
 	sPars.log_sigma = log_sigma;
 	sPars.log_tau  = log_tau;
 	sPars.wt = wt;
 	sPars.gamma = &gamma;
-
-	
-
-	bo               = mfexp(log_bo);
-	b1               = mfexp(log_b1);
-	sig              = sqrt(1.0/mfexp(log_sigma));
-	tau              = sqrt(1.0/mfexp(log_tau));
-	reck             = 4.*h/(1.-h);
-
+	sPars.log_beta = log_beta;
 	// Testing out a new class called LRGS for doing all of the 
 	// model calculations.
 	// LRGS cLRGSmodel(syr,nyr,agek,bo,h,s,sig,tau,ct,it,wt);
@@ -225,6 +235,7 @@ PROCEDURE_SECTION
 
 	cLRGSmodel.initialize_model();
 	cLRGSmodel.population_dynamics();
+	//cLRGSmodel.observation_model();
 	cLRGSmodel.observation_model_q_random_walk();
 	cLRGSmodel.calc_negative_loglikelihoods();
 	cLRGSmodel.calc_prior_densities();
@@ -248,34 +259,6 @@ PROCEDURE_SECTION
 /// @remarks Based on the negative log likelihood
 ///
 FUNCTION void calc_objective_function()
-	nll.initialize();
-	//dvariable isig2 = mfexp(log_sigma);
-	//dvariable itau2 = mfexp(log_tau);
-
-	// No comments
-	for(int i = 1; i <= nEpochs; i++ )
-	{
-		//nll(1) += dnorm(epsilon(i),sig);
-	}
-	//nll(2) = dbeta(s,30.01,10.01);
-	//The following is based on E(x) = exp(-0.15), Sig2 = (.15*CV)^2, where assumed CV=0.02
-	//nll(2) = dbeta(s,347.3694,56.21626);
-	//nll(3) = dnorm(log_bo,log(500),5.0);
-	//nll(3)+= dnorm(log_b1,log(500),5.0);
-	//nll(4) = dbeta((h-0.2)/0.8,1.01,1.01);
-	//nll(5) = dgamma(isig2,1.01,1.01);
-	if(active(log_tau))
-	{
-		//nll(6) = dgamma(itau2,1.01,1.01);
-		//nll(7) = dnorm(wt,tau);
-	}
-	else
-	{
-		//nll(7) = dnorm(wt,1.0);
-	}
-
-
-	
 	if(fpen>0 && !mc_phase()) cout<<"Fpen = "<<fpen<<endl;
 	f = 100000.*fpen + sum(negloglike) + sum(prior);
 
@@ -383,6 +366,7 @@ REPORT_SECTION
 	REPORT(q);
 	REPORT(sig);
 	REPORT(tau);
+	REPORT(negloglike);
 	REPORT(prior);
 	double fmsy = cMSY.get_fmsy();
 	double bmsy = cMSY.get_bmsy();

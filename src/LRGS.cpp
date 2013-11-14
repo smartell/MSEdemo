@@ -72,6 +72,8 @@ LRGS::LRGS(sLRGSdata& data,sLRGSparameters& pars)
 	m_theta(6) = exp(pars.log_sigma);
 	m_theta(7) = exp(pars.log_tau);
 	m_theta(8) = pars.wt(m_syr);   //problem here b/c wt is a vector
+
+	m_log_beta = pars.log_beta;
 }
 
 
@@ -84,10 +86,10 @@ void LRGS::initialize_model()
 	m_ft.initialize();
 	m_bt.initialize();
 	// bo               = mfexp(log_bo);
-	m_ro               = m_bo*(1.-m_s);
-	m_reck             = 4.*m_h/(1.-m_h);
-	m_a                = m_reck*m_ro/m_bo;
-	m_b                = (m_reck-1.0)/m_bo;
+	m_ro               = m_bo * (1. - m_s);
+	m_reck             = 4. * m_h/(1. - m_h);
+	m_a                = m_reck * (1. - m_s);
+	m_b                = (m_reck - 1.0) / m_bo;
 	m_rt(m_syr,m_syr+m_agek) = m_ro * exp(m_wt(m_syr,m_syr+m_agek));
 	m_bt(m_syr)          = m_b1;
 	// m_sig              = sqrt(1.0/mfexp(log_sigma));
@@ -159,20 +161,23 @@ void LRGS::observation_model_q_random_walk()
 		in  a given year.
 	*/
 	int i,nx;
+	dvariable beta;
 	m_epsilon.allocate(1,m_nEpochs,1,m_nIt_nobs);
 	m_epsilon.initialize();
 
 	m_q.allocate(1,m_nEpochs);
 	m_q.initialize();
-
+ 
 	for( i = 1; i <= m_nEpochs; i++ )
 	{
 		 ivector iyr        = m_it_yr(i);
 		 nx                 = size_count(iyr)-1;
-		 dvar_vector zt     = log(m_it(i)) - log(m_bt(iyr).shift(1));
+		 beta               = mfexp(m_log_beta(i));
+		 dvar_vector zt     = log(m_it(i)) - beta*log(m_bt(iyr).shift(1));
 		 dvar_vector dzt    = first_difference(zt);
 		 m_q(i)             = exp(zt(1));
-		 m_epsilon(i)(1,nx) = dzt - mean(dzt);
+		 m_epsilon(i)(1,nx) = dzt - 1./nx*sum(dzt);
+		 // m_epsilon(i)(1,nx) = dzt - mean(dzt);  //THIS WAS THE BUG
 	}	
 }
 
@@ -223,6 +228,7 @@ void LRGS::calc_prior_densities()
 	*/
 
 	int i;
+	double dtmp;
 	dvariable theta;
 	int n = m_prior_controls.rowmax();
 	m_prior_pdf.allocate(1,n);
@@ -239,7 +245,8 @@ void LRGS::calc_prior_densities()
 		switch(n_type)
 		{
 			case 0:  // uniform
-				m_prior_pdf(i) = log(p2 - p1);
+				dtmp  = p2 - p1 + 1.e-10;
+				m_prior_pdf(i) = log(dtmp);
 			break;
 
 			case 1:  // normal

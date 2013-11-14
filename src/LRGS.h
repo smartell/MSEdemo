@@ -35,6 +35,7 @@ struct sLRGSparameters
 	dvariable log_sigma;
 	dvariable log_tau;
 	dvar_vector wt;
+	dvar_vector log_beta;
 };
 
 class LRGS 
@@ -72,6 +73,7 @@ private:
 	dvar_vector m_delta;
 	dvar_vector m_theta;    // vector of parameters in the control file with priors.
 	dvar_vector m_prior_pdf;
+	dvar_vector m_log_beta;
 	dvar_matrix m_epsilon;
 	dvar_matrix m_nll;
 
