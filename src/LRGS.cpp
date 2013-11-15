@@ -90,7 +90,8 @@ void LRGS::initialize_model()
 	m_reck             = 4. * m_h/(1. - m_h);
 	m_a                = m_reck * (1. - m_s);
 	m_b                = (m_reck - 1.0) / m_bo;
-	m_rt(m_syr,m_syr+m_agek) = m_ro * exp(m_wt(m_syr,m_syr+m_agek));
+	// m_rt(m_syr,m_syr+m_agek) = m_ro * exp(m_wt(m_syr,m_syr+m_agek));
+	m_rt(m_syr,m_syr+m_agek) = m_b1 * (1. - m_s) * exp(m_wt(m_syr,m_syr+m_agek));
 	m_bt(m_syr)          = m_b1;
 	// m_sig              = sqrt(1.0/mfexp(log_sigma));
 	// m_tau              = sqrt(1.0/mfexp(log_tau));
@@ -131,7 +132,9 @@ void LRGS::observation_model()
 	// SM CHanges Oct 23, to accomodate new data structures & multiple surveys.
 	int i;
 	m_epsilon.allocate(1,m_nEpochs,1,m_nIt_nobs);
+	m_hat_it.allocate(1,m_nEpochs,1,m_nIt_nobs);
 	m_epsilon.initialize();
+	m_hat_it.initialize();
 
 	m_q.allocate(1,m_nEpochs);
 	m_q.initialize();
@@ -142,6 +145,7 @@ void LRGS::observation_model()
 		 dvar_vector zt = log(m_it(i)) - log(m_bt(iyr).shift(1));
 		 m_q(i)         = exp(mean(zt));
 		 m_epsilon(i)   = zt - mean(zt);
+		 m_hat_it(i)    = m_q(i) * m_bt(iyr).shift(1);
 	}
 
 	// dvar_vector zt = log(m_it) - log(m_bt(m_syr,m_nyr));
@@ -164,6 +168,8 @@ void LRGS::observation_model_q_random_walk()
 	dvariable beta;
 	m_epsilon.allocate(1,m_nEpochs,1,m_nIt_nobs);
 	m_epsilon.initialize();
+	m_hat_it.allocate(1,m_nEpochs,1,m_nIt_nobs);
+	m_hat_it.initialize();
 
 	m_q.allocate(1,m_nEpochs);
 	m_q.initialize();
@@ -177,6 +183,7 @@ void LRGS::observation_model_q_random_walk()
 		 dvar_vector dzt    = first_difference(zt);
 		 m_q(i)             = exp(zt(1));
 		 m_epsilon(i)(1,nx) = dzt - 1./nx*sum(dzt);
+		 m_hat_it(i)        = m_q(i) * m_bt(iyr).shift(1);
 		 // m_epsilon(i)(1,nx) = dzt - mean(dzt);  //THIS WAS THE BUG
 	}	
 }

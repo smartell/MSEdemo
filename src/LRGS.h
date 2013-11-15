@@ -75,6 +75,7 @@ private:
 	dvar_vector m_prior_pdf;
 	dvar_vector m_log_beta;
 	dvar_matrix m_epsilon;
+	dvar_matrix m_hat_it;
 	dvar_matrix m_nll;
 
 	
@@ -109,6 +110,7 @@ public:
 	void calc_prior_densities();
 
 	dvar_matrix get_epsilon()   {return m_epsilon;       }
+	dvar_matrix get_hat_it()    {return m_hat_it;        }
 	dvar_matrix get_nll()       {return m_nll;           }
 	dvar_vector get_prior_pdf() {return m_prior_pdf;     }
 	dvar_vector get_bt()        {return m_bt;            }

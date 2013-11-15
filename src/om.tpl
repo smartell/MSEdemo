@@ -191,6 +191,7 @@ PARAMETER_SECTION
 	vector ft(syr,nyr);	
 	vector delta(syr,nyr);
 	matrix epsilon(1,nEpochs,1,nIt_nobs);
+	matrix hat_it(1,nEpochs,1,nIt_nobs);
 	matrix negloglike(1,2,1,nEpochs);
 
 	
@@ -241,6 +242,7 @@ PROCEDURE_SECTION
 	cLRGSmodel.calc_prior_densities();
 
 	epsilon    = cLRGSmodel.get_epsilon();
+	hat_it     = cLRGSmodel.get_hat_it();
 	sd_dep     = cLRGSmodel.get_depletion();
 	bt         = cLRGSmodel.get_bt();	
 	ft         = cLRGSmodel.get_ft();
@@ -382,6 +384,7 @@ REPORT_SECTION
 	REPORT(ct);
 	REPORT(delta);
 	REPORT(epsilon);
+	REPORT(hat_it);
 	REPORT(it_data);
 
 	// print mle estimates of key parameters for MSE
