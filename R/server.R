@@ -103,7 +103,10 @@ shinyServer(function(input,output){
 	})
 
 	# This is the ggplot on the opening page.
-	output$msePlot <- renderPlot({
+	output$msePlot <-  renderPlot({
+		 input$goButton
+
+		 isolate({
 		p <- ggplot(data(),aes_string(x="Year",y=input$yy))
 		if( is.null(input$yy)) return(NULL)
 		if(input$yy == 'Biomass')
@@ -180,6 +183,7 @@ shinyServer(function(input,output){
 			print(p + theme_bw(.FONTSIZE) + theme( legend.position = .LEGPOS ))
 			dev.off()			
 		}
+	})
 	})
 
 	# TAB 2

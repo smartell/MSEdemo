@@ -22,11 +22,12 @@ shinyUI(pageWithSidebar(
     	numericInput('nyr','Terminal year',value=2015,
                  min=min(qdf$Year),max=max(qdf$Year),step=1),
 	    
+	    actionButton("goButton", "Go!"),
 		# selectInput('y','Variable',argv[-1:-3],select='Biomass'),
 	    #
 	    selectInput('scenario','Scenarios'
 	                ,levels(raw.data$Scenario),
-	                multiple=TRUE,selected=c('DET.N.Theft','PDO.N.Theft')),
+	                multiple=TRUE,selected=c('DET.N.IUU','PDO.N.IUU')),
 	    helpText('Note: Select multiple scenarios using the shift or control key.'),
 
 		checkboxInput('integrate','Integrate Scenarios',value=TRUE),
