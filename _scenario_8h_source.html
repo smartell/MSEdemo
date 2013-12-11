@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>MSEDemo: /Users/stevenmartell1/Documents/IPHC/MSEdemo/src/Scenario.h Source File</title>
+<title>Management Strategy Evaluation Demo: /Users/stevenmartell1/Documents/IPHC/MSEdemo/src/Scenario.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -28,10 +35,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MSEDemo
+   <div id="projectname">Management Strategy Evaluation Demo
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">MSE</div>
+   <div id="projectbrief">MSED</div>
   </td>
  </tr>
  </tbody>
@@ -45,6 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -68,15 +77,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_scenario_8h_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,11 +108,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Scenario.h</div>  </div>
@@ -101,91 +119,125 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="class_population.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_population.html" title="Population class. ">Population</a></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="code" href="class_population.html#adada72895dbb4b497cf1c13f6d863603">   16</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="class_population.html#adada72895dbb4b497cf1c13f6d863603" title="Unfished biomass. ">m_bo</a>; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="code" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27">   17</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27" title="Steepness of Beverton Holt Model. ">m_h</a>;  </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="code" href="class_population.html#a2a4822df469e715e20b3801929a63d2e">   18</a></span>&#160;        <span class="keywordtype">double</span> <a class="code" href="class_population.html#a2a4822df469e715e20b3801929a63d2e" title="Survival growth coefficient. ">m_s</a>;  </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordtype">double</span> m_bo; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">double</span> m_h;  </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">double</span> m_s;  </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">   21</a></span>&#160;        <a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> bo=1.0, <span class="keyword">const</span> <span class="keywordtype">double</span> h=0.75, <span class="keyword">const</span> <span class="keywordtype">double</span> s=0.85)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        : <a class="code" href="class_population.html#adada72895dbb4b497cf1c13f6d863603" title="Unfished biomass. ">m_bo</a>(bo),<a class="code" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27" title="Steepness of Beverton Holt Model. ">m_h</a>(h),<a class="code" href="class_population.html#a2a4822df469e715e20b3801929a63d2e" title="Survival growth coefficient. ">m_s</a>(s)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        ~<a class="code" href="class_population.html" title="Population class. ">Population</a>(){}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef SCENARIO_H</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SCENARIO_H</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="class_scenario.html">   47</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>: <span class="keyword">public</span> <a class="code" href="class_population.html" title="Population class. ">Population</a> </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">int</span>     m_agek;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">int</span>     m_pyr;  <span class="comment">// number of projection years</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">int</span>     m_rseed;<span class="comment">// Random number seed.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">// double  m_bo;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="comment">// double  m_h;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">// double  m_s;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">double</span>  m_q;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">double</span>  m_sig;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">double</span>  m_tau;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        dvector m_ft;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        dvector m_wt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        dvector m_it;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        dvector m_ct;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>(); </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="code" href="class_scenario.html#a72def6cbd129f7e4b798675d08f40ab2">   70</a></span>&#160;        <a class="code" href="class_scenario.html#a72def6cbd129f7e4b798675d08f40ab2">Scenario</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; agek, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; pyr, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; rseed, <span class="keywordtype">double</span>&amp; bo,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; h,</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; s, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; q, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; sig,<span class="keyword">const</span> <span class="keywordtype">double</span> tau,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                 <span class="keyword">const</span> dvector&amp; ft, <span class="keyword">const</span> dvector &amp;wt, <span class="keyword">const</span> dvector &amp;it,<span class="keyword">const</span> dvector &amp;ct)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                :m_agek(agek),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html" title="Population class. ">Population</a>(bo,h,s), m_q(q),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        {}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        ~<a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="comment">// getters</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="code" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e">   79</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e" title="get ">get_agek</a>() { <span class="keywordflow">return</span> m_agek; } </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b">   80</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b" title="get ">get_pyr</a>()  { <span class="keywordflow">return</span> m_pyr;  } </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="code" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d">   81</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d" title="get ">get_rseed</a>(){ <span class="keywordflow">return</span> m_rseed;} </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="code" href="class_scenario.html#a0027e654098c9bca1bd1d7cd8836c605">   82</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#a0027e654098c9bca1bd1d7cd8836c605" title="get ">get_bo</a>()   { <span class="keywordflow">return</span> <a class="code" href="class_population.html#adada72895dbb4b497cf1c13f6d863603" title="Unfished biomass. ">m_bo</a>;   } </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a">   83</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a" title="get ">get_h</a>()    { <span class="keywordflow">return</span> <a class="code" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27" title="Steepness of Beverton Holt Model. ">m_h</a>;    } </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="code" href="class_scenario.html#a4f3638e23684f1947accc4c0a9edde25">   84</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#a4f3638e23684f1947accc4c0a9edde25" title="get ">get_s</a>()    { <span class="keywordflow">return</span> <a class="code" href="class_population.html#a2a4822df469e715e20b3801929a63d2e" title="Survival growth coefficient. ">m_s</a>;    } </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="code" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3">   85</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3" title="get ">get_q</a>()    { <span class="keywordflow">return</span> m_q;    } </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="code" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5">   86</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5" title="get ">get_sig</a>()  { <span class="keywordflow">return</span> m_sig;  } </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="code" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0">   87</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0" title="get ">get_tau</a>()  { <span class="keywordflow">return</span> m_tau;  } </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9">   88</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9" title="get ">get_ft</a>()   { <span class="keywordflow">return</span> m_ft;   } </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="code" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f">   89</a></span>&#160;        dvector <a class="code" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f" title="get ">get_wt</a>()   { <span class="keywordflow">return</span> m_wt;   } </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="code" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98">   90</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98" title="get ">get_it</a>()   { <span class="keywordflow">return</span> m_it;   } </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="code" href="class_scenario.html#a7450454458ec46ea7ba7e90926157cb6">   91</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a7450454458ec46ea7ba7e90926157cb6" title="get ">get_ct</a>()   { <span class="keywordflow">return</span> m_ct;   } </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="comment">// setters</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471">   94</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471" title="set projections years ">set_pyr</a>(<span class="keywordtype">int</span> v1)     { m_pyr = v1;  } </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="code" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0">   95</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0" title="set unfished biomass ">set_bo</a>(<span class="keywordtype">double</span> v1)   { <a class="code" href="class_population.html#adada72895dbb4b497cf1c13f6d863603" title="Unfished biomass. ">m_bo</a> = v1;   } </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="code" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de">   96</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de" title="set steepness ">set_h</a>(<span class="keywordtype">double</span> v1)    { <a class="code" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27" title="Steepness of Beverton Holt Model. ">m_h</a> = v1;    } </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="code" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2">   97</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2" title="set survival and growth ">set_s</a>(<span class="keywordtype">double</span> v1)    { <a class="code" href="class_population.html#a2a4822df469e715e20b3801929a63d2e" title="Survival growth coefficient. ">m_s</a> = v1;    } </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="code" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003">   98</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003" title="set catchability ">set_q</a>(<span class="keywordtype">double</span> v1)    { m_q = v1;    } </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="code" href="class_scenario.html#a861ca47e061b805919ca9aedef303405">   99</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a861ca47e061b805919ca9aedef303405" title="set observation error ">set_sig</a>(<span class="keywordtype">double</span> v1)  { m_sig = v1;  } </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="code" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c">  100</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c" title="set process error ">set_tau</a>(<span class="keywordtype">double</span> v1)  { m_tau = v1;  } </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="code" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf">  101</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf" title="set fishing mortality ">set_ft</a>(dvector v1)  { m_ft = v1;   } </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="code" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9">  102</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9" title="set recruitment deviations ">set_wt</a>(dvector v1)  { m_wt = v1;   } </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="code" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031">  103</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031" title="set relative abundance ">set_it</a>(dvector v1)  { m_it = v1;   } </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="code" href="class_scenario.html#aacc0f2b3497204f513de657d21328327">  104</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aacc0f2b3497204f513de657d21328327" title="set catch ">set_ct</a>(dvector v1)  { m_ct = v1;   } </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">// Make the operatingModel class a friend so it can access private members of scenario</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="comment">// friend class OperatingModel;</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;};</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">   22</a></span>&#160;        <a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> bo=1.0, <span class="keyword">const</span> <span class="keywordtype">double</span> h=0.75, <span class="keyword">const</span> <span class="keywordtype">double</span> s=0.85)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        : m_bo(bo),m_h(h),m_s(s)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        ~<a class="code" href="class_population.html" title="Population class. ">Population</a>(){}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifndef SCENARIO_H</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SCENARIO_H</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="class_scenario.html">   49</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>: <span class="keyword">public</span> <a class="code" href="class_population.html" title="Population class. ">Population</a></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">int</span>     m_agek;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">int</span>     m_nScenario;  <span class="comment">// Stationary or non-stationary stock-recruitment relationship</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">int</span>     m_pyr;  <span class="comment">// number of projection years</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">int</span>     m_flg_perfect_information;  </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">int</span>     m_rseed;<span class="comment">// Random number seed.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="comment">// double  m_bo;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="comment">// double  m_h;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">// double  m_s;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">double</span>  m_q;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">double</span>  m_sig;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">double</span>  m_tau;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">double</span>  m_iuu_rate;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">double</span>  m_mintac;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        dvector m_ft;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        dvector m_wt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        dvector m_it;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        dvector m_ct;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>(); </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="code" href="class_scenario.html#aac96059c1806ced92275d4eb4533bbf8">   76</a></span>&#160;        <a class="code" href="class_scenario.html#aac96059c1806ced92275d4eb4533bbf8">Scenario</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; agek, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _nScenario, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; pyr, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; rseed, <span class="keywordtype">double</span>&amp; bo,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; h,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; s,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; iuu_rate, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; q, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; sig,<span class="keyword">const</span> <span class="keywordtype">double</span> tau,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                 <span class="keyword">const</span> dvector&amp; ft, <span class="keyword">const</span> dvector &amp;wt, <span class="keyword">const</span> dvector &amp;it,<span class="keyword">const</span> dvector &amp;ct)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                :m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html" title="Population class. ">Population</a>(bo,h,s), m_q(q),</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),m_iuu_rate(iuu_rate)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; agek, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _nScenario, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; pyr, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _flg_perfect_information,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; rseed, <span class="keywordtype">double</span>&amp; bo,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; h,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; s,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; iuu_rate,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; q, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; sig,<span class="keyword">const</span> <span class="keywordtype">double</span> tau,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                 <span class="keyword">const</span> dvector&amp; ft, <span class="keyword">const</span> dvector &amp;wt, <span class="keyword">const</span> dvector &amp;it,<span class="keyword">const</span> dvector &amp;ct)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                :m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html" title="Population class. ">Population</a>(bo,h,s), m_q(q),</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                 m_flg_perfect_information(_flg_perfect_information),m_iuu_rate(iuu_rate)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        {}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; agek, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _nScenario, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; pyr, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; _flg_perfect_information,</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; rseed, <span class="keywordtype">double</span>&amp; bo,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; h,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; s,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; iuu_rate,<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; q, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; sig,<span class="keyword">const</span> <span class="keywordtype">double</span> tau,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                 <span class="keyword">const</span> dvector&amp; ft, <span class="keyword">const</span> dvector &amp;wt, <span class="keyword">const</span> dvector &amp;it,<span class="keyword">const</span> dvector &amp;ct,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                 <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;mintac)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                :m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html" title="Population class. ">Population</a>(bo,h,s), m_q(q),</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                 m_flg_perfect_information(_flg_perfect_information),m_iuu_rate(iuu_rate),</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                 m_mintac(mintac)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        {}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        ~<a class="code" href="class_scenario.html" title="Scenario class. ">Scenario</a>();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="comment">// getters</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="code" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e">  105</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e" title="get ">get_agek</a>() { <span class="keywordflow">return</span> m_agek; } </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordtype">int</span>     get_nScenario(){ <span class="keywordflow">return</span> m_nScenario; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordtype">int</span>     get_nInformation() {<span class="keywordflow">return</span> m_flg_perfect_information; }</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="code" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b">  108</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b" title="get ">get_pyr</a>()   { <span class="keywordflow">return</span> m_pyr;  } </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="code" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d">  109</a></span>&#160;        <span class="keywordtype">int</span>     <a class="code" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d" title="get ">get_rseed</a>() { <span class="keywordflow">return</span> m_rseed;} </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="code" href="class_scenario.html#a0027e654098c9bca1bd1d7cd8836c605">  110</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#a0027e654098c9bca1bd1d7cd8836c605" title="get ">get_bo</a>()    { <span class="keywordflow">return</span> m_bo;   } </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="code" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a">  111</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a" title="get ">get_h</a>()     { <span class="keywordflow">return</span> m_h;    } </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="code" href="class_scenario.html#a4f3638e23684f1947accc4c0a9edde25">  112</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#a4f3638e23684f1947accc4c0a9edde25" title="get ">get_s</a>()     { <span class="keywordflow">return</span> m_s;    } </div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="code" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3">  113</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3" title="get ">get_q</a>()     { <span class="keywordflow">return</span> m_q;    } </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="code" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5">  114</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5" title="get ">get_sig</a>()   { <span class="keywordflow">return</span> m_sig;  } </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="code" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0">  115</a></span>&#160;        <span class="keywordtype">double</span>  <a class="code" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0" title="get ">get_tau</a>()   { <span class="keywordflow">return</span> m_tau;  } </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordtype">double</span>  get_iuu()   { <span class="keywordflow">return</span> m_iuu_rate; }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordtype">double</span>  get_mintac(){ <span class="keywordflow">return</span> m_mintac;   }</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9">  118</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9" title="get ">get_ft</a>()    { <span class="keywordflow">return</span> m_ft;   } </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="code" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f">  119</a></span>&#160;        dvector <a class="code" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f" title="get ">get_wt</a>()    { <span class="keywordflow">return</span> m_wt;   } </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="code" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98">  120</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98" title="get ">get_it</a>()    { <span class="keywordflow">return</span> m_it;   } </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="code" href="class_scenario.html#a7450454458ec46ea7ba7e90926157cb6">  121</a></span>&#160;        dvector <a class="code" href="class_scenario.html#a7450454458ec46ea7ba7e90926157cb6" title="get ">get_ct</a>()    { <span class="keywordflow">return</span> m_ct;   } </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">// setters</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="code" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471">  124</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471" title="set projections years ">set_pyr</a>(<span class="keywordtype">int</span> v1)     { m_pyr = v1;  } </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="code" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0">  125</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0" title="set unfished biomass ">set_bo</a>(<span class="keywordtype">double</span> v1)   { m_bo = v1;   } </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de">  126</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de" title="set steepness ">set_h</a>(<span class="keywordtype">double</span> v1)    { m_h = v1;    } </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2">  127</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2" title="set survival and growth ">set_s</a>(<span class="keywordtype">double</span> v1)    { m_s = v1;    } </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="code" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003">  128</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003" title="set catchability ">set_q</a>(<span class="keywordtype">double</span> v1)    { m_q = v1;    } </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="code" href="class_scenario.html#a861ca47e061b805919ca9aedef303405">  129</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a861ca47e061b805919ca9aedef303405" title="set observation error ">set_sig</a>(<span class="keywordtype">double</span> v1)  { m_sig = v1;  } </div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="code" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c">  130</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c" title="set process error ">set_tau</a>(<span class="keywordtype">double</span> v1)  { m_tau = v1;  } </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="code" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf">  131</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf" title="set fishing mortality ">set_ft</a>(dvector v1)  { m_ft = v1;   } </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="code" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9">  132</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9" title="set recruitment deviations ">set_wt</a>(dvector v1)  { m_wt = v1;   } </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="code" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031">  133</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031" title="set relative abundance ">set_it</a>(dvector v1)  { m_it = v1;   } </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="code" href="class_scenario.html#aacc0f2b3497204f513de657d21328327">  134</a></span>&#160;        <span class="keywordtype">void</span>  <a class="code" href="class_scenario.html#aacc0f2b3497204f513de657d21328327" title="set catch ">set_ct</a>(dvector v1)  { m_ct = v1;   } </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="comment">// Make the operatingModel class a friend so it can access private members of scenario</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="comment">// friend class OperatingModel;</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;};</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:32:13 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_scenario_8h.html">Scenario.h</a></li>
+    <li class="footer">Generated on Wed Dec 11 2013 13:51:13 for Management Strategy Evaluation Demo by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
+  </ul>
+</div>
 </body>
 </html>

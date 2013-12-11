@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mse_2ddemo_20_2d_20management_20strategy_20evaluation_20demonstration',['MSE-DEMO - Management Strategy Evaluation Demonstration',['../index.html',1,'']]]
+  ['mse_20demo',['MSE DEMO',['../index.html',1,'']]],
+  ['mse_20demo_20manual',['MSE Demo Manual',['../../docs/Manual/html/md__manual.html',1,'']]]
 ];

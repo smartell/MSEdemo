@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>MSEDemo: Scenario Class Reference</title>
+<title>Management Strategy Evaluation Demo: Scenario Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -28,10 +35,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MSEDemo
+   <div id="projectname">Management Strategy Evaluation Demo
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">MSE</div>
+   <div id="projectbrief">MSED</div>
   </td>
  </tr>
  </tbody>
@@ -45,6 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -73,12 +82,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_scenario.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,7 +111,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -106,24 +129,36 @@ Inheritance diagram for Scenario:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scenario__inherit__graph.png" border="0" usemap="#_scenario_inherit__map" alt="Inheritance graph"/></div>
 <map name="_scenario_inherit__map" id="_scenario_inherit__map">
-<area shape="rect" id="node2" href="class_population.html" title="Population class. " alt="" coords="5,5,91,32"/></map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<area shape="rect" id="node2" href="class_population.html" title="Population class. " alt="" coords="19,6,132,98"/></map>
+</div>
 <div class="dynheader">
 Collaboration diagram for Scenario:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scenario__coll__graph.png" border="0" usemap="#_scenario_coll__map" alt="Collaboration graph"/></div>
 <map name="_scenario_coll__map" id="_scenario_coll__map">
-<area shape="rect" id="node2" href="class_population.html" title="Population class. " alt="" coords="5,5,91,32"/></map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<area shape="rect" id="node2" href="class_population.html" title="Population class. " alt="" coords="19,6,132,98"/></map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a72def6cbd129f7e4b798675d08f40ab2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#a72def6cbd129f7e4b798675d08f40ab2">Scenario</a> (const int &amp;agek, const int &amp;pyr, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct)</td></tr>
-<tr class="separator:a72def6cbd129f7e4b798675d08f40ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac96059c1806ced92275d4eb4533bbf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#aac96059c1806ced92275d4eb4533bbf8">Scenario</a> (const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct)</td></tr>
+<tr class="separator:aac96059c1806ced92275d4eb4533bbf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b008039565efd08b336171b40423011"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b008039565efd08b336171b40423011"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Scenario</b> (const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;_flg_perfect_information, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct)</td></tr>
+<tr class="separator:a9b008039565efd08b336171b40423011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5df83722a95aa7e79052df2bfa4b6e43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5df83722a95aa7e79052df2bfa4b6e43"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Scenario</b> (const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;_flg_perfect_information, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct, const double &amp;mintac)</td></tr>
+<tr class="separator:a5df83722a95aa7e79052df2bfa4b6e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9f6a3053c23fd27cc647d005dffd65e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9f6a3053c23fd27cc647d005dffd65e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#ae9f6a3053c23fd27cc647d005dffd65e">get_agek</a> ()</td></tr>
 <tr class="memdesc:ae9f6a3053c23fd27cc647d005dffd65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <br/></td></tr>
 <tr class="separator:ae9f6a3053c23fd27cc647d005dffd65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92381f03b16079650f0de22d4b87ef43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92381f03b16079650f0de22d4b87ef43"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>get_nScenario</b> ()</td></tr>
+<tr class="separator:a92381f03b16079650f0de22d4b87ef43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66512c68c4924c10b710198dcd5477fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66512c68c4924c10b710198dcd5477fd"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>get_nInformation</b> ()</td></tr>
+<tr class="separator:a66512c68c4924c10b710198dcd5477fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cc3c2f83f451b6ff0fc0573be4d333b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cc3c2f83f451b6ff0fc0573be4d333b"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b">get_pyr</a> ()</td></tr>
 <tr class="memdesc:a7cc3c2f83f451b6ff0fc0573be4d333b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <br/></td></tr>
@@ -156,6 +191,12 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0">get_tau</a> ()</td></tr>
 <tr class="memdesc:aa1b33546cd1da5898d95552ad2bb9ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <br/></td></tr>
 <tr class="separator:aa1b33546cd1da5898d95552ad2bb9ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37e05e9cd0958667a11bd3e7256209df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37e05e9cd0958667a11bd3e7256209df"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>get_iuu</b> ()</td></tr>
+<tr class="separator:a37e05e9cd0958667a11bd3e7256209df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0c8f3dcd5868e711197a6853cc1971e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0c8f3dcd5868e711197a6853cc1971e"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>get_mintac</b> ()</td></tr>
+<tr class="separator:ac0c8f3dcd5868e711197a6853cc1971e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52b931a944c5ab4117412198064ff2e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52b931a944c5ab4117412198064ff2e9"></a>
 dvector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9">get_ft</a> ()</td></tr>
 <tr class="memdesc:a52b931a944c5ab4117412198064ff2e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get <br/></td></tr>
@@ -219,22 +260,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="inherit_header pub_methods_class_population"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_population')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_population.html">Population</a></td></tr>
 <tr class="memitem:ace443b36298f3ab85f38354b8f3a2b82 inherit pub_methods_class_population"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a> (const double bo=1.0, const double h=0.75, const double s=0.85)</td></tr>
 <tr class="separator:ace443b36298f3ab85f38354b8f3a2b82 inherit pub_methods_class_population"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_attribs_class_population"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_population')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_population.html">Population</a></td></tr>
-<tr class="memitem:adada72895dbb4b497cf1c13f6d863603 inherit pub_attribs_class_population"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adada72895dbb4b497cf1c13f6d863603"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_population.html#adada72895dbb4b497cf1c13f6d863603">m_bo</a></td></tr>
-<tr class="memdesc:adada72895dbb4b497cf1c13f6d863603 inherit pub_attribs_class_population"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unfished biomass. <br/></td></tr>
-<tr class="separator:adada72895dbb4b497cf1c13f6d863603 inherit pub_attribs_class_population"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa53d2a2c853b7406da214b675d70fe27 inherit pub_attribs_class_population"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa53d2a2c853b7406da214b675d70fe27"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27">m_h</a></td></tr>
-<tr class="memdesc:aa53d2a2c853b7406da214b675d70fe27 inherit pub_attribs_class_population"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steepness of Beverton Holt Model. <br/></td></tr>
-<tr class="separator:aa53d2a2c853b7406da214b675d70fe27 inherit pub_attribs_class_population"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a4822df469e715e20b3801929a63d2e inherit pub_attribs_class_population"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a4822df469e715e20b3801929a63d2e"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_population.html#a2a4822df469e715e20b3801929a63d2e">m_s</a></td></tr>
-<tr class="memdesc:a2a4822df469e715e20b3801929a63d2e inherit pub_attribs_class_population"><td class="mdescLeft">&#160;</td><td class="mdescRight">Survival growth coefficient. <br/></td></tr>
-<tr class="separator:a2a4822df469e715e20b3801929a63d2e inherit pub_attribs_class_population"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_scenario.html" title="Scenario class. ">Scenario</a> class. </p>
@@ -249,9 +274,9 @@ $LastChangedDate$ </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>$Rev$ </dd></dl>
 <dl class="section see"><dt>See Also</dt><dd></dd></dl>
 
-<p>Definition at line <a class="el" href="_scenario_8h_source.html#l00047">47</a> of file <a class="el" href="_scenario_8h_source.html">Scenario.h</a>.</p>
+<p>Definition at line <a class="el" href="_scenario_8h_source.html#l00049">49</a> of file <a class="el" href="_scenario_8h_source.html">Scenario.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a72def6cbd129f7e4b798675d08f40ab2"></a>
+<a class="anchor" id="aac96059c1806ced92275d4eb4533bbf8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -263,6 +288,12 @@ $LastChangedDate$ </dd></dl>
           <td>(</td>
           <td class="paramtype">const int &amp;&#160;</td>
           <td class="paramname"><em>agek</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>_nScenario</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -293,6 +324,12 @@ $LastChangedDate$ </dd></dl>
           <td></td>
           <td class="paramtype">const double &amp;&#160;</td>
           <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>iuu_rate</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -350,10 +387,10 @@ $LastChangedDate$ </dd></dl>
 </div><div class="memdoc">
 <p>Constructor for the scenario class. </p>
 
-<p>Definition at line <a class="el" href="_scenario_8h_source.html#l00070">70</a> of file <a class="el" href="_scenario_8h_source.html">Scenario.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                :m_agek(agek),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(bo,h,s), m_q(q),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        {}</div>
+<p>Definition at line <a class="el" href="_scenario_8h_source.html#l00076">76</a> of file <a class="el" href="_scenario_8h_source.html">Scenario.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                :m_agek(agek),m_nScenario(_nScenario),m_pyr(pyr),m_rseed(rseed),<a class="code" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(bo,h,s), m_q(q),</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                 m_sig(sig), m_tau(tau),m_ft(ft), m_wt(wt), m_it(it), m_ct(ct),m_iuu_rate(iuu_rate)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -362,11 +399,15 @@ $LastChangedDate$ </dd></dl>
 <li>/Users/stevenmartell1/Documents/IPHC/MSEdemo/src/<a class="el" href="_scenario_8cpp_source.html">Scenario.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:32:13 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_scenario.html">Scenario</a></li>
+    <li class="footer">Generated on Wed Dec 11 2013 13:51:14 for Management Strategy Evaluation Demo by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
+  </ul>
+</div>
 </body>
 </html>

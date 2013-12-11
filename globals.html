@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>MSEDemo: File Members</title>
+<title>Management Strategy Evaluation Demo: File Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -28,10 +35,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MSEDemo
+   <div id="projectname">Management Strategy Evaluation Demo
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">MSE</div>
+   <div id="projectbrief">MSED</div>
   </td>
  </tr>
  </tbody>
@@ -45,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -74,12 +82,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow3" class="tabs2">
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>All</span></a></li>
-      <li><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('globals.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -96,43 +117,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="contents">
 <div class="textblock">Here is a list of all documented file members with links to the documentation:</div><ul>
-<li>calc_objective_function()
-: <a class="el" href="om_8tpl.html#a7856107600b59f7ca91f6be8c9fa5751">om.tpl</a>
-</li>
-<li>calc_Reference_Points()
-: <a class="el" href="om_8tpl.html#a047c684cf97c648272d9ac5e6813a25b">om.tpl</a>
-</li>
 <li>COUT
 : <a class="el" href="om_8tpl.html#a63517c11ad73b1912e42c60169661159">om.tpl</a>
 </li>
 <li>do_mse
 : <a class="el" href="om_8tpl.html#a22feb6ce8e33bc6cfe9b027a3d18cf8c">om.tpl</a>
 </li>
-<li>initialize_model()
-: <a class="el" href="om_8tpl.html#a6bb69e2c0132a47707fbac43e15da50e">om.tpl</a>
-</li>
-<li>observation_model()
-: <a class="el" href="om_8tpl.html#a447b26c02a4eef8772397884bbb5d9dc">om.tpl</a>
-</li>
 <li>on
 : <a class="el" href="om_8tpl.html#aa4486b2880f9edebf2e8c3275a1eb1dd">om.tpl</a>
-</li>
-<li>population_dynamics()
-: <a class="el" href="om_8tpl.html#acb0831905fdbaf7e4c414e1a4e617fa7">om.tpl</a>
 </li>
 <li>REPORT
 : <a class="el" href="om_8tpl.html#a9860e50511fed23878b05c5889d96758">om.tpl</a>
 </li>
-<li>run_mse()
-: <a class="el" href="om_8tpl.html#a45a6b2a368f7f8c577b9ea4f3f2b0f76">om.tpl</a>
-</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:32:13 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Wed Dec 11 2013 10:16:37 for Management Strategy Evaluation Demo by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
+  </ul>
+</div>
 </body>
 </html>

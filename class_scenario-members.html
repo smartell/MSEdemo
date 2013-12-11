@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>MSEDemo: Member List</title>
+<title>Management Strategy Evaluation Demo: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -28,10 +35,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MSEDemo
+   <div id="projectname">Management Strategy Evaluation Demo
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">MSE</div>
+   <div id="projectbrief">MSED</div>
   </td>
  </tr>
  </tbody>
@@ -45,6 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -73,12 +82,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_scenario.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,7 +111,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Scenario Member List</div>  </div>
@@ -102,6 +125,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="entry"><a class="el" href="class_scenario.html#a52b931a944c5ab4117412198064ff2e9">get_ft</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#ae383fa1c6fd0cc4e6d788f6c47df093a">get_h</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_scenario.html#a2dfa75fb3fd3e5d0ac967688072d1c98">get_it</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>get_iuu</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>get_mintac</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>get_nInformation</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>get_nScenario</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a7cc3c2f83f451b6ff0fc0573be4d333b">get_pyr</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_scenario.html#ae4dcd285616754dcbb9865db9cd01ae3">get_q</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a5121e94e4fb5e67076854e9fa4c9038d">get_rseed</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
@@ -109,30 +136,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#abe8f2bd573b860cde9ffc30d1fa05bb5">get_sig</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_scenario.html#aa1b33546cd1da5898d95552ad2bb9ce0">get_tau</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#abe48556f2bea61b6bd20fabd6644aa9f">get_wt</a>()</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_population.html#adada72895dbb4b497cf1c13f6d863603">m_bo</a></td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_population.html#aa53d2a2c853b7406da214b675d70fe27">m_h</a></td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_population.html#a2a4822df469e715e20b3801929a63d2e">m_s</a></td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(const double bo=1.0, const double h=0.75, const double s=0.85)</td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#a72def6cbd129f7e4b798675d08f40ab2">Scenario</a>(const int &amp;agek, const int &amp;pyr, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0">set_bo</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#aacc0f2b3497204f513de657d21328327">set_ct</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf">set_ft</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de">set_h</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031">set_it</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471">set_pyr</a>(int v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003">set_q</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2">set_s</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a861ca47e061b805919ca9aedef303405">set_sig</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c">set_tau</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9">set_wt</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Population</b>() (defined in <a class="el" href="class_population.html">Population</a>)</td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Scenario</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_population.html#ace443b36298f3ab85f38354b8f3a2b82">Population</a>(const double bo=1.0, const double h=0.75, const double s=0.85)</td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#aac96059c1806ced92275d4eb4533bbf8">Scenario</a>(const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Scenario</b>(const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;_flg_perfect_information, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct) (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Scenario</b>(const int &amp;agek, const int &amp;_nScenario, const int &amp;pyr, const int &amp;_flg_perfect_information, const int &amp;rseed, double &amp;bo, const double &amp;h, const double &amp;s, const double &amp;iuu_rate, const double &amp;q, const double &amp;sig, const double tau, const dvector &amp;ft, const dvector &amp;wt, const dvector &amp;it, const dvector &amp;ct, const double &amp;mintac) (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#aaaadd9afaea30744db9c2ae4699482d0">set_bo</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#aacc0f2b3497204f513de657d21328327">set_ct</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#a5e78c3476111e6c786bad1e4f95229cf">set_ft</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#ab5840cf96d96bc981e6d801e2eb056de">set_h</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#a6d7b656be7da1f0aef8ed6e20f89b031">set_it</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#aef752158a326d4732eb50a1c58d36471">set_pyr</a>(int v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#a7edd77a058a71d65a2de7f617eb0a003">set_q</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#abdffdd67f0ac1f21f265eb5e91b7e8d2">set_s</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#a861ca47e061b805919ca9aedef303405">set_sig</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scenario.html#a6cdcf21b4651a1936db997fe1955571c">set_tau</a>(double v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scenario.html#a88dc76e8561f4e747d012418bc9487a9">set_wt</a>(dvector v1)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Population</b>() (defined in <a class="el" href="class_population.html">Population</a>)</td><td class="entry"><a class="el" href="class_population.html">Population</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Scenario</b>() (defined in <a class="el" href="class_scenario.html">Scenario</a>)</td><td class="entry"><a class="el" href="class_scenario.html">Scenario</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:32:13 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Wed Dec 11 2013 13:51:14 for Management Strategy Evaluation Demo by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
+  </ul>
+</div>
 </body>
 </html>

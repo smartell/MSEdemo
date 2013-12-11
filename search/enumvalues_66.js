@@ -4,5 +4,7 @@ var searchData=
   ['fixed_5fescapement',['FIXED_ESCAPEMENT',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a3d9c4e6b91657a07ed11498e1024b58d',1,'HarvestControlRule']]],
   ['fixed_5fescapement_5fcap',['FIXED_ESCAPEMENT_CAP',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a3b69597b9c81ca19b388afd68210dae6',1,'HarvestControlRule']]],
   ['fixed_5fharvest_5frate',['FIXED_HARVEST_RATE',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a4223464c11226048928718cff47f58c4',1,'HarvestControlRule']]],
+  ['fixed_5fhr_5fdelta',['FIXED_HR_DELTA',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a8612dd27efcb9b2ee8abeec520b3f7c3',1,'HarvestControlRule']]],
+  ['floor_5fthirty_5ftwenty',['FLOOR_THIRTY_TWENTY',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a053c7613fa4503d2a1f7bf3ac0899846',1,'HarvestControlRule']]],
   ['forty_5ften',['FORTY_TEN',['../class_harvest_control_rule.html#acf0d969f468ce61a0ad60cf2096ee855a61d6214a53af4f83b653aee2d1d6890c',1,'HarvestControlRule']]]
 ];

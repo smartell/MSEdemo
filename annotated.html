@@ -4,10 +4,17 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>MSEDemo: Class List</title>
+<title>Management Strategy Evaluation Demo: Class List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
@@ -28,10 +35,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">MSEDemo
+   <div id="projectname">Management Strategy Evaluation Demo
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">MSE</div>
+   <div id="projectbrief">MSED</div>
   </td>
  </tr>
  </tbody>
@@ -45,6 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -74,12 +83,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('annotated.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,20 +118,125 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div><div class="directory">
 <table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_estimator_class.html" target="_self">EstimatorClass</a></td><td class="desc">Calls the user defined stock assessment model </td></tr>
-<tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_harvest_control_rule.html" target="_self">HarvestControlRule</a></td><td class="desc">A harvest control rule class </td></tr>
-<tr id="row_2_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classmsy__reference__points.html" target="_self">msy_reference_points</a></td><td class="desc">Calculate MSY-based reference points </td></tr>
-<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_operating_model.html" target="_self">OperatingModel</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_population.html" target="_self">Population</a></td><td class="desc"><a class="el" href="class_population.html" title="Population class. ">Population</a> class </td></tr>
-<tr id="row_5_"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_scenario.html" target="_self">Scenario</a></td><td class="desc"><a class="el" href="class_scenario.html" title="Scenario class. ">Scenario</a> class </td></tr>
+<tr id="row_0_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class__3darray.html" target="_self">_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_1_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class__4darray.html" target="_self">_4darray</a></td><td class="desc"></td></tr>
+<tr id="row_2_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class__5darray.html" target="_self">_5darray</a></td><td class="desc"></td></tr>
+<tr id="row_3_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class__6darray.html" target="_self">_6darray</a></td><td class="desc"></td></tr>
+<tr id="row_4_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class__7darray.html" target="_self">_7darray</a></td><td class="desc"></td></tr>
+<tr id="row_5_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classadstring.html" target="_self">adstring</a></td><td class="desc"></td></tr>
+<tr id="row_6_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classconstant__quadratic__penalty.html" target="_self">constant_quadratic_penalty</a></td><td class="desc"></td></tr>
+<tr id="row_7_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__3darray.html" target="_self">dll_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_8_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__adstring.html" target="_self">dll_adstring</a></td><td class="desc"></td></tr>
+<tr id="row_9_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__imatrix.html" target="_self">dll_imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_10_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__3darray.html" target="_self">dll_init_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_11_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__bounded__number.html" target="_self">dll_init_bounded_number</a></td><td class="desc"></td></tr>
+<tr id="row_12_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__bounded__vector.html" target="_self">dll_init_bounded_vector</a></td><td class="desc"></td></tr>
+<tr id="row_13_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__imatrix.html" target="_self">dll_init_imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_14_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__int.html" target="_self">dll_init_int</a></td><td class="desc"></td></tr>
+<tr id="row_15_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__matrix.html" target="_self">dll_init_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_16_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__number.html" target="_self">dll_init_number</a></td><td class="desc"></td></tr>
+<tr id="row_17_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__init__vector.html" target="_self">dll_init_vector</a></td><td class="desc"></td></tr>
+<tr id="row_18_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__int.html" target="_self">dll_int</a></td><td class="desc"></td></tr>
+<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__matrix.html" target="_self">dll_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_20_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__number.html" target="_self">dll_number</a></td><td class="desc"></td></tr>
+<tr id="row_21_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__random__effects__vector.html" target="_self">dll_random_effects_vector</a></td><td class="desc"></td></tr>
+<tr id="row_22_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classdll__vector.html" target="_self">dll_vector</a></td><td class="desc"></td></tr>
+<tr id="row_23_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classequality__constraint__vector.html" target="_self">equality_constraint_vector</a></td><td class="desc"></td></tr>
+<tr id="row_24_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_estimator_class.html" target="_self">EstimatorClass</a></td><td class="desc">Calls the user defined stock assessment model </td></tr>
+<tr id="row_25_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classgaussian__prior.html" target="_self">gaussian_prior</a></td><td class="desc"></td></tr>
+<tr id="row_26_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_harvest_control_rule.html" target="_self">HarvestControlRule</a></td><td class="desc">A harvest control rule class </td></tr>
+<tr id="row_27_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classimatrix.html" target="_self">imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_28_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinequality__constraint__vector.html" target="_self">inequality_constraint_vector</a></td><td class="desc"></td></tr>
+<tr id="row_29_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__3darray.html" target="_self">init_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_30_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__4darray.html" target="_self">init_4darray</a></td><td class="desc"></td></tr>
+<tr id="row_31_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__5darray.html" target="_self">init_5darray</a></td><td class="desc"></td></tr>
+<tr id="row_32_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__6darray.html" target="_self">init_6darray</a></td><td class="desc"></td></tr>
+<tr id="row_33_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__7darray.html" target="_self">init_7darray</a></td><td class="desc"></td></tr>
+<tr id="row_34_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__adstring.html" target="_self">init_adstring</a></td><td class="desc"></td></tr>
+<tr id="row_35_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__3darray.html" target="_self">init_bounded_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_36_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__dev__vector.html" target="_self">init_bounded_dev_vector</a></td><td class="desc"></td></tr>
+<tr id="row_37_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__matrix.html" target="_self">init_bounded_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_38_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__matrix__vector.html" target="_self">init_bounded_matrix_vector</a></td><td class="desc"></td></tr>
+<tr id="row_39_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__number.html" target="_self">init_bounded_number</a></td><td class="desc"></td></tr>
+<tr id="row_40_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__number__vector.html" target="_self">init_bounded_number_vector</a></td><td class="desc"></td></tr>
+<tr id="row_41_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__vector.html" target="_self">init_bounded_vector</a></td><td class="desc"></td></tr>
+<tr id="row_42_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__bounded__vector__vector.html" target="_self">init_bounded_vector_vector</a></td><td class="desc"></td></tr>
+<tr id="row_43_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__imatrix.html" target="_self">init_imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_44_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__int.html" target="_self">init_int</a></td><td class="desc"></td></tr>
+<tr id="row_45_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__ivector.html" target="_self">init_ivector</a></td><td class="desc"></td></tr>
+<tr id="row_46_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__line__adstring.html" target="_self">init_line_adstring</a></td><td class="desc"></td></tr>
+<tr id="row_47_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__matrix.html" target="_self">init_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_48_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__matrix__vector.html" target="_self">init_matrix_vector</a></td><td class="desc"></td></tr>
+<tr id="row_49_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__number.html" target="_self">init_number</a></td><td class="desc"></td></tr>
+<tr id="row_50_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__number__vector.html" target="_self">init_number_vector</a></td><td class="desc"></td></tr>
+<tr id="row_51_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__vector.html" target="_self">init_vector</a></td><td class="desc"></td></tr>
+<tr id="row_52_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classinit__vector__vector.html" target="_self">init_vector_vector</a></td><td class="desc"></td></tr>
+<tr id="row_53_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classivector.html" target="_self">ivector</a></td><td class="desc"></td></tr>
+<tr id="row_54_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classlikeprof__number.html" target="_self">likeprof_number</a></td><td class="desc"></td></tr>
+<tr id="row_55_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_l_r_g_s.html" target="_self">LRGS</a></td><td class="desc"></td></tr>
+<tr id="row_56_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classmatrix.html" target="_self">matrix</a></td><td class="desc"></td></tr>
+<tr id="row_57_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classmsy__reference__points.html" target="_self">msy_reference_points</a></td><td class="desc">Calculate MSY-based reference points </td></tr>
+<tr id="row_58_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classnormal__prior.html" target="_self">normal_prior</a></td><td class="desc"></td></tr>
+<tr id="row_59_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classnumber.html" target="_self">number</a></td><td class="desc"></td></tr>
+<tr id="row_60_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classobjective__function__value.html" target="_self">objective_function_value</a></td><td class="desc"></td></tr>
+<tr id="row_61_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classofstream.html" target="_self">ofstream</a></td><td class="desc"></td></tr>
+<tr id="row_62_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_operating_model.html" target="_self">OperatingModel</a></td><td class="desc"></td></tr>
+<tr id="row_63_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_population.html" target="_self">Population</a></td><td class="desc"><a class="el" href="class_population.html" title="Population class. ">Population</a> class </td></tr>
+<tr id="row_64_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classquadratic__penalty.html" target="_self">quadratic_penalty</a></td><td class="desc"></td></tr>
+<tr id="row_65_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classquadratic__prior.html" target="_self">quadratic_prior</a></td><td class="desc"></td></tr>
+<tr id="row_66_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classrandom__effects__bounded__matrix.html" target="_self">random_effects_bounded_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_67_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classrandom__effects__bounded__vector.html" target="_self">random_effects_bounded_vector</a></td><td class="desc"></td></tr>
+<tr id="row_68_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classrandom__effects__matrix.html" target="_self">random_effects_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_69_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classrandom__effects__vector.html" target="_self">random_effects_vector</a></td><td class="desc"></td></tr>
+<tr id="row_70_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classrandom__number__generator.html" target="_self">random_number_generator</a></td><td class="desc"></td></tr>
+<tr id="row_71_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_scenario.html" target="_self">Scenario</a></td><td class="desc"><a class="el" href="class_scenario.html" title="Scenario class. ">Scenario</a> class </td></tr>
+<tr id="row_72_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsdreport__matrix.html" target="_self">sdreport_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_73_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsdreport__number.html" target="_self">sdreport_number</a></td><td class="desc"></td></tr>
+<tr id="row_74_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsdreport__vector.html" target="_self">sdreport_vector</a></td><td class="desc"></td></tr>
+<tr id="row_75_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="structs_l_r_g_sdata.html" target="_self">sLRGSdata</a></td><td class="desc"></td></tr>
+<tr id="row_76_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="structs_l_r_g_sparameters.html" target="_self">sLRGSparameters</a></td><td class="desc"></td></tr>
+<tr id="row_77_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__3darray.html" target="_self">SPinit_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_78_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__4darray.html" target="_self">SPinit_4darray</a></td><td class="desc"></td></tr>
+<tr id="row_79_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__bounded__3darray.html" target="_self">SPinit_bounded_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_80_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__bounded__matrix.html" target="_self">SPinit_bounded_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_81_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__bounded__number.html" target="_self">SPinit_bounded_number</a></td><td class="desc"></td></tr>
+<tr id="row_82_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__bounded__vector.html" target="_self">SPinit_bounded_vector</a></td><td class="desc"></td></tr>
+<tr id="row_83_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__imatrix.html" target="_self">SPinit_imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_84_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__int.html" target="_self">SPinit_int</a></td><td class="desc"></td></tr>
+<tr id="row_85_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__ivector.html" target="_self">SPinit_ivector</a></td><td class="desc"></td></tr>
+<tr id="row_86_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__matrix.html" target="_self">SPinit_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_87_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__number.html" target="_self">SPinit_number</a></td><td class="desc"></td></tr>
+<tr id="row_88_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pinit__vector.html" target="_self">SPinit_vector</a></td><td class="desc"></td></tr>
+<tr id="row_89_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pint.html" target="_self">SPint</a></td><td class="desc"></td></tr>
+<tr id="row_90_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pivector.html" target="_self">SPivector</a></td><td class="desc"></td></tr>
+<tr id="row_91_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__3darray.html" target="_self">splus_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_92_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__adstring.html" target="_self">splus_adstring</a></td><td class="desc"></td></tr>
+<tr id="row_93_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__imatrix.html" target="_self">splus_imatrix</a></td><td class="desc"></td></tr>
+<tr id="row_94_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__3darray.html" target="_self">splus_init_3darray</a></td><td class="desc"></td></tr>
+<tr id="row_95_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__bounded__number.html" target="_self">splus_init_bounded_number</a></td><td class="desc"></td></tr>
+<tr id="row_96_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__bounded__vector.html" target="_self">splus_init_bounded_vector</a></td><td class="desc"></td></tr>
+<tr id="row_97_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__matrix.html" target="_self">splus_init_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_98_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__number.html" target="_self">splus_init_number</a></td><td class="desc"></td></tr>
+<tr id="row_99_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__init__vector.html" target="_self">splus_init_vector</a></td><td class="desc"></td></tr>
+<tr id="row_100_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__int.html" target="_self">splus_int</a></td><td class="desc"></td></tr>
+<tr id="row_101_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__matrix.html" target="_self">splus_matrix</a></td><td class="desc"></td></tr>
+<tr id="row_102_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__number.html" target="_self">splus_number</a></td><td class="desc"></td></tr>
+<tr id="row_103_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classsplus__vector.html" target="_self">splus_vector</a></td><td class="desc"></td></tr>
+<tr id="row_104_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pmatrix.html" target="_self">SPmatrix</a></td><td class="desc"></td></tr>
+<tr id="row_105_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pnumber.html" target="_self">SPnumber</a></td><td class="desc"></td></tr>
+<tr id="row_106_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="class_s_pvector.html" target="_self">SPvector</a></td><td class="desc"></td></tr>
+<tr id="row_107_"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><img src="ftv2cl.png" alt="C" width="24" height="22" /><a class="el" href="classvector.html" target="_self">vector</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 09:32:13 for MSEDemo by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Wed Dec 11 2013 13:51:14 for Management Strategy Evaluation Demo by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
+  </ul>
+</div>
 </body>
 </html>

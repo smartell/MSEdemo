@@ -1,5 +1,4 @@
 <map id="HarvestControlRule::ConditionalConstantCatch" name="HarvestControlRule::ConditionalConstantCatch">
-<area shape="rect" id="node2" href="$class_harvest_control_rule.html#a9cbfcdef56b1b2e76e170ccc0062c836" title="Return the TAC given estimates of current biomass and reference points. " alt="" coords="237,5,376,46"/>
+<area shape="rect" id="node2" href="$class_harvest_control_rule.html#a49e6ede6b65bda8f0badf4ece6b48295" title="Return the TAC given estimates of current biomass and reference points. " alt="" coords="237,5,376,46"/>
 <area shape="rect" id="node3" href="$class_operating_model.html#a1a9d8b617ff794520403404b421c3e3a" title="Run the Operating model scenario. " alt="" coords="425,12,647,39"/>
-<area shape="rect" id="node4" href="$om_8tpl.html#a45a6b2a368f7f8c577b9ea4f3f2b0f76" title="WTF. " alt="" coords="697,12,770,39"/>
 </map>
